@@ -31,7 +31,7 @@ def generate_tree(leafs,multi=True,delete_chances=0.8):
 
     return names[0]
 
-print(generate_tree(3,True,0.7))
+print(generate_tree(5,True,0.7))
 
 print(generate_tree(3,False))
 
