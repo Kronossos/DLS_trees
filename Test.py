@@ -19,3 +19,11 @@ print("\n------------------------\n")
 t = Reconstruct_History(sequences)
 print(t)
 print(t.history_cost())
+
+sequencess
+s
+s
+s
+sa
+
+sad
