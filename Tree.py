@@ -30,12 +30,16 @@ class Leaf:
         return 0
 
 class BinNode:
-    def __init__(self, left=None, right=None,value=None):
+    def __init__(self, left, right,value=None):
         # for node in [left, right]:
             # if node.__class__.__name__ not in ["BinNode", "Leaf"]:
             #     exit("Given nodes are not possible part of BinNode.")
+
+        # self.father = None
         self.left = left
+        # left.father = self
         self.right = right
+        # right.father = self
         self.value = value
 
     def __iter__(self):
@@ -46,18 +50,13 @@ class BinNode:
             yield node
 
     def __str__(self, level=0, blank=False, sign="  "):
-        # Python jest o tyle upierdliwy, że pamięta odnośnik do blanka.
-        # Jeśli się wywoła "czystą" wersję to lista zawierać będzie jakieś elementy.
-        # Taki sposób to omija.
         if not blank: blank = []
         switch = False
         line = list(" " * level + sign + "█>")
 
         if self.label():
-            line += self.value()
+            line += self.label()
 
-        # Troszkę sztuczka, ponieważ python nawet jeśli wewnąrze pętli zacznie kasować elementy z końca
-        # to sam for i tak po nich przejdzie. Więc super przydatne w tym momencie.
         for fill in blank[:]:
             if switch or "".join(line[fill]) == "└":
                 switch = True

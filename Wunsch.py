@@ -2,9 +2,11 @@
 def Alignment(seq1, seq2, gap=1, substitution=1):
     F = [[0 for col in range(len(seq2) + 1)] for row in range(len(seq1) + 1)]
 
-    for i in range(len(seq1) + 1): F[i][0] = gap * i
+    for i in range(len(seq1) + 1):
+        F[i][0] = gap * i
 
-    for j in range(len(seq2) + 1): F[0][j] = gap * j
+    for j in range(len(seq2) + 1):
+        F[0][j] = gap * j
 
     for i in range(1, len(seq1) + 1):
         for j in range(1, len(seq2) + 1):
