@@ -1,5 +1,6 @@
 from Tree import *
 import random
+import copy
 from Tarjan import *
 
 random.seed(1)
@@ -16,7 +17,7 @@ def generate_tree(leafs,multi=True,delete_chances=0.8):
         if left == right and random.random() < delete_chances:
             continue
 
-        names.append(BinNode(left, right))
+        names.append(BinNode(left, copy.deepcopy(right)))
 
         if left != right:
             if right.is_leaf() and random.random() > delete_chances and multi:
@@ -33,7 +34,7 @@ def generate_tree(leafs,multi=True,delete_chances=0.8):
 
     return names[0]
 
-gen=generate_tree(3,True,0.75)
+gen=generate_tree(6,True,0.75)
 
 spec=generate_tree(3,False)
 
@@ -53,20 +54,7 @@ for x in spec:
         x.set_label("S_"+str(count))
         count += 1
 print("\n")
-print(gen)
-print(spec)
+# print(gen)
+# print(spec)
 
 
-
-TarjanOLCA(gen)
-TarjanOLCA(spec)
-
-# for node in gen:
-#     print(node.label())
-
-for v in gen:
-
-    if not v.is_leaf():
-        if v.color == "black":
-            print(v.label())
-            print("Tarjan's Lowest Common Ancestor of " + str(v.son("L").label()) + " and " + str(v.son("R").label()) + " is " + str(Find(v.son("R")).ancestor.label()) + ".")
