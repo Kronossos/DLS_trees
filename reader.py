@@ -5,10 +5,12 @@
 import sys
 import collections
 
+
 class TreeNode:
-    def __init__(self, id: int, change_id: tuple, change_type: tuple, duplication_prefix: tuple):
+    def __init__(self, id: int, level: int, change_id: list, change_type: list, duplication_prefix: list):
         self.id = id
         self.duplication_prefix = duplication_prefix
+        self.level = level
 
         connections = {}
 
@@ -26,11 +28,14 @@ class TreeNode:
 
 class Scenario:
     def __init__(self, filename):
+
+        # Should scenario store dict with levels (easier print then)?
         nodes = collections.OrderedDict()
+
         with open(filename, "r") as scenario_file:
             for line in scenario_file:
-                id, change, change_type, duplication_prefix = line.strip().split(" ") # tab,space or comma?
-                new_tree = TreeNode(int(id), eval(change), eval(change_type), eval(duplication_prefix))
+                id, level, duplication_prefix, change, change_type = line.strip().split(" ")  # tab,space or comma?
+                new_tree = TreeNode(int(id), int(level), eval(change), eval(change_type), eval(duplication_prefix))
                 nodes[id] = new_tree
         self.nodes = nodes
 
@@ -59,8 +64,9 @@ class AllScenarios:
 
 def test():
     # files = sys.argv[1:]
-    files = ["scenario_1", "scenario_2"]
-    a=AllScenarios(files)
+    # files = ["scenario_1", "scenario_2"]
+    files = ["pg_sc_1", "pg_sc_2"]
+    a = AllScenarios(files)
     for sc in a:
         print()
         for tree in sc:
