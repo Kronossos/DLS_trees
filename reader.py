@@ -4,6 +4,7 @@
 
 import sys
 import collections
+import random
 
 
 class TreeNode:
@@ -38,39 +39,61 @@ class Scenario:
                 new_tree = TreeNode(int(id), int(level), eval(change), eval(change_type), eval(duplication_prefix))
                 nodes[id] = new_tree
         self.nodes = nodes
+        self.name=filename
 
     def __iter__(self):
         for tree_id in reversed(self.nodes):
             yield self.nodes[tree_id]
 
     def __str__(self):
-        pass
+        return str(self.name)
 
 
 class AllScenarios:
     def __init__(self, files_list):
-        scenarios = []
+        scenarios = {}
         for file in files_list:
-            scenarios.append(Scenario(file))
+            scenarios[file] = Scenario(file)
         self.scenarios = scenarios
 
     def __iter__(self):
         for scenario in self.scenarios:
-            yield scenario
+            yield self.scenarios[scenario]
+
+    def random_scenario(self):
+        random_trees={}
+        for scenario in self:
+            chosen_tree=random.choice(list(scenario.nodes.values()))
+            random_trees[(scenario.name,chosen_tree.id)] = chosen_tree.duplication_prefix
+        return random_trees
+
+
+    def rate_scenario(self,chosen_trees):
+        all_trees = list(chosen_trees.values())
+        sum_of_dup = [sum(x) for x in zip(*all_trees)]
+        # print("--------------------------------------------------------")
+        # for x in all_trees:
+        #     print(x)
+        print(sum_of_dup)
+
+    def select_scenarios(self,chose_fun = random_scenario,iter=10000):
+        for i in range(iter):
+            chosen_scenario = chose_fun(self)
+            rated_scenatio = self.rate_scenario(chosen_scenario)
+
 
     def __str__(self):
         pass
 
 
 def test():
-    # files = sys.argv[1:]
-    # files = ["scenario_1", "scenario_2"]
-    files = ["pg_sc_1", "pg_sc_2"]
+    files = sys.argv[1:]
     a = AllScenarios(files)
-    for sc in a:
-        print()
-        for tree in sc:
-            print(tree)
+    # for sc in a:
+    #     print(sc)
+    #     for tree in sc:
+    #         print(tree)
 
+    a.select_scenarios()
 
 test()
