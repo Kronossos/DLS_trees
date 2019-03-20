@@ -70,17 +70,23 @@ class AllScenarios:
 
     def rate_scenario(self,chosen_trees):
         all_trees = list(chosen_trees.values())
-        sum_of_dup = [sum(x) for x in zip(*all_trees)]
-        # print("--------------------------------------------------------")
-        # for x in all_trees:
-        #     print(x)
-        print(sum_of_dup)
+        max_of_dup = [max(x) for x in zip(*all_trees)]
+        return max_of_dup
 
-    def select_scenarios(self,chose_fun = random_scenario,iter=100):
+    def select_scenarios(self,chose_fun = random_scenario,iter=100000):
+
+        min_cost=float("inf")
+        min_scenatio=[]
+
         for i in range(iter):
             chosen_scenario = chose_fun(self)
             rated_scenatio = self.rate_scenario(chosen_scenario)
 
+            current_cost=sum(rated_scenatio)
+            if current_cost<min_cost:
+                min_cost = current_cost
+                min_scenatio=rated_scenatio
+        return min_scenatio,min_cost
 
     def __str__(self):
         pass
@@ -94,6 +100,6 @@ def test():
     #     for tree in sc:
     #         print(tree)
 
-    a.select_scenarios()
+    print(a.select_scenarios())
 
 test()
