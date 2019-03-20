@@ -76,7 +76,7 @@ class AllScenarios:
         #     print(x)
         print(sum_of_dup)
 
-    def select_scenarios(self,chose_fun = random_scenario,iter=10000):
+    def select_scenarios(self,chose_fun = random_scenario,iter=100):
         for i in range(iter):
             chosen_scenario = chose_fun(self)
             rated_scenatio = self.rate_scenario(chosen_scenario)
