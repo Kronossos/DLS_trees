@@ -67,6 +67,12 @@ class AllScenarios:
             random_trees[(scenario.name,chosen_tree.id)] = chosen_tree.duplication_prefix
         return random_trees
 
+    def decrease_vector(self):
+        max_trees={}
+        for scenario in self:
+            max_trees[scenario.name]=self.rate_scenario(scenario.nodes)
+        max_tree=self.rate_scenario(max_trees)
+
 
     def rate_scenario(self,chosen_trees):
         all_trees = list(chosen_trees.values())
