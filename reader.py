@@ -139,7 +139,7 @@ class AllScenarios:
 
                 for scenario in self:
                     for tree in scenario:
-                        for i in range(index, -1, -1):
+                        for i in index_list:
                             if max_tree_temp[i] - tree.duplication_prefix[i] < 0:
                                 break
                         else:
