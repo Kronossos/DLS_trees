@@ -75,7 +75,6 @@ class AllScenarios:
             all_dup_pref = [tree.duplication_prefix for tree in scenario]
             max_trees.append(self.rate_scenario(all_dup_pref))
         max_tree = self.rate_scenario(max_trees)
-        print(max_tree)
 
         if select_type == "start":
             index = 0
@@ -89,7 +88,7 @@ class AllScenarios:
 
                 for scenario in self:
                     for tree in scenario:
-                        for i in range(len(tree.duplication_prefix) - 1, index - 1, -1):
+                        for i in range(len(tree.duplication_prefix)):
                             if max_tree_temp[i] - tree.duplication_prefix[i] < 0:
                                 break
                         else:
@@ -114,7 +113,7 @@ class AllScenarios:
 
                 for scenario in self:
                     for tree in scenario:
-                        for i in range(index, -1, -1):
+                        for i in range(len(tree.duplication_prefix)):
                             if max_tree_temp[i] - tree.duplication_prefix[i] < 0:
                                 break
                         else:
@@ -139,7 +138,7 @@ class AllScenarios:
 
                 for scenario in self:
                     for tree in scenario:
-                        for i in index_list:
+                        for i in range(len(tree.duplication_prefix)):
                             if max_tree_temp[i] - tree.duplication_prefix[i] < 0:
                                 break
                         else:
