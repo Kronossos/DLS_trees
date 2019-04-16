@@ -155,6 +155,16 @@ class AllScenarios:
         max_of_dup = [max(x) for x in zip(*all_trees)]
         return max_of_dup
 
+    def subset_calc(self,buffer_size=10):
+        # TO CHANGE! NAIVE WAY OF DEALING WITH GETTING TREES!
+
+        current_set = [[tree.duplication_prefix for tree in scenario ] for scenario in self]
+
+        while current_set == 1:
+            current_set = 1 #split by buffer size
+
+
+
     def select_scenarios(self, chose_fun=random_scenario, iter_num=1000):
 
         min_cost = float("inf")
@@ -182,6 +192,11 @@ def test():
     #     for tree in sc:
     #         print(tree)
 
+
+    a.subset_calc()
+
+
+
     print("total random")
     start_time = time.time()
     print(a.select_scenarios())
@@ -201,6 +216,8 @@ def test():
     start_time = time.time()
     print(a.decrease_vector("random"))
     print("Done in {} .".format(time.time() - start_time))
+
+
 
 
 test()
