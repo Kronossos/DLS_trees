@@ -1,3 +1,4 @@
 .idea
 *.pyc
 dlsgen/
+test_scenario/
