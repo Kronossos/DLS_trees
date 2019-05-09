@@ -9,8 +9,8 @@ with open(file_name) as file:
         line = re.findall("\w+",line)
         word_set.update(line)
 
-print(word_set)
-print(len(word_set))
+# print(word_set)
+# print(len(word_set))
 
 codes=[]
 for x in range(97,123):
@@ -27,10 +27,10 @@ translate=zip(word_set,codes)
 command="sed \'"
 
 for key,val in translate:
-    print(key,val)
+    # print(key,val)
     command += "s/{}/{}/g;".format(key,val)
-
-command += "\' {}".format(file_name)
+command += "\'"
+# command += "\' {}".format(file_name)
 
 print(command)
 

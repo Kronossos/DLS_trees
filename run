@@ -1,0 +1,68 @@
+#!/bin/bash
+
+function usage(){
+echo -e 'run -h -s [file]
+	-h help
+	-s species
+	-g gene
+' 
+exit
+}
+
+while getopts "hs:g:" opt; do
+  case $opt in
+    h)
+      usage 
+      ;;
+    s)
+      spec=$OPTARG
+      ;;
+    g)
+      gene=$OPTARG
+      ;;	
+    \?) 
+      usage	
+      ;;
+  esac
+done
+
+
+if [ "x" == "x$spec" ]; then
+  echo -e "-s [option] is required! \nSpecies tree must be included!"
+  usage
+fi
+
+if [ "x" == "x$gene" ]; then
+  echo -e "	-g [option] is required \nGenes trees must be included!"
+  usage
+fi
+
+echo "Creating directories..."
+rm -rf test_scenario && mkdir test_scenario
+mkdir test_scenario/FHS
+mkdir test_scenario/PG
+
+echo "Creating one letter codes..."
+rename_command=`python3 crate_one_letter.py $spec`
+spec_comand="$rename_command $spec"
+gene_comand="$rename_command $gene"
+eval $spec_comand>test_scenario/spec.txt
+eval $gene_comand>test_scenario/gene.txt
+
+
+spec=`cat test_scenario/spec.txt`
+echo "Creating scenarios..."
+name=0
+while read g; do
+    echo "$g"
+    ((name+=1))
+    dlsgen/dlsgen2 -gs -da -pilaEv  $g $spec>test_scenario/PG/PG_$name.txt
+    dlsgen/dlsgen2 -ga -da -pilaEv  $g $spec>test_scenario/FHS/FHS_$name.txt
+done <test_scenario/gene.txt
+
+
+echo "Calculating scenarios..."
+echo "------------------FHS---------------------------"
+python3 reader.py `ls -d /home/alek/PycharmProjects/DLS_trees/test_scenario/FHS/*`
+echo "------------------PG----------------------------"
+python3 reader.py `ls -d /home/alek/PycharmProjects/DLS_trees/test_scenario/PG/*`
