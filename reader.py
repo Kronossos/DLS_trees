@@ -4,7 +4,7 @@ import time
 import sys
 import collections
 import random
-
+import itertools
 
 class TreeNode:
     def __init__(self, id: int, level: int, change_id: list, change_type: list, duplication_prefix: list):
@@ -39,6 +39,7 @@ class Scenario:
             for line in scenario_file:
                 id, level, duplication_prefix, change, change_type = line.strip().split(" ")  # tab,space or comma?
                 new_tree = TreeNode(int(id), int(level), eval(change), eval(change_type), eval(duplication_prefix))
+                new_tree.owner = filename
                 nodes[id] = new_tree
         self.nodes = nodes
         self.name = filename
@@ -71,6 +72,7 @@ class AllScenarios:
 
     def decrease_vector(self, select_type="start"):
         max_trees = []
+        #Może zjeść pamięć dla dużych zbiorów. DOTESTOWAĆ!
         for scenario in self:
             all_dup_pref = [tree.duplication_prefix for tree in scenario]
             max_trees.append(self.rate_scenario(all_dup_pref))
@@ -165,6 +167,23 @@ class AllScenarios:
 
 
 
+    def check_all(self,trees=False):
+        if not trees:
+            # TO CHANGE! NAIVE WAY OF DEALING WITH GETTING TREES!
+            trees = [[tree.duplication_prefix for tree in scenario] for scenario in self]
+
+        min_cost = float("inf")
+        min_scenatio = []
+
+        for i in itertools.product(*trees):
+            chosen_scenario = i
+            rated_scenatio = self.rate_scenario(chosen_scenario)
+            current_cost = sum(rated_scenatio)
+            if current_cost < min_cost:
+                min_cost = current_cost
+                min_scenatio = rated_scenatio
+        return min_scenatio, min_cost
+
     def select_scenarios(self, chose_fun=random_scenario, iter_num=1000):
 
         min_cost = float("inf")
@@ -215,6 +234,11 @@ def test():
     print("index random")
     start_time = time.time()
     print(a.decrease_vector("random"))
+    print("Done in {} .".format(time.time() - start_time))
+
+    print("FULL")
+    start_time = time.time()
+    print(a.check_all())
     print("Done in {} .".format(time.time() - start_time))
 
 

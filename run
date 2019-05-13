@@ -33,7 +33,7 @@ if [ "x" == "x$spec" ]; then
 fi
 
 if [ "x" == "x$gene" ]; then
-  echo -e "	-g [option] is required \nGenes trees must be included!"
+  echo -e "-g [option] is required \nGenes trees must be included!"
   usage
 fi
 
@@ -46,18 +46,19 @@ echo "Creating one letter codes..."
 rename_command=`python3 crate_one_letter.py $spec`
 spec_comand="$rename_command $spec"
 gene_comand="$rename_command $gene"
-eval $spec_comand>test_scenario/spec.txt
-eval $gene_comand>test_scenario/gene.txt
+eval $spec_comand| tr -d ' '>test_scenario/spec.txt
+eval $gene_comand| tr -d ' '>test_scenario/gene.txt
 
 
 spec=`cat test_scenario/spec.txt`
+echo $spec
 echo "Creating scenarios..."
 name=0
 while read g; do
     echo "$g"
     ((name+=1))
-    dlsgen/dlsgen2 -gs -da -pilaEv  $g $spec>test_scenario/PG/PG_$name.txt
-    dlsgen/dlsgen2 -ga -da -pilaEv  $g $spec>test_scenario/FHS/FHS_$name.txt
+    dlsgen/dlsgen2 -gs -da -pilaEv  $g $spec >test_scenario/PG/PG_$name.txt
+    dlsgen/dlsgen2 -ga -da -pilaEv  $g $spec >test_scenario/FHS/FHS_$name.txt
 done <test_scenario/gene.txt
 
 
