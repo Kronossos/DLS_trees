@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+#amor@mimuw Kronossos alek1
 import time
 import sys
 import collections
@@ -175,13 +177,23 @@ class AllScenarios:
         min_cost = float("inf")
         min_scenatio = []
 
-        for i in itertools.product(*trees):
-            chosen_scenario = i
+        size=1
+        for scenario in trees:
+            size*=len(scenario)
+        print(size)
+
+        counter=0
+        for chosen_scenario in itertools.product(*trees):
             rated_scenatio = self.rate_scenario(chosen_scenario)
             current_cost = sum(rated_scenatio)
             if current_cost < min_cost:
                 min_cost = current_cost
                 min_scenatio = rated_scenatio
+            counter+=1
+            i = counter * 100 / size
+            sys.stdout.write("\rCompleted {} percent.".format(i))
+            sys.stdout.flush()
+
         return min_scenatio, min_cost
 
     def select_scenarios(self, chose_fun=random_scenario, iter_num=1000):
