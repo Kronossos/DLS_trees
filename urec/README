@@ -1,0 +1,224 @@
+Unrooted REConciliation version 2.00 
+(c) Copyright 2005-2010 by Pawel Gorecki
+Written by P.Gorecki.
+Permission is granted to copy and use this program provided no fee is
+charged for it and provided that this copyright notice is not removed. 
+
+Please send bug reports, comments etc. to: gorecki@mimuw.edu.pl
+
+UREC and TT arewritten in C++ with STL. 
+This software was tested on PC with Linux under g++ compiler. 
+
+To compile from sources just type: "make".
+
+To run type: "urec" or "tt". 
+Without any options a short information on arguments will be shown. 
+
+======== UREC ==========
+
+Options:
+
+1. Defining gene and species trees.
+
+-s TREE - defines a rooted species tree 
+-S FILE - species tree(s) from file 
+
+-g TREE - defines an unrooted gene tree 
+-G FILE - gene tree(s) from file
+-r LEAVES - create random gene/species tree(s); labels (single characters) 
+       taken from LEAVES
+
+Optional parameters (-r) must be set before -r:
+-u - unique leaves (for species trees)
+-E - number of leaves
+-n - length of base tree
+-i - prob. of choosing internal node
+-e - parameter for decreasing prob. of internal node
+-l - number of generated trees (default 10)
+
+3. Printing 
+
+-p - print gene tree on standard output
+-P - print species tree on standard output
+
+-R - print all rooted variants of the gene tree(s)
+
+4. Voting algorithm
+
+-v compute by voting
+
+4. Computing costs 
+
+-b compute costs 
+
+4.1. For every species tree (summary of costs)
+
+-c - print total mutation cost
+-C - print total dl-cost, i.e., (dup,loss)
+-d - print detailed total cost (distributions)
+-x - print species tree with detailed total costs (nested parenthesis notation 
+     with attributes)
+
+4.2. For every reconciliation of an unrooted gene tree with a species tree (details).
+
+-o - show optimal cost 
+-O - print an optimal rooted gene tree 
+-X - print species tree with detailed costs as attributes 
+-a - show attributes and mappingstt specific options
+-A - show detailed attributes 
+
+5. Other 
+
+-D dupweight  - set weight of gene duplications
+-L lossweight - set weight of gene losses
+
+6. Examples.
+
+> urec -s "(a,b)" -P
+
+Print a species tree.
+
+> urec -r "abc" -l 10 -p
+
+Generate 10 random unrooted gene trees with labels of leaves: "a", "b" and
+"c".
+
+> urec -l 15 -r "abc"  -l 4 -r "xy" -p
+
+Generate 15 random unrooted gene trees with labels of leaves: "a", "b" and "c"
+and 4 random unrooted gene trees with labels of leaves: "x", "y".
+
+> urec -b -s "(a,(b,c))"  -g "(a,a,b)" -oO
+
+Compute optimal cost of reconciling a species tree with unrooted gene tree.
+Print an optimal rooted gene tree (-O) and show costs summary (dup,loss).
+
+> urec -b -G gtrees.txt -S strees.txt -cC 
+
+Compute costs of reconciling a set of gene trees with a set of species trees. 
+
+> urec -b -G gtrees.txt -S strees.txt -cC | sort -r -n -k2
+
+Compute costs of reconciling a set of gene trees with a set of species trees
+and sort results (Unix sort required). 
+
+> urec -b -G gtrees.txt -S strees.txt -cd
+
+Compute costs of reconciling a set of gene trees with a set of species trees
+and the distributions of costs.
+
+> urec -v -G gtrees.txt -S strees.txt 
+
+Compute points by voting algorithm.
+
+> urec -v -G gtrees.txt -S strees.txt | sort -r -n -k2
+
+Generate 1000 random species trees with 8 leaves.
+
+> urec -u -E 8 -l 1000 -r abcdefgh -p 
+
+Generate 1000 random species trees with 6 leaves taken from 8 species.
+
+> urec -u -E 6 -l 1000 -r abcdefgh -p 
+
+Generate 1000 random gene trees with 6 leaves taken from 8 species.
+
+> urec -E 6 -l 1000 -r abcdefgh -p 
+
+> Truncating trees
+
+- gene trees:
+urec -T "x y as" -g "(as,(x,(y,z)),b)" -p 
+
+- species trees:
+urec -T "x y as" -s "(as,(x,(y,z)),b)" -P
+
+> How to define outgroup
+urec -l 0 -r "out,"  -Ms -g "((d,out),(a,(b,c)))" -p 
+
+> Generate species trees
+urec -E0 -u -l10  -r `cat somespeciestree.txt` -p
+
+======== TT ==========
+
+1. Common options. See urec above.
+
+-g -s -G -S -p -P -D -L -r
+
+2. Run NNI heuristics (default) 
+-n run NNI
+
+3. Compute costs - error correction options.
+
+-b compute minimal cost GS vs ST with error corrections
+ Output for each species tree:
+	TOTALCOST NUMBEROFERRORS REJECTEDTREES SPECIESTREE
+ 
+-R print details
+-w RNUM nni analysis with weak edges (branch lengths required, omega parameter)
+-m max num of weak edges (valid with -w only, mu parameter)
+
+4. Other.
+
+-W - print number of weak edges per each gene tree
+
+4. Examples.
+
+Input is a set of unrooted gene trees with branch lengths vs a given rooted species tree.
+
+> Full error correction (all edges are candidates)
+tt -G g3bl.txt -S g3best_64413r.txt -b
+
+> Compute min cost with weak edges
+tt -G g3genetrees.txt -S g3phylogeny.txt -m4 -w0.1 -b
+
+> Compute min cost with no weak edges 
+tt -G g3genetrees.txt -S g3phylogeny.txt -w0 -b
+
+> Print numbers of weak edges
+tt -G g3genetrees.txt -S g3phylogeny.txt -m4 -w0.1 -W
+
+
+======= SMPNNIHEUR.SH =========
+
+Find optimal species tree. 
+Result in directory defined by GENEFILE_OMEGA_MU_DIR where DIR is given by -d, OMEGA in -w, MU in -m.
+Sorted list of computed best species trees in: cost.smp.txt
+To get the optimal one use: 
+head -1 cost.smp.txt 
+
+1. Required options.
+  -d working dir 
+  -G gene trees file
+  -S initial species trees file, if -r is defined this tree is used only for the setting the order of species
+
+2. Addtional options.  
+  -r NUM - start from NUM random species trees, if undefined then initial species trees are used (-S) 
+  -c - continue computations (-G, -d, -S required)
+  -R - one randomized candidate
+    
+  -e NUM - terminate when no change during last NUM loops
+  
+3. tt specific options.
+  -w RNUM - omega parameter (see tt)
+  -m NUM - mu parameter (see tt)
+  -t STR - additional options for tt
+  
+4. Other.
+  -v DIRS_COMMA_SEP - show statistics for given dirs
+  
+
+5. Examples.
+
+> Start from 10 random species trees (-r 10) 
+smpnniheur.sh -G g3genetrees.txt -S g3phylogeny.txt -r 10 -d my1 -w0.2 -m5                                                                                       
+                                                                                                                                                                 
+Result in directory g3genetrees_0.2_5_my1.                                                                                                                       
+
+> Start from initial species trees (-r 10) 
+smpnniheur.sh -G g3genetrees.txt -S candidates.txt -d my2 -w0.1 -m8 
+ 
+Result in directory g3genetrees_0.1_8_my2.
+
+
+

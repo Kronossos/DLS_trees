@@ -1,0 +1,39 @@
+dlsgen2 version 0.1 
+(c) Copyright 2005-2010 by Pawel Gorecki
+Written by P.Gorecki.
+Permission is NOT granted to copy and use this program: 
+If you want to ask: gorecki@mimuw.edu.pl
+
+I am NOT an owner! I received the program for INTERIOR use only!
+
+Pomoc:
+
+dlsgen2
+
+Pierwsze "(a,(b,c))" to drzewo genów
+-l to max level
+podopcja v w -p usuwa nazwy pol
+kolejność węzłów w E jest prefiksowa
+
+dlsgen2 "(a,(b,c))" "(a,(b,c))" -ga -da -pilaE 
+
+id=0 level=0 E=[0,0,0,0,0] Conn=[1,2] Rules=[0,0] 
+id=1 level=1 E=[0,0,0,1,0] Conn=[3] Rules=[0] 
+id=2 level=1 E=[0,0,0,0,1] Conn=[3] Rules=[0] 
+id=3 level=2 E=[0,0,0,1,1] Conn=[4] Rules=[1] 
+id=4 level=3 E=[0,0,0,0,2] Conn=[] Rules=[] 
+
+dlsgen2 "(a,(b,c))" "(a,(b,c))" -ga -da -pilaEv -l4
+
+0 0 [0,0,0,0,0] [1,2] [0,0] 
+1 1 [0,0,0,1,0] [3] [0] 
+2 1 [0,0,0,0,1] [3] [0] 
+3 2 [0,0,0,1,1] [4] [1] 
+4 3 [0,0,0,0,2] [] [] 
+
+dlsgen2 "(a,(a,a))" "(a,(b,c))" -gs -da -pilaEv -l4
+
+0 0 [2,0,0,0,0] [1] [1] 
+1 1 [1,0,0,0,1] [2] [1] 
+2 2 [0,0,0,0,2] [] [] 
+

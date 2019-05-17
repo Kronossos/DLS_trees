@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+./run -s sets/guigo/s1.txt  -g sets/guigo/g.txt

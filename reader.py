@@ -43,6 +43,8 @@ class Scenario:
                 new_tree = TreeNode(int(id), int(level), eval(change), eval(change_type), eval(duplication_prefix))
                 new_tree.owner = filename
                 nodes[id] = new_tree
+        if not nodes:
+            raise IndexError('Cannot create scenario from an empty file!')
         self.nodes = nodes
         self.name = filename
 
@@ -57,9 +59,18 @@ class Scenario:
 class AllScenarios:
     def __init__(self, files_list):
         scenarios = {}
+        all_files=len(files_list)
+        counter=0
         for file in files_list:
-            scenarios[file] = Scenario(file)
+            try:
+                scenarios[file] = Scenario(file)
+            except:
+                pass
+                counter += 1
         self.scenarios = scenarios
+
+        corrupted_percent=counter*100/all_files
+        print("Data loaded. {}% of the data was corrupted: {} of {}.".format(corrupted_percent,counter,all_files))
 
     def __iter__(self):
         for scenario in self.scenarios:
@@ -224,7 +235,7 @@ def test():
     #         print(tree)
 
 
-    a.subset_calc()
+    # a.subset_calc()
 
 
 
@@ -248,10 +259,10 @@ def test():
     print(a.decrease_vector("random"))
     print("Done in {} .".format(time.time() - start_time))
 
-    print("FULL")
-    start_time = time.time()
-    print(a.check_all())
-    print("Done in {} .".format(time.time() - start_time))
+    # print("FULL")
+    # start_time = time.time()
+    # print(a.check_all())
+    # print("Done in {} .".format(time.time() - start_time))
 
 
 
