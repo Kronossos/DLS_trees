@@ -141,6 +141,7 @@ class AllScenarios:
             return max_tree, sum(max_tree)
 
         if select_type == "random":
+            print("XD")
 
             index_list = [x for x in range(len(max_tree)) if x != 0]
 

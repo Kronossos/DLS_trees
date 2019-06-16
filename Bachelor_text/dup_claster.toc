@@ -1,0 +1,15 @@
+\babel@toc {polish}{}
+\contentsline {chapter}{Wprowadzenie}{5}
+\contentsline {chapter}{\numberline {1}Podstawowe poj\IeC {\k e}cia}{7}
+\contentsline {section}{\numberline {1.1}Drzewa gen\IeC {\'o}w i gatunk\IeC {\'o}w}{7}
+\contentsline {section}{\numberline {1.2}Uzgodnienie drzewa}{7}
+\contentsline {section}{\numberline {1.3}Modele scenariuszy drzew}{7}
+\contentsline {chapter}{\numberline {2}Heurystyka}{9}
+\contentsline {chapter}{\numberline {3}Dokumentacja u\IeC {\.z}ytkowa i~opis implementacji}{11}
+\contentsline {chapter}{\numberline {4}Podsumowanie}{13}
+\contentsline {section}{\numberline {4.1}Perspektywy wykorzystania}{13}
+\contentsline {chapter}{\numberline {A}G\IeC {\l }\IeC {\'o}wna p\IeC {\k e}tla programu zapisana w~j\IeC {\k e}zyku Python}{15}
+\contentsline {chapter}{\numberline {B}Przyk\IeC {\l }adowe drzewo gatunk\IeC {\'o}w}{17}
+\contentsline {chapter}{\numberline {C}Przyk\IeC {\l }adowe drzewa gen\IeC {\'o}w}{19}
+\contentsline {chapter}{\numberline {D}Przyk\IeC {\l }adowy wynik dzia\IeC {\l }ania programu (dla zbioru guigo)}{21}
+\contentsline {chapter}{Bibliografia}{23}

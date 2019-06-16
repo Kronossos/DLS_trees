@@ -1,0 +1,306 @@
+%
+% Niniejszy plik stanowi przykład formatowania pracy magisterskiej na
+% Wydziale MIM UW.  Szkielet użytych poleceń można wykorzystywać do
+% woli, np. formatujac wlasna prace.
+%
+% Zawartosc merytoryczna stanowi oryginalnosiagniecie
+% naukowosciowe Marcina Wolinskiego.  Wszelkie prawa zastrzeżone.
+%
+% Copyright (c) 2001 by Marcin Woliński <M.Wolinski@gust.org.pl>
+% Poprawki spowodowane zmianami przepisów - Marcin Szczuka, 1.10.2004
+% Poprawki spowodowane zmianami przepisow i ujednolicenie 
+% - Seweryn Karłowicz, 05.05.2006
+% Dodanie wielu autorów i tłumaczenia na angielski - Kuba Pochrybniak, 29.11.2016
+
+% dodaj opcję [licencjacka] dla pracy licencjackiej
+% dodaj opcję [en] dla wersji angielskiej (mogą być obie: [licencjacka,en])
+\documentclass[licencjacka]{pracamgr}
+\usepackage[polish]{babel}
+
+% Dane magistranta:
+\autor{Aleksander Mućk}{382184}
+
+
+% Dane magistrantów:
+%\autor{Aleksander Mućk}{342007}
+
+\title{Algorytmy do klastrowania duplikacji genomowych}
+
+
+\tytulang{Algorithms for the clustering of genomic duplication}
+
+%kierunek: 
+% - matematyka, informacyka, ...
+% - Mathematics, Computer Science, ...
+\kierunek{Bioinformatyka i Biologia Systemów}
+
+% informatyka - nie okreslamy zakresu (opcja zakomentowana)
+% matematyka - zakres moze pozostac nieokreslony,
+% a jesli ma byc okreslony dla pracy mgr,
+% to przyjmuje jedna z wartosci:
+% {metod matematycznych w finansach}
+% {metod matematycznych w ubezpieczeniach}
+% {matematyki stosowanej}
+% {nauczania matematyki}
+% Dla pracy licencjackiej mamy natomiast
+% mozliwosc wpisania takiej wartosci zakresu:
+% {Jednoczesnych Studiow Ekonomiczno--Matematycznych}
+
+% \zakres{Tu wpisac, jesli trzeba, jedna z opcji podanych wyzej}
+
+% Praca wykonana pod kierunkiem:
+% (podać tytuł/stopień imię i nazwisko opiekuna
+% Instytut
+% ew. Wydział ew. Uczelnia (jeżeli nie MIM UW))
+\opiekun{dra hab. Pawła Góreckiego\\
+  }
+
+% miesiąc i~rok:
+\date{Sierpień 2019}
+
+%Podać dziedzinę wg klasyfikacji Socrates-Erasmus:
+\dziedzina{ 
+%11.0 Matematyka, Informatyka:\\ 
+%11.1 Matematyka\\ 
+%11.2 Statystyka\\ 
+%11.3 Informatyka\\ 
+%11.4 Sztuczna inteligencja\\ 
+%11.5 Nauki aktuarialne\\
+11.9 Inne nauki matematyczne i informatyczne
+}
+
+%Klasyfikacja tematyczna wedlug AMS (matematyka) lub ACM (informatyka)
+\klasyfikacja{Computional biology, Applied computing, Life and medical sciences}
+
+% Słowa kluczowe:
+\keywords{duplikacja genu, drzewo genów, drzewo gatunków, analiza filogenetyczna, drzewo uzgadniające, Python, scenariusz ewolucyjny, strata genu, minimalizacja kosztu ewolucyjnego}
+
+% Tu jest dobre miejsce na Twoje własne makra i~środowiska:
+\newtheorem{defi}{Definicja}[section]
+
+% koniec definicji
+
+\begin{document}
+
+\maketitle
+
+%tu idzie streszczenie na strone poczatkowa
+
+\begin{abstract}
+   Niniejsza praca przedstawia podstawowe propozycje rozwiązań algorytmicznych dla problemów klastrowania duplikacji genomowych w oparciu o scenariusze ewolucyjne. W części pierwszej wprowadzane są pojęcia dotyczące drzew genów, gatunków, modeli ich uzgadniania oraz tworzenia scenariuszy ewolucyjnych. Omówiony został również problem przeliczania i klastrowania duplikacji genomowych w scenariuszach ewolucyjnych. W części drugiej opisana została proponowana heurystyka wraz z przykładowymi testami oraz jej implementacja w języku Python.
+\end{abstract}
+
+
+\renewcommand{\contentsname}{Spis Treści}
+\tableofcontents
+%\listoffigures
+%\listoftables
+
+\chapter*{Wprowadzenie}
+\addcontentsline{toc}{chapter}{Wprowadzenie}
+
+
+Analizy drzew filogenetycznych są, przez rozmiar danych i coraz bardziej skomplikowane modele, niezwykle złożone zarówno obliczeniowo jak i koncepcyjnie.
+
+
+Drzewo genów zawiera geny.
+Drzewo gatunków zawiera gatunki.
+
+
+Krótki opis zależności na bardzo podstawowym poziomie.
+
+
+Praca składa się z~czterech rozdziałów i~dodatków.
+W~rozdziale \ref{r:pojecia} przedstawiono podstawowe pojęcia dotyczące drzew genów, drzew gatunków oraz modeli i scenariuszy ewolucyjnych.  
+Rozdział~\ref{r:heurystyka} przedstawia propozycję heurystyki wraz~z jej testami na rzeczywistych danych.  W~rozdziale \ref{r:impl} opisano implementację i sposób użycia programu napisanego na podstawie przybliżonej we wcześniejszym rozdziale heurystyki.
+Ostatni rozdział zawiera przemyślenia dotyczące możliwego użycia algorytmu i perspektyw jego rozwoju. W~dodatkach umieszczono fragmenty kodu, przykładowe dane wejściowe i~wyniki działania algorytmu.
+
+\chapter{Podstawowe pojęcia}\label{r:pojecia}
+
+Pojęciem pierwotnym dla scenatiuszy ewolucy
+
+\section{Drzewa genów i gatunków}
+Opis drzewa ogólny
+
+
+
+\begin{defi}\label{Drzewa genów}
+  Opis.
+\end{defi}
+
+\begin{defi}\label{Drzewa gatunków}
+  Opis.
+\end{defi}
+
+\section{Uzgodnienie drzewa}
+Podstawowy opis idei.
+
+\section{Modele scenariuszy drzew}
+
+Podstawowy opis idei. Podział ruchów:
+
+\begin{defi}\label{TMOVE}
+  Opis.
+\end{defi}
+
+\begin{defi}\label{CLOST}
+  Opis.
+\end{defi}
+
+Dozwolone modele:
+\begin{enumerate}
+\item PG
+\item FHS;
+\end{enumerate}
+
+\begin{figure}[tp]
+  \centering
+  \framebox{\vbox to 4cm{\vfil\hbox to
+      7cm{\hfil\tiny.\hfil}\vfil}}
+  \caption{Obrazek scenariusza}
+\end{figure}
+
+\chapter{Heurystyka}\label{r:heurystyka}
+
+Dane na wejściu : 
+drzewa genów G1...Gk
+dla każdego Gi jest mi scenariuszy opisanych jako wektory vi1 vi2 ... vim z epizodami (wg outputu ze skryptu)
+
+Zróbmy wektor przybliżające rozwiązanie ME, nazwijmy je v*, które pasuje do każdego scenariusza. Wystarczy brać max po współrzędnych z każdego wektora v....
+Oczywiście jest to rozwiązanie słabe bo kosztowne ale pasuje do każdego scenariusza.
+
+Teraz w pętli spróbujmy poprawiać współrzędne z wektora v*:
+- obniż jedna z wartości w wektorze v
+- zaakceptuj w/w zmianę jeśli dla każdego drzewa genów istnieje scenariusz, który jest zgodny z takim wektorem epizodów
+Zakończ jeśli nie da się poprawić żadnej współrzędnej.
+
+Wybór współrzędnej do obniżki: testować np. od końca wektora (od korzenia), od początku (od liści), losowo.
+
+\chapter{Dokumentacja użytkowa i~opis implementacji}\label{r:impl}
+
+Opis działania programu.
+
+\chapter{Podsumowanie}
+
+W~pracy przedstawiono pierwszą heurystykę.
+
+Trudno przewidzieć wszystkie nowe możliwości, ale te co bardziej
+oczywiste można wskazać już teraz.  Są to:
+\begin{itemize}
+\item opisy naszych algorytmów optymalizacyjnych,
+\item opisy naszych algorytmów optymalizacyjnych,
+\item opisy naszych algorytmów optymalizacyjnych,
+\end{itemize}
+
+\section{Perspektywy wykorzystania}
+
+DOPYTAĆ
+
+\appendix
+
+\chapter{Główna pętla programu zapisana w~języku Python}
+
+\begin{verbatim}
+
+		max_trees = []
+        for scenario in self:
+            all_dup_pref = [tree.duplication_prefix for tree n scenario]
+            max_trees.append(self.rate_scenario(all_dup_pref))
+        max_tree = self.rate_scenario(max_trees)
+
+        if select_type == "random":
+
+            index_list = [x for x in range(len(max_tree)) if x != 0]
+
+            while index_list:
+                index_list_position = random.randint(0, len(index_list) - 1)
+                index = index_list[index_list_position]
+
+                max_tree_temp = max_tree[:]
+                max_tree_temp[index] -= 1
+
+                for scenario in self:
+                    for tree in scenario:
+                        for i in range(len(tree.duplication_prefix)):
+                            if max_tree_temp[i] - tree.duplication_prefix[i] < 0:
+                                break
+                        else:
+                            break
+                    else:
+                        index_list.pop(index_list_position)
+                        break
+                else:
+                    max_tree = max_tree_temp
+            return max_tree, sum(max_tree)
+\end{verbatim}
+
+\chapter{Przykładowe drzewo gatunków}
+
+\begin{center}
+(prot,(fung,((chlo,embr),(arth,((acoe,anne),(echi,(chon,(oste,(amph,(moll,((mamm,(aves,rept)),agna)))))))))))
+\end{center}
+
+\chapter{Przykładowe drzewa genów}
+
+{\obeylines %
+
+(((aves,mamm),amph),chon)
+(((amph,aves),mamm),chon)
+((((acoe,mamm),chlo),fung),prot)
+(((((echi,arth),mamm),embr),fung),prot)
+((((echi,arth),mamm),prot),embr)
+}
+
+
+
+\chapter{Przykładowy wynik działania programu
+    (dla zbioru guigo)}
+
+{\obeylines %
+------------------FHS---------------------------
+Data loaded. 0.0% of the data was corrupted: 0 of 53.
+total random
+([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4], 18)
+Done in 2.3286948204040527 .
+start
+([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5], 5)
+Done in 0.0676581859588623 .
+end
+([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 3], 4)
+Done in 0.24111151695251465 .
+index random
+([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3], 5)
+Done in 0.0971217155456543 .
+------------------PG----------------------------
+Data loaded. 0.0% of the data was corrupted: 0 of 53.
+total random
+([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 3], 8)
+Done in 0.18230891227722168 .
+start
+([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 3], 6)
+Done in 0.006891012191772461 .
+end
+([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 3], 6)
+Done in 0.006652355194091797 .
+index random
+([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 3], 6)
+Done in 0.007452487945556641 .
+}
+
+\begin{thebibliography}{99}
+\addcontentsline{toc}{chapter}{Bibliografia}
+
+
+\bibitem[Zen69]{heu} Zenon Zenon, \textit{Użyteczne heurystyki
+    w~analizie}, Młody Technik, nr~11, 1969.
+
+\end{thebibliography}
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% coding: latin-2
+%%% End:
