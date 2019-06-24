@@ -87,7 +87,7 @@
 %tu idzie streszczenie na strone poczatkowa
 
 \begin{abstract}
-   Niniejsza praca przedstawia podstawowe propozycje rozwiązań algorytmicznych dla problemów klastrowania duplikacji genomowych w oparciu o scenariusze ewolucyjne. W części pierwszej wprowadzane są pojęcia dotyczące drzew genów, gatunków, modeli ich uzgadniania oraz tworzenia scenariuszy ewolucyjnych. Omówiony został również problem przeliczania i klastrowania duplikacji genomowych w scenariuszach ewolucyjnych. W części drugiej opisana została proponowana heurystyka wraz z przykładowymi testami oraz jej implementacja w języku Python.
+   Niniejsza praca przedstawia podstawowe propozycje rozwiązań algorytmicznych dla problemów klastrowania duplikacji genomowych w oparciu o scenariusze ewolucyjne. W części pierwszej wprowadzane są pojęcia dotyczące drzew genów, gatunków, modeli ich uzgadniania oraz tworzenia scenariuszy ewolucyjnych. Omówiony został również problem przeliczania i klastrowania duplikacji genomowych w scenariuszach ewolucyjnych. W części drugiej opisana została proponowana heurystyka wraz z przykładowymi testami oraz jej implementacją w języku Python.
 \end{abstract}
 
 
@@ -100,11 +100,7 @@
 \addcontentsline{toc}{chapter}{Wprowadzenie}
 
 
-Uzgadnianie drzew filogenetycznych jest, przez rozmiar danych i coraz bardziej skomplikowane modele, niezwykle złożone zarówno obliczeniowo jak i koncepcyjnie. Badania drzew genów i gatunków, a w szczególności zależności między nimi może odpowiedzieć na pytania w jaki sposób kształtuje się życie. Mimo wszystko jednak należy pamiętać, że pokrewieństwo gatunków nie zawsze implikuje pokrewieństwo genów, których drzewo ewolucyjne nie musi pokrywać się z drzewem zawierających je gatunków. Tworzenie scenariuszy ewolucyjnych, dzięki którym możemy poznać w jaki sposób ewolucja genów wpływała na ewolucję gatunków jest zadaniem nietrywialnym. Potrzebne są narzędzia, które będą potrafiłyby ocenić scenariusze są
-
-
-Krótki opis zależności na bardzo podstawowym poziomie.
-
+Uzgadnianie drzew filogenetycznych jest, przez rozmiar danych i coraz bardziej skomplikowane modele, niezwykle złożone zarówno obliczeniowo jak i koncepcyjnie. Badania drzew genów i gatunków, a w szczególności zależności między nimi może odpowiedzieć na pytania w jaki sposób wyodrębniały się gatunki przez pryzmat zmian w ich genomie. Mimo wszystko jednak należy pamiętać, że pokrewieństwo gatunków nie zawsze implikuje pokrewieństwo genów, których drzewo ewolucyjne nie musi pokrywać się z drzewem zawierających je gatunków, które samo w sobie jest  tak bardzo bardzo zróżnicowane jak drzewo genów. Tworzenie scenariuszy ewolucyjnych, dzięki którym możemy poznać w jaki sposób ewolucja genów wpływała na ewolucję gatunków jest zadaniem nietrywialnym. Potrzebne są narzędzia, które potrafiłyby ocenić scenariusze pod kątem ilości epizodów ewolucyjnych. Epizody, takie jak duplikacje genomowe, mogą być wyznacznikami prawdopodobieństwa danego scenariusza. Zagadnienie to jest jeszcze bardziej wymagające od uzgodnienia pojedynczego drzewa, ponieważ jeden scenariusz zawiera wiele drzew genów co wpływa na poziom złożoności obliczeń. W niniejszej pracy proponowany jest algorytm, który ocenia zbiór scenariuszy tworząc na ich podstawie jeden, którego koszt, liczony jako ilość duplikacji, będzie możliwie najmniejszy.
 
 Praca składa się z~czterech rozdziałów i~dodatków.
 W~rozdziale \ref{r:pojecia} przedstawiono podstawowe pojęcia dotyczące drzew genów, drzew gatunków oraz modeli i scenariuszy ewolucyjnych.  
@@ -113,34 +109,38 @@ Ostatni rozdział zawiera przemyślenia dotyczące możliwego użycia algorytmu 
 
 \chapter{Podstawowe pojęcia}\label{r:pojecia}
 
-Pojęciem pierwotnym dla scenatiuszy ewolucy
+W tym rozdziale poruszane są pojęcia i definicje niezbędne do zrozumienia problemistyki klastrowania duplikacji genomowych. 
 
 \section{Drzewa genów i gatunków}
-Opis drzewa ogólny
+
+
+Opis drzewa pojawiający się w danych przez Pana pracach.
 
 
 
+Związki między genami przedstawia się za pomocą ukorzenionego, binarnego drzewa, nazywanego drzewem genów, którego liśćmi są geny opisane przynależnością do danego gatunku.
 \begin{defi}\label{Drzewa genów}
-  Opis.
+  Definicja matematyczna.
 \end{defi}
 
+Związki między gatunkami przedstawia się za pomocą ukorzenionego, binarnego drzewa, nazywanego drzewem gatunków, którego węzły wewnętrzne są specjacjami, a liście to gatunki.
 \begin{defi}\label{Drzewa gatunków}
-  Opis.
+  Definicja matematyczna.
 \end{defi}
 
 \section{Uzgodnienie drzewa}
 Podstawowy opis idei.
 
-\section{Modele scenariuszy drzew}
+\section{Modele scenariuszy ewolucyjnych}
 
 Podstawowy opis idei. Podział ruchów:
 
 \begin{defi}\label{TMOVE}
-  Opis.
+  TMOVE.
 \end{defi}
 
 \begin{defi}\label{CLOST}
-  Opis.
+  CLOST.
 \end{defi}
 
 Dozwolone modele:
@@ -148,6 +148,8 @@ Dozwolone modele:
 \item PG
 \item FHS;
 \end{enumerate}
+
+\section{Opis modelu ME}
 
 \begin{figure}[tp]
   \centering
@@ -158,19 +160,30 @@ Dozwolone modele:
 
 \chapter{Heurystyka}\label{r:heurystyka}
 
-Dane na wejściu : 
-drzewa genów $G_1$...$G_k$
-dla każdego Gi jest mi scenariuszy opisanych jako wektory vi1 vi2 ... vim z epizodami (wg outputu ze skryptu)
+\section{Opis algorytmu}
 
-Zróbmy wektor przybliżające rozwiązanie ME, nazwijmy je v*, które pasuje do każdego scenariusza. Wystarczy brać max po współrzędnych z każdego wektora v....
-Oczywiście jest to rozwiązanie słabe bo kosztowne ale pasuje do każdego scenariusza.
+Algorytm zakłada, że na wejściu dostępne są dane:
+\begin{itemize}
+\item Drzewa genów $G_1$ ... $G_k$,
+\item $m_i$ scenariuszy drzewa $G_i$ opisanych jako wektory ${v_i}_1$, ${v_i}_2$ ... ${v_i}_m$ z wyliczonymi wartościami kosztu ewolucyjnego, mierzonego jako ilość duplikacji dla każdego węzła.
+\end{itemize}
+Istnieje wektor przybliżający rozwiązanie ME, który nazwijmy V* i który pasuje do każdego scenariusza. \\
+Jednym z takich wektorów jest wektor $V_{max}$, który na każdej współrzędnej \textit{x} zawiera maksymalną wartość ${{v_i}_m}[x]$ dla każdego scenariusza \textit{m} w każdym drzewie genów $G_i$. Oczywiście nie jest to rozwiązanie najlepsze, ponieważ jest one kosztowne, ale pasuje do każdego scenariusza.
 
-Teraz w pętli spróbujmy poprawiać współrzędne z wektora v*:
-- obniż jedna z wartości w wektorze v
-- zaakceptuj w/w zmianę jeśli dla każdego drzewa genów istnieje scenariusz, który jest zgodny z takim wektorem epizodów
-Zakończ jeśli nie da się poprawić żadnej współrzędnej.
+Bazując na wyliczonym wektorze $V_{max}$ heurystyka wylicza wektor V* i w pętli poprawia go w następujący sposób:
+\begin{itemize}
+\item Obniż jedna z wartości w wektorze V*,
+\item Zaakceptuj w/w zmianę jeśli dla każdego drzewa genów istnieje scenariusz, który jest zgodny z takim wektorem epizodów,
+\item Zakończ działanie jeśli nie da się poprawić żadnej współrzędnej.
+\end{itemize}
+Wybór współrzędnej może, zależnie od potrzeby, może być dokonywany w inny sposób:
+\begin{itemize}
+\item od końca wektora (od korzenia),
+\item od początku (od liści),
+\item losowo.
+\end{itemize}
 
-Wybór współrzędnej do obniżki: testować np. od końca wektora (od korzenia), od początku (od liści), losowo.
+\section{Testy algorytmu na danych rzeczywistych}
 
 \chapter{Dokumentacja użytkowa i~opis implementacji}\label{r:impl}
 
@@ -178,9 +191,13 @@ Opis działania programu.
 
 \chapter{Podsumowanie}
 
-W~pracy przedstawiono pierwszą heurystykę.
+W~pracy przedstawiono pierwszy i dosyć intuicyjny pomysł na ocenę scenariuszy ewolucyjnych pod kątem ilości duplikacji. Należy jednak wspomnieć, że bazując samą idę da się znacząco usprawnić i zejść ze złożonością nawet do liniowej oceny, bez poprzedzającego kroku, w którym wyliczane są wszystkie scenariusze.  
 
-Trudno przewidzieć wszystkie nowe możliwości, ale te co bardziej
+
+\section{Perspektywy rozwoju}
+
+
+Trudno przewidzieć wszystkie możliwości rozwoju, ale te bardziej
 oczywiste można wskazać już teraz.  Są to:
 \begin{itemize}
 \item opisy naszych algorytmów optymalizacyjnych,
@@ -194,7 +211,7 @@ DOPYTAĆ
 
 \appendix
 
-\chapter{Główna pętla programu zapisana w~języku Python}
+\chapter{Pętla programu zapisana w~języku Python wykonywana dla losowego wybierania indeksów}
 
 \begin{verbatim}
 
@@ -236,16 +253,27 @@ DOPYTAĆ
 (prot,(fung,((chlo,embr),(arth,((acoe,anne),(echi,(chon,(oste,(amph,(moll,((mamm,(aves,rept)),agna)))))))))))
 \end{center}
 
+\begin{figure}[tp]
+  \centering
+  \framebox{\vbox to 4cm{\vfil\hbox to
+      7cm{\hfil\tiny.\hfil}\vfil}}
+  \caption{Wizualizacja drzewa gatunków}
+\end{figure}
+
 \chapter{Przykładowe drzewa genów}
 
 {\obeylines %
-
-(((aves,mamm),amph),chon)
 (((amph,aves),mamm),chon)
 ((((acoe,mamm),chlo),fung),prot)
 (((((echi,arth),mamm),embr),fung),prot)
-((((echi,arth),mamm),prot),embr)
 }
+
+\begin{figure}[tp]
+  \centering
+  \framebox{\vbox to 4cm{\vfil\hbox to
+      7cm{\hfil\tiny.\hfil}\vfil}}
+  \caption{Wizualizacja drzewa genów}
+\end{figure}
 
 
 
