@@ -5,11 +5,14 @@ echo -e 'run -h -s [file]
 	-h help
 	-s species
 	-g gene
+	-l disable letter transformation
 ' 
 exit
 }
 
-while getopts "hs:g:" opt; do
+letter=true
+
+while getopts "hs:g:l" opt; do
   case $opt in
     h)
       usage 
@@ -19,7 +22,10 @@ while getopts "hs:g:" opt; do
       ;;
     g)
       gene=$OPTARG
-      ;;	
+      ;;
+    l)
+      letter=false
+      ;;
     \?) 
       usage	
       ;;
@@ -42,13 +48,20 @@ rm -rf test_scenario && mkdir test_scenario
 mkdir test_scenario/FHS
 mkdir test_scenario/PG
 
-echo "Creating one letter codes..."
-rename_command=`python3 crate_one_letter.py $spec`
-spec_comand="$rename_command $spec"
-gene_comand="$rename_command $gene"
-eval $spec_comand| tr -d ' '>test_scenario/spec.txt
-eval $gene_comand| tr -d ' '>test_scenario/gene.txt
 
+if $letter;
+then
+    echo "Creating one letter codes..."
+    rename_command=`python3 crate_one_letter.py $spec`
+    spec_comand="$rename_command $spec"
+    gene_comand="$rename_command $gene"
+    eval $spec_comand| tr -d ' '>test_scenario/spec.txt
+    eval $gene_comand| tr -d ' '>test_scenario/gene.txt
+else
+    echo "Coping files..."
+    cp $spec test_scenario/spec.txt
+    cp $gene test_scenario/gene.txt
+fi
 
 spec=`cat test_scenario/spec.txt`
 echo $spec
