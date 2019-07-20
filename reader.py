@@ -141,7 +141,6 @@ class AllScenarios:
             return max_tree, sum(max_tree)
 
         if select_type == "random":
-            print("XD")
 
             index_list = [x for x in range(len(max_tree)) if x != 0]
 
@@ -266,6 +265,9 @@ def test():
     # print("Done in {} .".format(time.time() - start_time))
 
 
+def full_test():
+    files = sys.argv[1:]
+    a = AllScenarios(files)
+    print("MEscore {}".format(a.decrease_vector("random")[1]))
 
-
-test()
+full_test()
