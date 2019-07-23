@@ -186,10 +186,37 @@ Wybór współrzędnej może, zależnie od potrzeby, może być dokonywany w inn
 \end{itemize}
 
 \section{Testy algorytmu na danych rzeczywistych}
+Zbiorem danych dla testu na danych rzeczywistych był zbiór Guigo zawierający 53 ukorzenione drzewa genów pochodzące od 16 eukariontów. Do porówniania wyników użyty został program napisany przez dra Jarosława Paszka. Program ten kożystając z dostępnych metod algorytmicznych wylicza dokładne i najniższe możliwe wartości kosztu ewolucyjnego dla podanych modeli.
+
+
+
 \section{Testy algorytmu na danych symulowanych}
+
+
 \chapter{Dokumentacja użytkowa i~opis implementacji}\label{r:impl}
 
-Opis działania programu.
+Opisana wyżej heurystyka zaimplementowana została w języku Python w wesji 3.7.4 z użyciem paradygmatu obiektowego, gdzie zbiór wszystkich scenariuszy dla wszystkich drzew, pojednczy diagram redukcyjny otrzymany z jednego drzewa genów, a także pojedynczy scenariusz stanowią oddzielne klasy. Program pythonowy przyjmuje na wejściu listę plików w których zawarte są wyliczone scenariusze dla danego drzewa genów.
+
+Pliki przekazane do programu muszą być w określonym formacie gdzie w każdej linii dla każdego drzewa muszą znajdować się podane niżej pola w określonym porządku:
+\begin{itemize}
+\item id drzewa,
+\item wysokość drzewa na diagramie redukcyjnym,
+\item drzewo zawierające liczbę duplikacji dla danej pozycji w drzewie w porządku prefixowym,
+\item id drzew, 
+\item typ zmiany w kolejności drzew.
+\end{itemize}
+
+\begin{figure}[tp]
+  \centering
+  \framebox{\vbox to 4cm{\vfil\hbox to
+      7cm{\hfil\tiny.\hfil}\vfil}}
+  \caption{Przykład pliku wejściowego}
+\end{figure}
+
+
+
+
+Algorytm ten, dla wygody użycia, został opakowany w skrypt napisany w języku bash, który pozwala na wyliczenie scenariuszy w modelu FHS i PG z wykorzystaniem programu DLSgen autorstwa dra hab. Pawła Góreckiego, który dla danego drzewa genów i drzewa gatunków wylicza niezbędne dane w podanym powyżej formacie.
 
 \chapter{Podsumowanie}
 

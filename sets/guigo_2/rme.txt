@@ -52,5 +52,5 @@
 (((amph,aves),mamm),oste)
 (((amph,mamm),chon),arth)
 ((((chlo,embr),(acoe,mamm)),prot),fung)
-#species tree
-(prot,(fung,((chlo,embr),(arth,((acoe,anne),(echi,(chon,(oste,(amph,(moll,((mamm,(aves,rept)),agna)))))))))))
+#species tree from [2] (Guigo)
+(fung,(prot,((chlo,embr),((acoe,(arth,(anne,moll))),(echi,((agna,(chon,oste)),(amph,(mamm,(aves,rept)))))))))

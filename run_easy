@@ -1,3 +1,20 @@
 #!/usr/bin/env bash
 
-./run -s sets/guigo/s1.txt  -g sets/guigo/g.txt
+
+echo "--------------------------------GUIGO_1----------------------------------------"
+echo "---------------HEU-----------------"
+./run -s sets/guigo/s.txt  -g sets/guigo/g.txt
+echo "---------------RME-----------------"
+echo "-FHS-"
+python2 rme/rme.py -F sets/guigo/rme.txt
+echo "-PG-"
+python2 rme/rme.py -P sets/guigo/rme.txt
+
+echo "--------------------------------GUIGO_2----------------------------------------"
+echo "---------------HEU-----------------"
+./run -s sets/guigo_2/s.txt  -g sets/guigo_2/g.txt
+echo "---------------RME-----------------"
+echo "-FHS-"
+python2 rme/rme.py -F sets/guigo_2/rme.txt
+echo "-PG-"
+python2 rme/rme.py -P sets/guigo_2/rme.txt
