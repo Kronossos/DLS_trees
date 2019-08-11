@@ -16,6 +16,9 @@
 % dodaj opcję [en] dla wersji angielskiej (mogą być obie: [licencjacka,en])
 \documentclass[licencjacka]{pracamgr}
 \usepackage[polish]{babel}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 
 % Dane magistranta:
 \autor{Aleksander Mućk}{382184}
@@ -104,54 +107,100 @@ Uzgadnianie drzew filogenetycznych jest, przez rozmiar danych i coraz bardziej s
 \\
 Praca składa się z~czterech rozdziałów i~dodatków.
 W~rozdziale \ref{r:pojecia} przedstawiono podstawowe pojęcia dotyczące drzew genów, drzew gatunków oraz modeli i scenariuszy ewolucyjnych.  
-Rozdział~\ref{r:heurystyka} przedstawia propozycję heurystyki wraz~z jej testami na rzeczywistych danych.  W~rozdziale \ref{r:impl} opisano implementację i sposób użycia programu napisanego na podstawie przybliżonej we wcześniejszym rozdziale heurystyki.
+Rozdział~\ref{r:heurystyka} przedstawia propozycję heurystyki wraz~z jej testami na rzeczywistych danych.  W~rozdziale tym opisano również implementację i sposób użycia programu napisanego na podstawie przybliżonej we wcześniejszej sekcji heurystyki.
 Ostatni rozdział zawiera przemyślenia dotyczące możliwego użycia algorytmu i perspektyw jego rozwoju. W~dodatkach umieszczono fragmenty kodu, przykładowe dane wejściowe i~wyniki działania algorytmu.
 
 \chapter{Podstawowe pojęcia}\label{r:pojecia}
 
-W tym rozdziale poruszane są pojęcia i definicje niezbędne do zrozumienia problemistyki klastrowania duplikacji genomowych. 
+W tym rozdziale poruszane są pojęcia i definicje niezbędne do zrozumienia problematyki klastrowania duplikacji genomowych. 
 \section{Wstęp biologiczny}
+
+Ewolucja biologiczna jest procesem zmian w trakcie których organizmy stopniowo nabywają lub tracą pewne cechy. Jest to element kluczowy dla powstawania nowych gatunków: specjacji. Śledzenie w jaki sposób kształtowały się nowe gatunki i w jaki sposób zachodziły na Ziemi procesy ewolucyjne jest zadaniem niezwykle złożonym i wymagającym specyficznego podejścia. Jednym z możliwych sposobów przedstawienia historii ewolucyjnej gatunków jest drzewo filogenetyczne, które przedstawiają zależności ewolucyjne pomiędzy umieszczonymi na nim gatunkach lub genach. 
+
+Początkowo za wyznacznik pokrewieństwa gatunków służyło podobieństwo morfologiczne, jednak obecnie często stosuje się metody polegające na badaniu podobieństwa danych rodzin genów. Można założyć, że im większe podobieństwo genomu danych organizmów tym bliżej są one spokrewnione. Z punktu widzenia tej pracy genom jest niczym więcej jak zbiorem genów obecnym w danym organizmie. 
 
 
 \section{Drzewa genów i gatunków}
 
+W pracy tej T niech będzie ukorzenionym, binarnym drzewem o zbiorze krawędzi $E_T$~i zbiorze węzłów~$V_T$: 
+\begin{center}
+T = <$V_T$ , $E_T$>.
+\end{center}
+%($v_1$ , $v_2$) takie, że $V_T$ \ni $v_x$ , $v_y$ .
+$E_T$ zawiera pary węzłów ($v_x$ , $v_y$) takie, że $V_T$ $\ni$ $v_x$,$v_y$. Węzły z których nie wychodzą żadne krawędzie nazywane są liśćmi, a korzeń jest węzłem do którego nie prowadzą żadne krawędzie (nieposiadającym rodzica). Węzeł $v_x$ jest przodkiem węzła $v_y$ jeśli istnieje ścieżka skierowana z węzła $v_x$ do węzła $v_y$. Liczba krawędzi w ścieżce od węzła $v_x$ do węzła $v_y$ jest nazywana długością. Poddrzewem węzła $v_x$ jest drzewo oznaczone T($v_x$) w którym węzeł $v_x$ jest korzeniem.
 
-Opis drzewa pojawiający się w danych przez Pana pracach.
 
-
-
-Związki między genami przedstawia się za pomocą ukorzenionego, binarnego drzewa, nazywanego drzewem genów, którego liśćmi są geny opisane przynależnością do danego gatunku.
-\begin{defi}\label{Drzewa genów}
-  Definicja matematyczna.
-\end{defi}
-
-Związki między gatunkami przedstawia się za pomocą ukorzenionego, binarnego drzewa, nazywanego drzewem gatunków, którego węzły wewnętrzne są specjacjami, a liście to gatunki.
 \begin{defi}\label{Drzewa gatunków}
-  Definicja matematyczna.
+  Związki między gatunkami przedstawia się za pomocą drzewa~T, zwanego drzewem gatunków~S. W drzewie~S każdy z liści reprezentuje inny gatunek~Sp, a węzły wewnętrzne są specjacjami.
 \end{defi}
 
-\section{Uzgodnienie drzewa}
-Podstawowy opis idei.
+\begin{defi}\label{Drzewa genów}
+  Związki między genami w danej rodzinie przedstawia się za pomocą drzewa~T, zwanego drzewem genów~G. W drzewie~G każdy z liści reprezentuje przynależność danego genu do gatunku~Sp.
+\end{defi}
+
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=50mm]{./pictures/gene.png}
+  \caption{Przykładowe drzewo genów G}
+  \label{fig:sub2}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=50mm]{./pictures/species.png}
+  \caption{Przykładowe drzewo gatunków S}
+  \label{fig:sub1}
+\end{subfigure}%
+\caption{Przykładowe drzewa T \cite{gsevol}}
+\label{fig:test}
+\end{figure}
+
+\section{Uzgodnienie drzew}
+Bardzo częste różnice struktury drzewa genów w stosunku do historii ewolucyjnej opisanej drzewem gatunków wymagają mapowania węzłów drzewa G na węzły znajdujące się w drzewie S. Jest to krok niezbędny by zrozumieć w jaki sposób ewolucja gatunków wpływała na strukturę ich genomów. 
+
+\subsection{Mapowanie LCA}
+Podstawowym algorytmem dla tego typu uzgodnień jest \textbf{algorytm LCA} (ang. \textit{Lowest Common Ancestor}; pl. \textit{Najniższy Wspólny Przodek}). Najniższym przodkiem węzłów $v_x$ i $v_y$ jest taki węzeł $v_{anc}$, który jest przodkiem obu węzłów i którego długość od korzenia drzewa jest największa.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=80mm]{./pictures/mapping.png}
+  \caption{Uzgodnienie LCA dla przykładowych drzew genów G i gatunków S \cite{gsevol}}
+\end{figure}
+
+\begin{defi}
+Uzgodnienie drzew jest taką funkcją $MAP_{LCA}$: G $\rightarrow$ S gdzie dla każdego węzła $v_g$ z drzewa genów G przyporządkowuje się węzeł $v_s$ z drzewa gatunków S tak, że węzeł $v_s$ jest węzłem $v_{anc}$ i węzły z poddrzewa T($v_g$) są obecne w T($v_s$).
+\end{defi}
+
+
+\subsection{Drzewa DLS}
+
+
+
+\section{Koszt scenariusza ewolucyjnego}
+
 
 \section{Modele scenariuszy ewolucyjnych}
 
 Podstawowy opis idei. Podział ruchów:
+\\[1in]
 
 \begin{defi}\label{TMOVE}
-  TMOVE.
+  TMOVE.\\[1in]
 \end{defi}
 
 \begin{defi}\label{CLOST}
-  CLOST.
+  CLOST.\\[1in]
 \end{defi}
+
+\section{Opis modeli}
 
 Dozwolone modele:
 \begin{enumerate}
-\item PG
-\item FHS;
+\item PG\\[1in]
+\item FHS;\\[1in]
 \end{enumerate}
-
-\section{Opis modeli}
 
 \begin{figure}[tp]
   \centering
@@ -185,23 +234,27 @@ Wybór współrzędnej może, zależnie od potrzeby, może być dokonywany w inn
 \item losowo.
 \end{itemize}
 
-\section{Testy algorytmu na danych rzeczywistych}
-Zbiorem danych dla testu na danych rzeczywistych był zbiór Guigo zawierający 53 ukorzenione drzewa genów pochodzące od 16 eukariontów. Do porówniania wyników użyty został program napisany przez dra Jarosława Paszka. Program ten kożystając z dostępnych metod algorytmicznych wylicza dokładne i najniższe możliwe wartości kosztu ewolucyjnego dla podanych modeli.
 
+\section{Testy algorytmu}
+Do sprawdzenia wyników wyliczanych przez proponowany algorytm użyty został program napisany przez dra Jarosława Paszka. Program ten korzystając z dostępnych metod algorytmicznych wylicza dokładne i najniższe możliwe wartości kosztu ewolucyjnego dla podanych modeli. \cite{rme}
 
+\subsection{Testy algorytmu na danych rzeczywistych}
+Zbiorem danych dla testu na danych rzeczywistych był zbiór Guigo zawierający 53 ukorzenione drzewa genów pochodzące od 16 eukariontów. 
+\\[2in]
 
-\section{Testy algorytmu na danych symulowanych}
+\subsection{Testy algorytmu na danych symulowanych}
+Dane dla testów syntetycznych zostały wygenerowany w sposób losowy jednak wielkość, struktura i ilość drzew genów zostały dopasowane do zbioru Guigo. Zbiory symulowane zawierają syntetyczne drzewo gatunków z 15 etykietami oraz losowo wygenerowane 48 ukorzenione drzewa genów oparte o etykiety obecne w drzewie gatunków.
 
-
-\chapter{Dokumentacja użytkowa i~opis implementacji}\label{r:impl}
-
-Opisana wyżej heurystyka zaimplementowana została w języku Python w wesji 3.7.4 z użyciem paradygmatu obiektowego, gdzie zbiór wszystkich scenariuszy dla wszystkich drzew, pojednczy diagram redukcyjny otrzymany z jednego drzewa genów, a także pojedynczy scenariusz stanowią oddzielne klasy. Program pythonowy przyjmuje na wejściu listę plików w których zawarte są wyliczone scenariusze dla danego drzewa genów.
+\\[2in]
+\section{Dokumentacja użytkowa i~opis implementacji}\label{r:impl}
+Opisana wyżej heurystyka zaimplementowana została w języku Python w wersji 3.7.4 z użyciem paradygmatu obiektowego, gdzie zbiór wszystkich scenariuszy dla wszystkich drzew, pojedynczy diagram redukcyjny otrzymany z jednego drzewa genów, a także pojedynczy scenariusz stanowią oddzielne klasy. Program pythonowy przyjmuje na wejściu listę plików w których zawarte są wyliczone scenariusze dla danego drzewa genów.
+\\[1in]
 
 Pliki przekazane do programu muszą być w określonym formacie gdzie w każdej linii dla każdego drzewa muszą znajdować się podane niżej pola w określonym porządku:
 \begin{itemize}
 \item id drzewa,
 \item wysokość drzewa na diagramie redukcyjnym,
-\item drzewo zawierające liczbę duplikacji dla danej pozycji w drzewie w porządku prefixowym,
+\item drzewo zawierające liczbę duplikacji dla danej pozycji w drzewie w porządku prefiksowym,
 \item id drzew, 
 \item typ zmiany w kolejności drzew.
 \end{itemize}
@@ -214,14 +267,12 @@ Pliki przekazane do programu muszą być w określonym formacie gdzie w każdej 
 \end{figure}
 
 
-
-
-Algorytm ten, dla wygody użycia, został opakowany w skrypt napisany w języku bash, który pozwala na wyliczenie scenariuszy w modelu FHS i PG z wykorzystaniem programu DLSgen autorstwa dra hab. Pawła Góreckiego, który dla danego drzewa genów i drzewa gatunków wylicza niezbędne dane w podanym powyżej formacie.
+Algorytm ten, dla wygody użycia, został obudowany skryptem napisanym w języku bash, który pozwala na wyliczenie scenariuszy w modelu FHS i PG z wykorzystaniem programu DLSgen autorstwa dra hab. Pawła Góreckiego. Program ten wylicza dla danego drzewa genów i drzewa gatunków niezbędne dane w podanym powyżej formacie.
 
 \chapter{Podsumowanie}
 
-W~pracy przedstawiono pierwszy i dosyć intuicyjny pomysł na ocenę scenariuszy ewolucyjnych pod kątem ilości duplikacji. Należy jednak wspomnieć, że bazując samą idę da się znacząco usprawnić i zejść ze złożonością nawet do liniowej oceny, bez poprzedzającego kroku, w którym wyliczane są wszystkie scenariusze.  
-
+W~pracy przedstawiono pierwszy i dosyć intuicyjny pomysł na ocenę scenariuszy ewolucyjnych pod kątem ilości duplikacji. Należy jednak wspomnieć, że bazując samą idę da się znacząco usprawnić i zejść ze złożonością nawet do liniowej oceny, bez poprzedzającego kroku, w którym wyliczane są wszystkie scenariusze. Testy pokazują również, że opisany algorytm zwraca wyniki, które różnią się w bardzo niewielkim stopniu (o ile w ogóle) od rzeczywistego minimalnego kosztu ewolucji. 
+\\[1in]
 
 \section{Perspektywy rozwoju}
 
@@ -230,13 +281,16 @@ Trudno przewidzieć wszystkie możliwości rozwoju, ale te bardziej
 oczywiste można wskazać już teraz.  Są to:
 \begin{itemize}
 \item opisy naszych algorytmów optymalizacyjnych,
+\\[1in]
 \item opisy naszych algorytmów optymalizacyjnych,
+\\[1in]
 \item opisy naszych algorytmów optymalizacyjnych,
+\\[1in]
 \end{itemize}
 
 \section{Perspektywy wykorzystania}
 
-DOPYTAĆ
+DOPYTAĆ\\[2in]
 
 \appendix
 
@@ -344,8 +398,7 @@ Done in 0.007452487945556641 .
 \addcontentsline{toc}{chapter}{Bibliografia}
 
 
-\bibitem[Zen69]{heu} Zenon Zenon, \textit{Użyteczne heurystyki
-    w~analizie}, Młody Technik, nr~11, 1969.
+\bibitem[1]{gsevol} Obraz wygenerowany za pomocą serwisu http://gsevol.azor.mimuw.edu.pl 
 
 \end{thebibliography}
 

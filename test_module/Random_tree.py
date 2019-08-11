@@ -66,36 +66,6 @@ def create_random_set(species_tree_size=15,data_size={3:25,4:8,5:6,6:4,8:3,9:2})
     return data_file
 
 
-# gen=generate_tree(4,True,0.95)
-
-gen=generate_tree([x for x in range(8)],False)
-
-spec=generate_tree([x for x in range(8)],False)
-
-
-# print(gen)
-# print(tree_to_text(gen))
-# print(spec)
-
-
 print(create_random_set())
-
-
-
-
-count=0
-for x in gen:
-    if not x.is_leaf():
-        x.set_label("G_"+str(count))
-        count += 1
-
-count=0
-for x in spec:
-    if not x.is_leaf():
-        x.set_label("S_"+str(count))
-        count += 1
-# print("\n")
-# print(gen)
-# print(spec)
 
 

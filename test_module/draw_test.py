@@ -40,14 +40,14 @@ print(PG_score)
 PG_score.plot(kind='bar',title="Model PG")
 plt.xlabel('Różnica')
 plt.ylabel('Ilość prób')
-plt.savefig('PG.png', dpi=300, format='png', bbox_inches='tight')
+plt.savefig('PG.png', dpi=600, format='png', bbox_inches='tight')
 
 
 plt.close('all')
 FHS_score = heu_FHS['MEscore'] - rme_FHS['MEscore']
 FHS_score=FHS_score.value_counts()
 print(FHS_score)
-FHS_score.plot(kind='bar',title="Model PG")
+FHS_score.plot(kind='bar',title="Model FHS")
 plt.xlabel('Różnica')
 plt.ylabel('Ilość prób')
-plt.savefig('FHS.png', dpi=300, format='png', bbox_inches='tight')
+plt.savefig('FHS.png', dpi=600, format='png', bbox_inches='tight')
