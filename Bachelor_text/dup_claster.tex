@@ -18,6 +18,7 @@
 \usepackage[polish]{babel}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{float}
 \usepackage{subcaption}
 
 % Dane magistranta:
@@ -139,7 +140,7 @@ $E_T$ zawiera pary węzłów ($v_x$ , $v_y$) takie, że $V_T$ $\ni$ $v_x$,$v_y$.
 \end{defi}
 
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -163,10 +164,10 @@ Bardzo częste różnice struktury drzewa genów w stosunku do historii ewolucyj
 \subsection{Mapowanie LCA}
 Podstawowym algorytmem dla tego typu uzgodnień jest \textbf{algorytm LCA} (ang. \textit{Lowest Common Ancestor}; pl. \textit{Najniższy Wspólny Przodek}). Najniższym przodkiem węzłów $v_x$ i $v_y$ jest taki węzeł $v_{anc}$, który jest przodkiem obu węzłów i którego długość od korzenia drzewa jest największa.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=80mm]{./pictures/mapping.png}
-  \caption{Uzgodnienie LCA dla przykładowych drzew genów G i gatunków S \cite{gsevol}}
+  \caption{Uzgodnienie LCA dla przykładowych drzew genów G i gatunków S}
 \end{figure}
 
 \begin{defi}
@@ -176,7 +177,11 @@ Uzgodnienie drzew jest taką funkcją $MAP_{LCA}$: G $\rightarrow$ S gdzie dla k
 
 \subsection{Drzewa DLS}
 
-
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=80mm]{./pictures/optscen.png}
+  \caption{Wbudowanie}
+\end{figure}
 
 \section{Koszt scenariusza ewolucyjnego}
 
@@ -184,28 +189,26 @@ Uzgodnienie drzew jest taką funkcją $MAP_{LCA}$: G $\rightarrow$ S gdzie dla k
 \section{Modele scenariuszy ewolucyjnych}
 
 Podstawowy opis idei. Podział ruchów:
-\\[1in]
 
 \begin{defi}\label{TMOVE}
-  TMOVE.\\[1in]
+  TMOVE.
 \end{defi}
 
 \begin{defi}\label{CLOST}
-  CLOST.\\[1in]
+  CLOST.
 \end{defi}
 
 \section{Opis modeli}
 
 Dozwolone modele:
 \begin{enumerate}
-\item PG\\[1in]
-\item FHS;\\[1in]
+\item PG
+\item FHS
 \end{enumerate}
 
-\begin{figure}[tp]
+\begin{figure}[H]
   \centering
-  \framebox{\vbox to 4cm{\vfil\hbox to
-      7cm{\hfil\tiny.\hfil}\vfil}}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{./pictures/diagram.png}
   \caption{Obrazek scenariusza}
 \end{figure}
 
@@ -234,63 +237,127 @@ Wybór współrzędnej może, zależnie od potrzeby, może być dokonywany w inn
 \item losowo.
 \end{itemize}
 
+\section{Dokumentacja użytkowa i~opis implementacji}\label{r:impl}
+Opisana heurystyka zaimplementowana została w języku Python w wersji 3.7.4 przy użyciu paradygmatu obiektowego, gdzie zbiór wszystkich scenariuszy dla wszystkich drzew, pojedynczy diagram redukcyjny otrzymany z jednego drzewa genów, a także pojedynczy scenariusz stanowią oddzielne klasy. Program pythonowy przyjmuje na wejściu listę plików w których zawarte są wyliczone scenariusze dla danego drzewa genów.
+
+Algorytm ten, dla wygody użycia, został obudowany skryptem napisanym w języku bash, który pozwala na wyliczenie scenariuszy w modelu FHS i PG z wykorzystaniem programu DLSgen autorstwa dra hab. Pawła Góreckiego.\cite{dlsgen} Program ten wylicza dla danego drzewa genów i drzewa gatunków scenariusze ewolucyjne, które wykorzystywane są jako dane wejściowe dla proponowanej heurystyki.
+
 
 \section{Testy algorytmu}
-Do sprawdzenia wyników wyliczanych przez proponowany algorytm użyty został program napisany przez dra Jarosława Paszka. Program ten korzystając z dostępnych metod algorytmicznych wylicza dokładne i najniższe możliwe wartości kosztu ewolucyjnego dla podanych modeli. \cite{rme}
+Do sprawdzenia wyników wyliczanych przez proponowany algorytm użyty został program RME napisany przez dra Jarosława Paszka. Program ten korzystając z dostępnych metod algorytmicznych wylicza dokładne i najniższe możliwe wartości kosztu ewolucyjnego dla podanych modeli. \cite{rme}
+\\
+Z powodu trudności w obliczeniu danych wejściowych dla heurystyki obecnie nie ma możliwości dla przetestowania algorytmów dla dużych zbiorów danych.
+\\
+Ze względu na czytelność wykresów w dalszej części pracy we wszystkich testach uwzględniony został tylko losowy wybór współrzędnej. W trakcie testów okazało się również, że taki wybór prowadzi zawsze do najlepszych wyników. 
+
 
 \subsection{Testy algorytmu na danych rzeczywistych}
-Zbiorem danych dla testu na danych rzeczywistych był zbiór Guigo zawierający 53 ukorzenione drzewa genów pochodzące od 16 eukariontów. 
-\\[2in]
+Zbiorem danych dla testu na danych rzeczywistych był zbiór Guigo zawierający 53 ukorzenione drzewa genów pochodzące od 16 eukariontów. Zbiór ten zawiera dwa drzewa gatunków $S_1$ i $S_2$. \cite{guigo}
 
-\subsection{Testy algorytmu na danych symulowanych}
-Dane dla testów syntetycznych zostały wygenerowany w sposób losowy jednak wielkość, struktura i ilość drzew genów zostały dopasowane do zbioru Guigo. Zbiory symulowane zawierają syntetyczne drzewo gatunków z 15 etykietami oraz losowo wygenerowane 48 ukorzenione drzewa genów oparte o etykiety obecne w drzewie gatunków.
-
-\\[2in]
-\section{Dokumentacja użytkowa i~opis implementacji}\label{r:impl}
-Opisana wyżej heurystyka zaimplementowana została w języku Python w wersji 3.7.4 z użyciem paradygmatu obiektowego, gdzie zbiór wszystkich scenariuszy dla wszystkich drzew, pojedynczy diagram redukcyjny otrzymany z jednego drzewa genów, a także pojedynczy scenariusz stanowią oddzielne klasy. Program pythonowy przyjmuje na wejściu listę plików w których zawarte są wyliczone scenariusze dla danego drzewa genów.
-\\[1in]
-
-Pliki przekazane do programu muszą być w określonym formacie gdzie w każdej linii dla każdego drzewa muszą znajdować się podane niżej pola w określonym porządku:
-\begin{itemize}
-\item id drzewa,
-\item wysokość drzewa na diagramie redukcyjnym,
-\item drzewo zawierające liczbę duplikacji dla danej pozycji w drzewie w porządku prefiksowym,
-\item id drzew, 
-\item typ zmiany w kolejności drzew.
-\end{itemize}
-
-\begin{figure}[tp]
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
   \centering
-  \framebox{\vbox to 4cm{\vfil\hbox to
-      7cm{\hfil\tiny.\hfil}\vfil}}
-  \caption{Przykład pliku wejściowego}
+  \includegraphics[width=50mm]{./pictures/guigo_spec_1.png}
+  \caption{Drzewo $S_1$}
+  \label{fig:sub2}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=50mm]{./pictures/guigo_spec_2.png}
+  \caption{Drzewo $S_2$}
+  \label{fig:sub1}
+\end{subfigure}%
+\caption{Drzewa gatunków ze zbioru Guigo}
+\label{fig:test}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=50mm]{./pictures/G1_PG.png}
+  \caption{Test algorytmu dla modelu PG}
+  \label{fig:sub2}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=50mm]{./pictures/G1_FHS.png}
+  \caption{Test algorytmu dla modelu FHS}
+  \label{fig:sub1}
+\end{subfigure}%
+\caption{Testy algorytmu na danych rzeczywistych dla drzewa gatunków $S_1$}
+\label{fig:test}
 \end{figure}
 
 
-Algorytm ten, dla wygody użycia, został obudowany skryptem napisanym w języku bash, który pozwala na wyliczenie scenariuszy w modelu FHS i PG z wykorzystaniem programu DLSgen autorstwa dra hab. Pawła Góreckiego. Program ten wylicza dla danego drzewa genów i drzewa gatunków niezbędne dane w podanym powyżej formacie.
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=50mm]{./pictures/G2_PG.png}
+  \caption{Test algorytmu dla modelu PG}
+  \label{fig:sub2}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=50mm]{./pictures/G2_FHS.png}
+  \caption{Test algorytmu dla modelu FHS}
+  \label{fig:sub1}
+\end{subfigure}%
+\caption{Testy algorytmu na danych rzeczywistych dla drzewa gatunków $S_2$}
+\label{fig:test}
+\end{figure}
+
+Dla wszystkich przypadków algorytm przy losowym wyborze współrzędnych jest w stanie osiągnąć wyniki identyczne jak te wyliczone przez program RME. 
+
+\subsection{Testy algorytmu na danych symulowanych}
+Dane dla testów syntetycznych zostały wygenerowany w sposób losowy jednak wielkość, struktura i ilość drzew genów zostały dopasowane do zbioru Guigo. Zbiory symulowane zawierają syntetyczne drzewo gatunków z 15 etykietami oraz losowo wygenerowane 48 ukorzenione drzewa genów oparte o etykiety obecne w drzewie gatunków. Przykładowe drzewa gatunków (w formie graficznej) i genów (w formie tekstowej) można znaleźć w dodatkach do pracy. Test został przeprowadzony dla 1000 losowych zestawów.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=50mm]{./pictures/PG.png}
+  \caption{Test algorytmu dla modelu PG}
+  \label{fig:sub2}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=50mm]{./pictures/FHS.png}
+  \caption{Test algorytmu dla modelu FHS}
+  \label{fig:sub1}
+\end{subfigure}%
+\caption{Testy algorytmu na danych symulowanych. Przez różnicę rozumiany jest wynik odjęcia od wyliczeń otrzymanych przez program RME wyliczeń otrzymanych dzięki proponowanemu algorytmowi. }
+\label{fig:test}
+\end{figure}
+
+W obu przypadkach wyniki obliczeń heurystyki nie odbiegają znacząco od dokładnych wartości kosztu ewolucyjnego otrzymanych przez program RME. Za pomocą wykresu nie da się nawet dokładnie określić dla ilu zbiorów heurystyka nie wyliczyła prawdziwego, minimalnego kosztu.\\
+Dla modelu PG tylko 4 zbiory z 1000 nie dały tego samego wyniku, a dla modelu FHS było to 17 zbiorów z 1000.
 
 \chapter{Podsumowanie}
 
-W~pracy przedstawiono pierwszy i dosyć intuicyjny pomysł na ocenę scenariuszy ewolucyjnych pod kątem ilości duplikacji. Należy jednak wspomnieć, że bazując samą idę da się znacząco usprawnić i zejść ze złożonością nawet do liniowej oceny, bez poprzedzającego kroku, w którym wyliczane są wszystkie scenariusze. Testy pokazują również, że opisany algorytm zwraca wyniki, które różnią się w bardzo niewielkim stopniu (o ile w ogóle) od rzeczywistego minimalnego kosztu ewolucji. 
-\\[1in]
+W~pracy przedstawiono pierwszy i dosyć intuicyjny pomysł na ocenę scenariuszy ewolucyjnych pod kątem ilości duplikacji. Należy jednak wspomnieć, że samą ideę da się znacząco usprawnić i obniżyć złożoność obliczeniową nawet do poziomu liniowego. 
+\\
+Obecnie to właśnie krok w którym konieczne jest wyliczenie scenariuszy dla drzew genów jest krokiem najbardziej wymagającym czasowo i obliczeniowo.  W związku z tym trudno mówić o czasie potrzebnym algorytmowi na własne obliczenia. Nie udało się zaobserwować, by algorytm kiedykolwiek potrzebował więcej niż jedną sekundę na wczytanie danych i więcej niż 0.3 sekundy na obliczenie drzewa o najmniejszym koszcie ewolucyjnym. Ponadto obecne wymaganie dotyczące danych wejściowych uniemożliwia  przetestowanie algorytmu na danych bardziej złożonych niż zbiór Guigo. 
+\\
+Testy pokazują również, że opisany algorytm zwraca wyniki, które różnią się w bardzo niewielkim stopniu (o ile w ogóle) od rzeczywistego minimalnego kosztu ewolucyjnego, gdyż maksymalnie tylko dla 2,8\% danych algorytm nie uzyskał najniższego możliwego wyniku. Maksymalna różnica jaką udało się zaobserwować wynosiła 1, co również nie jest dużą wartością. Może to jednak wynikać z dosyć niskiego kosztu ewolucyjnego danych zbiorów, który wynosił maksymalnie 9 (średni koszt ewolucyjny to 6,1) dla modelu PG i 7 (średni koszt ewolucyjny to 4,5) dla modelu FHS. Widać jednak, że proponowany algorytm wymaga kolejnych, bardziej rozbudowanych testów.
+
 
 \section{Perspektywy rozwoju}
 
-
-Trudno przewidzieć wszystkie możliwości rozwoju, ale te bardziej
+Trudno przewidzieć wszystkie możliwości rozwoju algorytmu, ale te bardziej
 oczywiste można wskazać już teraz.  Są to:
 \begin{itemize}
-\item opisy naszych algorytmów optymalizacyjnych,
-\\[1in]
-\item opisy naszych algorytmów optymalizacyjnych,
-\\[1in]
-\item opisy naszych algorytmów optymalizacyjnych,
-\\[1in]
+\item Uniezależnienie algorytmu od kroku w którym wyliczane są scenariusze i klastrowanie duplikacji bezpośrednio na podstawie drzew genów.
+\item Uliniowienie algorytmu.
 \end{itemize}
+
+Szczególnie punkt pierwszy proponowanych usprawnień jest kluczowy dla dalszego rozwoju heurystyki, ponieważ pozwoli on na używanie i dotestowanie go na danych dużo bardziej skomplikowanych i bardziej przystających do obecnych problemów niż zbiór Guigo.
 
 \section{Perspektywy wykorzystania}
 
-DOPYTAĆ\\[2in]
+Podstawową zaletą przedstawionej heurystyki jest jej elastyczność. Ocena scenariuszy nie zależy od obranego modelu, a obecnie wydaje się, że same obliczenia nie są obarczone dużym błędem. Kolejną niewątpliwą zaletą jest fakt, że w istocie również struktura drzewa nie ma dla algorytmu dużego znaczenia. Obecnie powoli odchodzi się od drzewa binarnego jako metody przedstawienia historii ewolucji i algorytm jest na taką zmianę gotowy. Z punktu widzenia algorytmu drzewa są tablicą zawierającą ilość klastrów duplikacyjnych dla danego węzła, a które umieszczone są w niej w porządku prefiksowym, co zapewnia możliwość wykorzystania algorytmu nie tylko dla drzew binarnych. Algorytm funkcjonuje obecnie jednak w dosyć prymitywnej formie i wymaga wzmożonej i dokładnej pracy, ale sam algorytm rokuje niezwykle pozytywnie.  
 
 \appendix
 
@@ -330,75 +397,85 @@ DOPYTAĆ\\[2in]
             return max_tree, sum(max_tree)
 \end{verbatim}
 
-\chapter{Przykładowe drzewo gatunków}
+\chapter{Przykładowe drzewa gatunków dla danych syntetycznych}
 
-\begin{center}
-(prot,(fung,((chlo,embr),(arth,((acoe,anne),(echi,(chon,(oste,(amph,(moll,((mamm,(aves,rept)),agna)))))))))))
-\end{center}
 
-\begin{figure}[tp]
+
+\begin{figure}[H]
   \centering
-  \framebox{\vbox to 4cm{\vfil\hbox to
-      7cm{\hfil\tiny.\hfil}\vfil}}
-  \caption{Wizualizacja drzewa gatunków}
+  \includegraphics[width=80mm]{./pictures/syn_spec_1.png}
+  \caption{Drzewo gatunków $S_1$}
 \end{figure}
 
-\chapter{Przykładowe drzewa genów}
-
-{\obeylines %
-(((amph,aves),mamm),chon)
-((((acoe,mamm),chlo),fung),prot)
-(((((echi,arth),mamm),embr),fung),prot)
-}
-
-\begin{figure}[tp]
+\begin{figure}[H]
   \centering
-  \framebox{\vbox to 4cm{\vfil\hbox to
-      7cm{\hfil\tiny.\hfil}\vfil}}
-  \caption{Wizualizacja drzewa genów}
+  \includegraphics[width=80mm]{./pictures/syn_spec_2.png}
+  \caption{Drzewo gatunków $S_2$}
 \end{figure}
 
 
-
-\chapter{Przykładowy wynik działania programu
-    (dla zbioru guigo)}
-
-{\obeylines %
-------------------FHS---------------------------
-Data loaded. 0.0% of the data was corrupted: 0 of 53.
-total random
-([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4], 18)
-Done in 2.3286948204040527 .
-start
-([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5], 5)
-Done in 0.0676581859588623 .
-end
-([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 3], 4)
-Done in 0.24111151695251465 .
-index random
-([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3], 5)
-Done in 0.0971217155456543 .
-------------------PG----------------------------
-Data loaded. 0.0% of the data was corrupted: 0 of 53.
-total random
-([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 3], 8)
-Done in 0.18230891227722168 .
-start
-([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 3], 6)
-Done in 0.006891012191772461 .
-end
-([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 3], 6)
-Done in 0.006652355194091797 .
-index random
-([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 3], 6)
-Done in 0.007452487945556641 .
-}
+\chapter{Przykładowe drzewa genów dla danych syntetycznych}
+\begin{obeylines}
+Format tekstowy:
+((b,l),h)
+((a,k),b)
+((i,k),a)
+((l,b),o)
+(h,(j,o))
+(b,(i,c))
+(b,(m,j))
+((m,a),b)
+((g,m),f)
+((a,l),k)
+(o,(j,h))
+((k,d),i)
+(e,(c,o))
+(f,(a,h))
+(j,(k,d))
+((k,e),c)
+(j,(e,b))
+((i,n),l)
+(f,(b,h))
+(c,(k,g))
+((l,o),j)
+((a,f),d)
+((f,h),j)
+(h,(d,n))
+((b,j),i)
+((a,e),(g,l))
+((b,c),(n,o))
+(m,((j,h),d))
+((e,(f,g)),a)
+(((m,d),g),a)
+((h,l),(n,b))
+((d,(b,a)),k)
+(((k,n),c),m)
+(((d,c),b),(j,a))
+(c,((l,(g,j)),k))
+(((h,g),(a,e)),l)
+((o,(f,e)),(j,h))
+((g,l),((c,m),n))
+((e,(f,(j,o))),k)
+(f,(a,((n,h),(b,c))))
+((a,(o,h)),((e,i),n))
+((e,d),((a,b),(n,g)))
+(((m,(d,b)),j),(f,e))
+((l,h),(((a,j),((m,g),f)),e))
+((n,(i,e)),(((a,k),f),(l,b)))
+((j,e),(i,((a,(k,(l,d))),n)))
+((((f,k),(b,(o,e))),((g,n),j)),m)
+(h,((b,(m,f)),((c,j),(a,(k,l)))))
+\end{obeylines}
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}
 
+\bibitem[1]{gsevol} Wszystkie obrazy wygenerowane zostały za pomocą serwisu http://gsevol.azor.mimuw.edu.pl 
 
-\bibitem[1]{gsevol} Obraz wygenerowany za pomocą serwisu http://gsevol.azor.mimuw.edu.pl 
+\bibitem[2]{rme} Jarosław Paszek, Paweł Górecki \textit{https://www.mimuw.edu.pl/~jpaszek/rme.html}
+  
+\bibitem[3]{dls} Paweł Górecki, Jerzy Tiuryn \textit{DLS-trees: a model of evolutionary scenarios, Theoretical Computer Science 359 (1-3) 2006, s. 378–399.
+zobacz}
 
 \end{thebibliography}
 
