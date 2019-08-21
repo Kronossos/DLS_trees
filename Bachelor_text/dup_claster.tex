@@ -177,18 +177,42 @@ Uzgodnienie drzew jest taką funkcją $MAP_{LCA}$: G $\rightarrow$ S gdzie dla k
 
 \subsection{Drzewa DLS}
 
+Z wykorzystaniem mapowania węzłów drzewa genów do drzewa gatunków można stworzyć drzewo uzgadniające zwane drzewem DLS (\textit{Duplication-Loss Tree}), które jest reprezentacją pojedynczego scenariusza ewolucyjnego. Scenariusz ewolucyjny jest przedstawieniem ewolucji danej rodziny genów, przy uwzględnieniu ewolucji gatunków, które owe geny zawierają. Drzewa te posiadają dwa rodzaje węzłów. Pierwszy rodzaj węzła opisuje zjawisko duplikacji, czyli powielenia tego samego genu do dwóch kopi (oznaczmy jako DUP), zaś drugi jest wyrażeniem zjawiska specjacji, to jest powstania nowych genów (oznaczmy jako SPEC). W drzewie DLS obecne są również dwa różne rodzaje liści, gdzie jeden z nich jest reprezentacją straty genu (oznaczmy jako LOSS), a drugi opisuje jego obecność \cite{doktorat_paszek}. Przykład tego typu drzewa można znaleźć w pracy \cite{dls} , której pochodzi rysunek 1.3.
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=120mm]{./pictures/DLS.png}
+  \caption{Drzewo DLS: p(G,S), które uzgadnia drzewo genów G i drzewo gatunków S. Węzeł oznaczony kwadratem jest węzłem duplikacyjnym. Gałęzie narysowane linią przerywaną, które prowadzą do liści, które są reprezentacją straty genów.}
+\end{figure}
+
+
+
+
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=80mm]{./pictures/optscen.png}
   \caption{Wbudowanie}
 \end{figure}
 
-\section{Koszt scenariusza ewolucyjnego}
+\subsection{Koszt scenariusza ewolucyjnego}
+
+Scenariusze ewolucyjne porównywane są ze sobą za pomocą ich kosztu ewolucyjnego. W pracy tej liczba ta wyraża liczbę duplikacji potrzebnych do uzgodnienia danego drzewa genów i gatunków, co jest równoznaczne z ilością węzłów duplikacyjnych w drzewie uzgadniającym. Dla przykładu drzew z Rysunku 1.2 koszt ten wynosi 2.
+
+\begin{defi}\label{ME}
+  MEscore = $\sum_{g \in DLS} 1 $ jeśli g jest DUP 
+\end{defi}
+
 
 
 \section{Modele scenariuszy ewolucyjnych}
 
-Podstawowy opis idei. Podział ruchów:
+Drzewo uzgadniające, które opiera się o mapowanie LCA, jest drzewem o możliwie najmniejszym koszcie ewolucyjnym i możliwe najgłębiej położonych węzłach duplikacyjnych. Nie jest to jednak jedyny możliwy scenariusz, których w rzeczywistości jest nieskończenie wiele. Należy jednak pamiętać, że nie powinno się brać pod uwagę przypadków skrajnie nieprawdopodobnych, gdzie gen jest, dla przykładu, wielokrotnie duplikowany i tracony. Po wprowadzeniu tego typu ograniczeń możliwe jest otrzymanie skończonego zbioru możliwych scenariuszy ewolucyjnych, które zwane są semi-normalnymi. 
+
+\subsection{Transformacje scenariuszy ewolucyjnych}
+
+Za podstawę do uzyskania zbioru scenariuszy semi-normalnych dla danego drzewa G może służyć uzyskane dzięki mapowaniu LCA drzewo uzgadniające, które w kolejnych krokach poddawane będzie ściśle określonym transformacjom: 
 
 \begin{defi}\label{TMOVE}
   TMOVE.
@@ -198,18 +222,20 @@ Podstawowy opis idei. Podział ruchów:
   CLOST.
 \end{defi}
 
-\section{Opis modeli}
+Stosując kombinacje podanych ruchów można wyselekcjonować takie scenariusze, które określą oczekiwany zbiór (Patrz rysunek \ref{diagram_red} ).
 
-Dozwolone modele:
+\subsection{Opis modeli}
+
+W pracy tej zajęto się podanymi modelami, które dopuszczają podane warunki:
 \begin{enumerate}
-\item PG
-\item FHS
+\item Model PG \cite{PG}: Model ten dopuszcza tylko takie scenariusze, które zachowują minimalny koszt ewolucyjny. Dozwolony rodzaj transformacji scenariusza to TMOVE.
+\item Model FHS \cite{FHS}: Model ten dopuszcza każde możliwe przekształcenie scenariusza ewolucyjnego. Dozwolone rodzaje transformacji to TMOVE i CLOST.
 \end{enumerate}
 
-\begin{figure}[H]
+\begin{figure}[H]\label{diagram_red}
   \centering
   \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{./pictures/diagram.png}
-  \caption{Obrazek scenariusza}
+  \caption{Diagram redukcyjny obrazujący możliwość uzyskania scenariuszy semi-normalnych. Na dole rysunku znajduje się drzewo uzyskane za pomocą mapowania LCA. Model PG zawierać będzie tylko właśnie to drzewo, podczas gdy dla modelu FHS wszystkie drzewa obecne na diagramie są częścią zboru scenariuszy semi-normalnych.}
 \end{figure}
 
 \chapter{Heurystyka}\label{r:heurystyka}
@@ -474,7 +500,7 @@ Format tekstowy:
 
 \bibitem[2]{rme} Jarosław Paszek, Paweł Górecki \textit{https://www.mimuw.edu.pl/~jpaszek/rme.html}
   
-\bibitem[3]{dls} Paweł Górecki, Jerzy Tiuryn \textit{DLS-trees: a model of evolutionary scenarios, Theoretical Computer Science 359 (1-3) 2006, s. 378–399.
+\bibitem[3]{dls}  \textit{DLS-trees: a model of evolutionary scenarios, Theoretical Computer Science 359 (1-3) 2006, s. 378–399.
 zobacz}
 
 \end{thebibliography}
