@@ -5,11 +5,12 @@
 \contentsline {section}{\numberline {1.2}Drzewa gen\IeC {\'o}w i gatunk\IeC {\'o}w}{7}
 \contentsline {section}{\numberline {1.3}Uzgodnienie drzew}{8}
 \contentsline {subsection}{\numberline {1.3.1}Mapowanie LCA}{8}
-\contentsline {subsection}{\numberline {1.3.2}Drzewa DLS}{9}
-\contentsline {subsection}{\numberline {1.3.3}Koszt scenariusza ewolucyjnego}{9}
+\contentsline {subsection}{\numberline {1.3.2}Scenariusze LCA}{9}
+\contentsline {subsection}{\numberline {1.3.3}Drzewa DLS}{9}
+\contentsline {subsection}{\numberline {1.3.4}Koszt scenariusza ewolucyjnego}{10}
 \contentsline {section}{\numberline {1.4}Modele scenariuszy ewolucyjnych}{10}
 \contentsline {subsection}{\numberline {1.4.1}Transformacje scenariuszy ewolucyjnych}{10}
-\contentsline {subsection}{\numberline {1.4.2}Opis modeli}{10}
+\contentsline {subsection}{\numberline {1.4.2}Opis modeli}{11}
 \contentsline {chapter}{\numberline {2}Heurystyka}{13}
 \contentsline {section}{\numberline {2.1}Opis algorytmu}{13}
 \contentsline {section}{\numberline {2.2}Dokumentacja u\IeC {\.z}ytkowa i~opis implementacji}{13}
