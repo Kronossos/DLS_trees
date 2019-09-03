@@ -20,6 +20,8 @@
 \usepackage{caption}
 \usepackage{float}
 \usepackage{subcaption}
+\usepackage{amsmath}
+
 
 % Dane magistranta:
 \autor{Aleksander Mućk}{382184}
@@ -127,20 +129,20 @@ Początkowo za wyznacznik pokrewieństwa gatunków służyło podobieństwo morf
 
 \section{Drzewa genów i gatunków}
 
-W pracy tej T niech będzie ukorzenionym, binarnym drzewem o zbiorze krawędzi $E_T$~i zbiorze węzłów~$V_T$: genomu
+W pracy tej T niech będzie ukorzenionym, binarnym drzewem o zbiorze krawędzi $E_T$~i zbiorze węzłów~$V_T$:
 \begin{center}
 T = <$V_T$ , $E_T$>.
 \end{center}
 %($v_1$ , $v_2$) takie, że $V_T$ \ni $v_x$ , $v_y$ .
-$E_T$ zawiera pary węzłów ($v_x$ , $v_y$) takie, że $V_T$ $\ni$ $v_x$,$v_y$. Węzły z których nie wychodzą żadne krawędzie nazywane są liśćmi, a korzeń jest węzłem do którego nie prowadzą żadne krawędzie (nieposiadającym rodzica). Węzeł $v_x$ jest przodkiem węzła $v_y$ jeśli istnieje ścieżka skierowana z węzła $v_x$ do węzła $v_y$. Liczba krawędzi w ścieżce od węzła $v_x$ do węzła $v_y$ jest nazywana długością. Poddrzewem węzła $v_x$ jest drzewo oznaczone T($v_x$) w którym węzeł $v_x$ jest korzeniem.
+$E_T$ zawiera pary węzłów ($v_x$ , $v_y$) takie, że $V_T$ $\ni$ $v_x$,$v_y$. Węzły z których nie wychodzą żadne krawędzie nazywane są liśćmi, a korzeń jest węzłem do którego nie prowadzą żadne krawędzie (nieposiadającym rodzica). Węzeł $v_x$ jest przodkiem węzła $v_y$ jeśli istnieje ścieżka skierowana z węzła $v_x$ do węzła $v_y$. Liczba krawędzi w ścieżce od węzła $v_x$ do węzła $v_y$ jest nazywana długością. Poddrzewem węzła $v_x$ jest drzewo oznaczone T($v_x$) w którym węzeł $v_x$ jest korzeniem. Wszystkie etykiety obecne na liściach widoczne z wierzchołka $v_x$ oznaczmy jako L($v_x$).
 
 
 \begin{defi}\label{Drzewa gatunków}
-  Związki między gatunkami przedstawia się za pomocą drzewa~T, zwanego drzewem gatunków~S. W drzewie~S każdy z liści reprezentuje inny gatunek~Sp, a węzły wewnętrzne są specjacjami.
+  Związki między gatunkami przedstawia się za pomocą drzewa~T, zwanego drzewem gatunków~S. W drzewie~S każdy z liści reprezentuje inny gatunek~Sp, a~węzły wewnętrzne są specjacjami. Zbiór wszystkich etykiet oznaczony jest jako L(S).
 \end{defi}
 
 \begin{defi}\label{Drzewa genów}
-  Związki między genami w danej rodzinie przedstawia się za pomocą drzewa~T, zwanego drzewem genów~G. W drzewie~G każdy z liści reprezentuje przynależność danego genu do gatunku~Sp.
+  Związki między genami w danej rodzinie przedstawia się za pomocą drzewa~T, zwanego drzewem genów~G. W drzewie~G każdy z liści reprezentuje przynależność danego genu do gatunku~Sp. Zbiór wszystkich etykiet oznaczony jest jako L(G) i L(G) $\subseteq$ L(S).
 \end{defi}
 
 
@@ -166,7 +168,17 @@ $E_T$ zawiera pary węzłów ($v_x$ , $v_y$) takie, że $V_T$ $\ni$ $v_x$,$v_y$.
 Bardzo częste różnice struktury drzewa genów w stosunku do historii ewolucyjnej opisanej drzewem gatunków wymagają mapowania węzłów drzewa G na węzły znajdujące się w drzewie S. Jest to krok niezbędny by zrozumieć w jaki sposób ewolucja gatunków wpływała na strukturę ich genomów. 
 
 \subsection{Mapowanie LCA}
-Podstawowym algorytmem dla tego typu uzgodnień jest \textbf{algorytm LCA} (ang. \textit{Lowest Common Ancestor}; pl. \textit{Najniższy Wspólny Przodek}). Najniższym przodkiem węzłów $v_x$ i $v_y$ jest taki węzeł $v_{anc}$, który jest przodkiem obu węzłów i którego długość od korzenia drzewa jest największa.
+Podstawowym algorytmem dla tego typu uzgodnień jest \textbf{algorytm LCA} (ang. \textit{Lowest Common Ancestor}; pl. \textit{Najniższy Wspólny Przodek}). Najniższym przodkiem węzłów $v_x$ i $v_y$ jest taki węzeł $v_{anc}$, który jest przodkiem obu węzłów i którego długość od korzenia drzewa jest największa. Najniższego wspólnego przodka dwóch węzłów można policzyć w czasie stały po liniowym, jednorazowym preprocesingu drzewa. 
+
+\begin{defi}
+Mapowanie LCA to funkcja $MAP_{LCA}$: G $\rightarrow$ S gdzie dla każdego węzła $v_g$ z~drzewa genów G $MAP_{LCA}$(S) to węzeł taki, że:
+\[ MAP_{LCA}(v_g) =
+  \begin{cases}
+    \text{liść w S z tą samą etykietą co }v_g       & \quad \text{jeśli } v_g \text{ jest liściem,}\\
+    MAP_{LCA}(MAP_{LCA}(v_{g_1}),MAP_{LCA}(v_{g_2}))\text{ w S}  & \quad \text{jeśli } v_g \text{ ma synów } v_{g_1} \text{i } v_{g_2}.
+  \end{cases}
+\]
+\end{defi}
 
 \begin{figure}[H]
   \centering
@@ -174,27 +186,42 @@ Podstawowym algorytmem dla tego typu uzgodnień jest \textbf{algorytm LCA} (ang.
   \caption{Uzgodnienie LCA dla przykładowych drzew genów G i gatunków S}
 \end{figure}
 
-\begin{defi}
-Uzgodnienie drzew jest taką funkcją $MAP_{LCA}$: G $\rightarrow$ S gdzie dla każdego węzła $v_g$ z drzewa genów G przyporządkowuje się węzeł $v_s$ z drzewa gatunków S tak, że węzeł $v_s$ jest węzłem $v_{anc}$ i węzły z poddrzewa T($v_g$) są obecne w T($v_s$).
-\end{defi}
-
-\subsection{Scenariusze LCA}
-
-Pierwszy rodzaj węzła opisuje zjawisko duplikacji, czyli powielenia tego samego genu do dwóch kopi (oznaczmy jako DUP), zaś drugi jest wyrażeniem zjawiska specjacji, to jest powstania nowych genów (oznaczmy jako SPEC). W drzewie DLS obecne są również dwa różne rodzaje liści, gdzie jeden z nich jest reprezentacją straty genu (oznaczmy jako LOSS), a drugi opisuje jego obecność \cite{doktorat_paszek}.
-
-
-
 \subsection{Drzewa DLS}
 
-Z wykorzystaniem mapowania węzłów drzewa genów do drzewa gatunków można stworzyć drzewo uzgadniające zwane drzewem DLS (\textit{Duplication-Loss Tree}), które jest reprezentacją pojedynczego scenariusza ewolucyjnego. Scenariusz ewolucyjny jest przedstawieniem ewolucji danej rodziny genów, przy uwzględnieniu ewolucji gatunków, które owe geny zawierają. Drzewa te posiadają dwa rodzaje węzłów. Pierwszy rodzaj węzła jest węzłem DUP, węzłem SPEC. W drzewie DLS obecne są również dwa różne rodzaje liści, gdzie jeden z nich jest reprezentacją straty genu (LOSS), a drugi opisuje jego obecność \cite{doktorat_paszek}. Przykład tego typu drzewa można znaleźć w pracy \cite{dls} , której pochodzi rysunek 1.3.
+Scenariusz ewolucyjny jest przedstawieniem ewolucji danej rodziny genów, przy uwzględnieniu ewolucji gatunków, które owe geny zawierają. Jako reprezentację scenariusza ewolucyjnego można stosować drzewa T nazwane drzewami DLS (\textit{Duplication-Loss Tree}) \cite{dls}. Drzewa te posiadają dwa rodzaje węzłów wewnętrznych i dwa rodzaje liści. Pierwszy rodzaj węzła opisuje zjawisko duplikacji, czyli powielenia tego samego genu do dwóch kopi (oznaczmy jako DUP), zaś drugi jest wyrażeniem zjawiska specjacji (oznaczmy jako SPEC). Pierwszy z rodzajów liści jest opisuje stratę genu (oznaczmy jako LOSS), a drugi jest reprezentacją sekwencji genu obecnego w gatunku o danej etykiecie. Drzewo DLS dla ustalonego drzewa genów G i ustalonego drzewa gatunków S, gdzie L(G) $\subseteq$ L(S) definiuje się w następujący sposób:
+
+\begin{enumerate}
+\item \textit{s} jest drzewem DLS z jednym węzłem oznaczającym, że sekwencja genu jest obecna w gatunku \textit{s},
+\item  A- jest drzewem DLS z jednym węzłem oznaczającym epizod straty genu, gdzie A jest niepustym zbiorem gatunków,
+\item ($R_1$,$R_2$)+ jest drzewem DLS, którego korzeń jest węzłem duplikacyjnym i dzieci korzenia $R_1$ i $R_2$ są drzewami DLS takimi, że L($R_1$) = L($R_2$),
+\item ($R_1$,$R_2$)$\sim$ jest drzewem DLS, którego korzeń jest węzłem specjacyjnym i dzieci korzenia $R_1$ i $R_2$ są drzewami DLS takimi, że L($R_1$) $\cap$ L($R_2$) = 0.
+\end{enumerate}
+
+Należy zaznaczyć, że z każdego drzewa DLS możliwe jest odczytanie drzewa genów za pomocą którego zostało zbudowane drzewo DLS.
 
 
+\subsection{Scenariusz LCA}
+
+Z wykorzystaniem mapowania LCA węzłów drzewa genów G do drzewa gatunków S można stworzyć drzewo DLS, które reprezentuje scenariusz LCA, to znaczy taki, który zawiera minimalną liczbę duplikacji genomowych potrzebnych do uzgodninienia drzew \cite{dowod}.
+
+Scenariusz LCA dla drzewa G o korzeniu $g_r$ i drzewa S o korzeniu $s_r$ jest drzewem DLS p($g_r$,$MAP_{LCA}$($s_r$)), takim, że \textit{p(g,s)} = \textit{s} kiedy \textit{g} i \textit{s} są liśćmi. W innym przypadku:
+\[ p(g,s) =
+  \begin{cases}
+    (p(g,u),L(T(v))-)\sim & \quad \text{jeśli } MAP_{LCA}(g) \in T(u) & \quad LOSS\\
+    (p(p,u),p(q,v))\sim & \quad \text{jeśli } MAP_{LCA}(p) \in T(u)\wedge MAP_{LCA}(q) \in T(v)& \quad SPEC\\
+    (p(p,s),p(q,s))+ & \quad \text{jeśli } MAP_{LCA}(g) = MAP_{LCA}(p) = s & \quad DUP
+  \end{cases}
+\]
+
+ %& \quad \text{LOSS}
+ %& \quad \text{SPEC}
+ %& \quad \text{DUP}
+gdzie \textit{u} i \textit{v} są dziećmi \textit{s} a \textit{p} i \textit{q} są dziećmi \textit{g}. 
 \begin{figure}[H]
   \centering
   \includegraphics[width=120mm]{./pictures/DLS.png}
-  \caption{Drzewo DLS p(G,S) zbudowane w oparciu o drzewo LCA R(G,S), które uzgadnia drzewo genów G i drzewo gatunków S. Węzeł oznaczony kwadratem jest węzłem duplikacyjnym. Gałęzie narysowane linią przerywaną prowadzą do liści, które są reprezentacją straty genów.}
+  \caption{Drzewo DLS p(G,S) będące scenariuszem LCA zbudowanym w oparciu o mapowanie LCA, które uzgadnia drzewo genów G i drzewo gatunków S z rysunku. Węzeł oznaczony kwadratem jest węzłem duplikacyjnym. Gałęzie narysowane linią przerywaną prowadzą do liści, które są reprezentacją straty genów w danym gatunku.}
 \end{figure}
-
 
 Przedstawieniem drzewa DLS jest też pewnego rodzaju "wbudowanie" drzewa genów, w kontener będący drzewem gatunków. Przykład tego typu przedstawienia można zobaczyć na rysunku 1.4 
 
@@ -205,19 +232,10 @@ Przedstawieniem drzewa DLS jest też pewnego rodzaju "wbudowanie" drzewa genów,
   \caption{Przykład wbudowania dla drzew z rysunku 1.2.}
 \end{figure}
 
-\subsection{Koszt scenariusza ewolucyjnego}
-
-Scenariusze ewolucyjne porównywane są ze sobą za pomocą ich kosztu ewolucyjnego. W pracy tej liczba ta wyraża liczbę duplikacji potrzebnych do uzgodnienia danego drzewa genów i gatunków, co jest równoznaczne z ilością węzłów duplikacyjnych w drzewie uzgadniającym. Dla przykładu drzew z Rysunku 1.2 koszt ten wynosi 2.
-
-\begin{defi}\label{ME}
-  MEscore = $\sum_{g \in DLS} 1 $ jeśli g jest DUP 
-\end{defi}
-
-
 
 \section{Modele scenariuszy ewolucyjnych}
 
-Drzewo uzgadniające, które opiera się o mapowanie LCA, jest drzewem o możliwie najmniejszym koszcie ewolucyjnym i możliwe najgłębiej położonych węzłach duplikacyjnych. Nie jest to jednak jedyny możliwy scenariusz, których w rzeczywistości jest nieskończenie wiele. Należy jednak pamiętać, że nie powinno się brać pod uwagę przypadków skrajnie nieprawdopodobnych, gdzie gen jest, dla przykładu, wielokrotnie duplikowany i tracony. Po wprowadzeniu tego typu ograniczeń możliwe jest otrzymanie skończonego zbioru możliwych scenariuszy ewolucyjnych, które zwane są semi-normalnymi. 
+Drzewo DLS, które opiera się o mapowanie LCA, jest drzewem o możliwie najmniejszym koszcie ewolucyjnym i możliwe najgłębiej położonych węzłach duplikacyjnych. Nie jest to jednak jedyny możliwy scenariusz, których w rzeczywistości jest nieskończenie wiele. Należy jednak pamiętać, że nie powinno się brać pod uwagę przypadków skrajnie nieprawdopodobnych, gdzie gen jest, dla przykładu, wielokrotnie duplikowany i tracony. Po wprowadzeniu tego typu ograniczeń możliwe jest otrzymanie skończonego zbioru możliwych scenariuszy ewolucyjnych, które zwane są semi-normalnymi. 
 
 \subsection{Transformacje scenariuszy ewolucyjnych}
 
@@ -237,8 +255,8 @@ Stosując kombinacje podanych ruchów można wyselekcjonować takie scenariusze,
 
 W pracy tej zajęto się podanymi modelami, które dopuszczają podane warunki:
 \begin{enumerate}
-\item Model PG \cite{PG}: Model ten dopuszcza tylko takie scenariusze, które zachowują minimalny koszt ewolucyjny. Dozwolony rodzaj transformacji scenariusza to TMOVE.
-\item Model FHS \cite{FHS}: Model ten dopuszcza każde możliwe przekształcenie scenariusza ewolucyjnego. Dozwolone rodzaje transformacji to TMOVE i CLOST.
+\item Model PG \cite{PG}: Model ten dopuszcza tylko takie scenariusze, które zachowują minimalny koszt duplikacyjny. Oznacza to, że są to scenariusze osiągalne ze scenariusza LCA za pomocą transformacji TMOVE.
+\item Model FHS \cite{FHS}: Model ten dopuszcza każde możliwe przekształcenie scenariuszy ewolucyjnych, a ich koszt duplikacyjny może być większy. Oznacza to, że są to scenariusze osiągalne ze scenariusza LCA za pomocą transformacji TMOVE i CLOST.
 \end{enumerate}
 
 \begin{figure}[H]\label{diagram_red}
@@ -247,7 +265,37 @@ W pracy tej zajęto się podanymi modelami, które dopuszczają podane warunki:
   \caption{Diagram redukcyjny obrazujący możliwość uzyskania scenariuszy semi-normalnych. Na dole rysunku znajduje się drzewo uzyskane za pomocą mapowania LCA. Model PG zawierać będzie tylko właśnie to drzewo, podczas gdy dla modelu FHS wszystkie drzewa obecne na diagramie są częścią zboru scenariuszy semi-normalnych.}
 \end{figure}
 
+\section{Koszt scenariuszy ewolucyjnych}
+
+Klasyczną miarą kosztu ewolucyjnego danego scenariusza jest liczba duplikacji potrzebnych do uzgodnienia drzewa genów i gatunków. Za pomocą tej wartości możliwe jest porównywanie poszczególnych scenariuszy.
+Problemem jest jednak odpowiednie klastrowanie duplikacji, które następują bezpośrednio po sobie. Zależnie od obranej metody klastrowania ich liczba na danym węźle drzewa gatunków może znacząco się różnić co ma znaczny wpływ na problematykę poszukiwania scenariuszy o najmniejszym koszcie ewolucyjnym. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=140mm]{./pictures/clas_type.png}
+  \caption{Rożne metody klastrowania na przykładnie drzewa genów (po lewej stronie) gdzie duplikacje zostały oznaczone jako niebieskie kwadraty. W klasrowaniu EC wszystkie duplikacje są klastrowane jako jeden epizod duplikacyjny. W klastrowaniu ME dzieci nie mogą znajdować się w tym samym klastrze co ojciec. W klastrowaniu GD każda duplikacja musi zostać opisana jako oddzielny klaster.}
+\end{figure}
+
+
+Problemem jest też ustalenie kosztu ewolucyjnego zbioru scenariuszy drzew genów $\mathcal{G}$ w oparciu o drzewo gatunków S. Można powiedzieć, że dwa węzły duplikacyjne \textit{$d_1$} i \textit{$d_2$} z $\mathcal{G}$ można klastrować razem (oznaczymy jako \textit{$d_1$} $\Longleftrightarrow$ \textit{$d_2$})  jeśli wszystkie poniższe warunki są spełnione:
+\begin{enumerate}
+\item L($d_1$) = L(\textit{$d_2$}),
+\item \textit{$d_1$} i \textit{$d_2$} są obecne w tym samym drzewie DLS.
+\end{enumerate}
+
+MEScore($\mathcal{G}$, S) to minimalna wielkość partycji zbioru wszystkich węzłów duplikacyjnych obecnych w scenariuszach tak, że każde dwie duplikacje z tej samej partycji można sklastrować razem.
+
+
+\begin{defi}\label{ME}
+  MEScore($\mathcal{G}$, S) = $\min_{\cup P = Dup(\mathcal{G})} \lbrace \vert P \vert\ : \forall_{A \in P} \forall_{d_1,d_2 \in A} d_1 \Longleftrightarrow d_2 \rbrace$
+\end{defi}
+ gdzie Dup($\mathcal{G}$) jest zbiorem wszystkich węzłów duplikacyjnych obecnych w $\mathcal{G}$
+
+
 \chapter{Heurystyka}\label{r:heurystyka}
+
+\section{Opis problemu}
+
 
 \section{Opis algorytmu}
 

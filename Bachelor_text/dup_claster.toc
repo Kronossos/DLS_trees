@@ -5,22 +5,23 @@
 \contentsline {section}{\numberline {1.2}Drzewa gen\IeC {\'o}w i gatunk\IeC {\'o}w}{7}
 \contentsline {section}{\numberline {1.3}Uzgodnienie drzew}{8}
 \contentsline {subsection}{\numberline {1.3.1}Mapowanie LCA}{8}
-\contentsline {subsection}{\numberline {1.3.2}Scenariusze LCA}{9}
-\contentsline {subsection}{\numberline {1.3.3}Drzewa DLS}{9}
-\contentsline {subsection}{\numberline {1.3.4}Koszt scenariusza ewolucyjnego}{10}
-\contentsline {section}{\numberline {1.4}Modele scenariuszy ewolucyjnych}{10}
-\contentsline {subsection}{\numberline {1.4.1}Transformacje scenariuszy ewolucyjnych}{10}
+\contentsline {subsection}{\numberline {1.3.2}Drzewa DLS}{9}
+\contentsline {subsection}{\numberline {1.3.3}Scenariusz LCA}{9}
+\contentsline {section}{\numberline {1.4}Modele scenariuszy ewolucyjnych}{11}
+\contentsline {subsection}{\numberline {1.4.1}Transformacje scenariuszy ewolucyjnych}{11}
 \contentsline {subsection}{\numberline {1.4.2}Opis modeli}{11}
-\contentsline {chapter}{\numberline {2}Heurystyka}{13}
-\contentsline {section}{\numberline {2.1}Opis algorytmu}{13}
-\contentsline {section}{\numberline {2.2}Dokumentacja u\IeC {\.z}ytkowa i~opis implementacji}{13}
-\contentsline {section}{\numberline {2.3}Testy algorytmu}{14}
-\contentsline {subsection}{\numberline {2.3.1}Testy algorytmu na danych rzeczywistych}{14}
-\contentsline {subsection}{\numberline {2.3.2}Testy algorytmu na danych symulowanych}{15}
-\contentsline {chapter}{\numberline {3}Podsumowanie}{17}
-\contentsline {section}{\numberline {3.1}Perspektywy rozwoju}{17}
-\contentsline {section}{\numberline {3.2}Perspektywy wykorzystania}{17}
-\contentsline {chapter}{\numberline {A}P\IeC {\k e}tla programu zapisana w~j\IeC {\k e}zyku Python wykonywana dla losowego wybierania indeks\IeC {\'o}w}{19}
-\contentsline {chapter}{\numberline {B}Przyk\IeC {\l }adowe drzewa gatunk\IeC {\'o}w dla danych syntetycznych}{21}
-\contentsline {chapter}{\numberline {C}Przyk\IeC {\l }adowe drzewa gen\IeC {\'o}w dla danych syntetycznych}{23}
-\contentsline {chapter}{Bibliografia}{25}
+\contentsline {section}{\numberline {1.5}Koszt scenariuszy ewolucyjnych}{13}
+\contentsline {chapter}{\numberline {2}Heurystyka}{15}
+\contentsline {section}{\numberline {2.1}Opis problemu}{15}
+\contentsline {section}{\numberline {2.2}Opis algorytmu}{15}
+\contentsline {section}{\numberline {2.3}Dokumentacja u\IeC {\.z}ytkowa i~opis implementacji}{15}
+\contentsline {section}{\numberline {2.4}Testy algorytmu}{16}
+\contentsline {subsection}{\numberline {2.4.1}Testy algorytmu na danych rzeczywistych}{16}
+\contentsline {subsection}{\numberline {2.4.2}Testy algorytmu na danych symulowanych}{17}
+\contentsline {chapter}{\numberline {3}Podsumowanie}{19}
+\contentsline {section}{\numberline {3.1}Perspektywy rozwoju}{19}
+\contentsline {section}{\numberline {3.2}Perspektywy wykorzystania}{19}
+\contentsline {chapter}{\numberline {A}P\IeC {\k e}tla programu zapisana w~j\IeC {\k e}zyku Python wykonywana dla losowego wybierania indeks\IeC {\'o}w}{21}
+\contentsline {chapter}{\numberline {B}Przyk\IeC {\l }adowe drzewa gatunk\IeC {\'o}w dla danych syntetycznych}{23}
+\contentsline {chapter}{\numberline {C}Przyk\IeC {\l }adowe drzewa gen\IeC {\'o}w dla danych syntetycznych}{25}
+\contentsline {chapter}{Bibliografia}{27}
