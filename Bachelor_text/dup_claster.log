@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.7.23)  3 SEP 2019 20:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.7.23)  5 SEP 2019 16:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -544,68 +544,7 @@ Package: relsize 2013/03/29 ver 4.1
 )
 \c@defi=\count112
 
-(./dup_claster.aux
-
-LaTeX Warning: Label `fig:sub2' multiply defined.
-
-
-LaTeX Warning: Label `sub@fig:sub2' multiply defined.
-
-
-LaTeX Warning: Label `fig:sub1' multiply defined.
-
-
-LaTeX Warning: Label `sub@fig:sub1' multiply defined.
-
-
-LaTeX Warning: Label `fig:test' multiply defined.
-
-
-LaTeX Warning: Label `fig:sub2' multiply defined.
-
-
-LaTeX Warning: Label `sub@fig:sub2' multiply defined.
-
-
-LaTeX Warning: Label `fig:sub1' multiply defined.
-
-
-LaTeX Warning: Label `sub@fig:sub1' multiply defined.
-
-
-LaTeX Warning: Label `fig:test' multiply defined.
-
-
-LaTeX Warning: Label `fig:sub2' multiply defined.
-
-
-LaTeX Warning: Label `sub@fig:sub2' multiply defined.
-
-
-LaTeX Warning: Label `fig:sub1' multiply defined.
-
-
-LaTeX Warning: Label `sub@fig:sub1' multiply defined.
-
-
-LaTeX Warning: Label `fig:test' multiply defined.
-
-
-LaTeX Warning: Label `fig:sub2' multiply defined.
-
-
-LaTeX Warning: Label `sub@fig:sub2' multiply defined.
-
-
-LaTeX Warning: Label `fig:sub1' multiply defined.
-
-
-LaTeX Warning: Label `sub@fig:sub1' multiply defined.
-
-
-LaTeX Warning: Label `fig:test' multiply defined.
-
-)
+(./dup_claster.aux)
 \openout1 = `dup_claster.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 99.
@@ -620,7 +559,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 99.
 LaTeX Font Info:    ... okay on input line 99.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 99.
 LaTeX Font Info:    ... okay on input line 99.
- (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count113
 \scratchdimen=\dimen132
@@ -711,155 +651,162 @@ Package caption Info: End \AtBeginDocument code.
 ]
 Rozdzia\l  1.
 [7]
-<./pictures/gene.png, id=45, 285.065pt x 260.975pt>
-File: ./pictures/gene.png Graphic file (type png)
-<use ./pictures/gene.png>
-Package pdftex.def Info: ./pictures/gene.png  used on input line 163.
-(pdftex.def)             Requested size: 142.26378pt x 130.24028pt.
-<./pictures/species.png, id=47, 285.065pt x 312.367pt>
-File: ./pictures/species.png Graphic file (type png)
-<use ./pictures/species.png>
-Package pdftex.def Info: ./pictures/species.png  used on input line 169.
-(pdftex.def)             Requested size: 142.26378pt x 155.8876pt.
+<./pictures/spec_gen.png, id=45, 558.888pt x 312.367pt>
+File: ./pictures/spec_gen.png Graphic file (type png)
+<use ./pictures/spec_gen.png>
+Package pdftex.def Info: ./pictures/spec_gen.png  used on input line 163.
+(pdftex.def)             Requested size: 284.52756pt x 159.02385pt.
 
 
-LaTeX Warning: Citation `lca' on page 8 undefined on input line 181.
+LaTeX Warning: Citation `lca' on page 8 undefined on input line 171.
 
-<./pictures/mapping.png, id=48, 325.215pt x 192.72pt>
-File: ./pictures/mapping.png Graphic file (type png)
-<use ./pictures/mapping.png>
-Package pdftex.def Info: ./pictures/mapping.png  used on input line 195.
-(pdftex.def)             Requested size: 227.62204pt x 134.8913pt.
+<./pictures/mapping.pdf, id=47, 261.97874pt x 154.5775pt>
+File: ./pictures/mapping.pdf Graphic file (type pdf)
+<use ./pictures/mapping.pdf>
+Package pdftex.def Info: ./pictures/mapping.pdf  used on input line 185.
+(pdftex.def)             Requested size: 227.62204pt x 134.30913pt.
 
-Underfull \vbox (badness 4242) has occurred while \output is active []
+Underfull \vbox (badness 1412) has occurred while \output is active []
 
- [8 <./pictures/gene.png> <./pictures/species.png>]
+ [8 <./pictures/spec_gen.png>]
 
-LaTeX Warning: Citation `dowod' on page 9 undefined on input line 215.
+LaTeX Warning: Citation `dowod' on page 9 undefined on input line 206.
 
 
-Overfull \hbox (0.64111pt too wide) detected at line 226
+Overfull \hbox (13.36346pt too wide) detected at line 218
 \OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 g; s\OT1/cmr/m/n/1
 0.95 ) = []
  []
 
-[9 <./pictures/mapping.png>]
-<./pictures/DLS.png, id=61, 103.1052pt x 38.0622pt>
+[9 <./pictures/mapping.pdf>]
+<./pictures/DLS.png, id=107, 1208.515pt x 469.755pt>
 File: ./pictures/DLS.png Graphic file (type png)
 <use ./pictures/DLS.png>
-Package pdftex.def Info: ./pictures/DLS.png  used on input line 235.
-(pdftex.def)             Requested size: 341.43306pt x 126.05626pt.
-<./pictures/optscen.png, id=62, 247.324pt x 219.219pt>
+Package pdftex.def Info: ./pictures/DLS.png  used on input line 224.
+(pdftex.def)             Requested size: 341.43306pt x 132.7132pt.
+<./pictures/optscen.png, id=108, 247.324pt x 219.219pt>
 File: ./pictures/optscen.png Graphic file (type png)
 <use ./pictures/optscen.png>
-Package pdftex.def Info: ./pictures/optscen.png  used on input line 244.
+Package pdftex.def Info: ./pictures/optscen.png  used on input line 233.
 (pdftex.def)             Requested size: 227.62204pt x 201.76419pt.
  [10 <./pictures/DLS.png> <./pictures/optscen.png>]
-<./pictures/clas_type.png, id=68, 1322.9425pt x 344.28625pt>
-File: ./pictures/clas_type.png Graphic file (type png)
-<use ./pictures/clas_type.png>
-Package pdftex.def Info: ./pictures/clas_type.png  used on input line 255.
-(pdftex.def)             Requested size: 398.33858pt x 103.65965pt.
-[11 <./pictures/clas_type.png>]
+<./pictures/clas_type_me.png, id=114, 673.51625pt x 344.28625pt>
+File: ./pictures/clas_type_me.png Graphic file (type png)
+<use ./pictures/clas_type_me.png>
+Package pdftex.def Info: ./pictures/clas_type_me.png  used on input line 243.
+(pdftex.def)             Requested size: 199.16928pt x 101.81047pt.
 
-Package caption Warning: \label without proper reference on input line 303.
-See the caption package documentation for explanation.
-
-
-LaTeX Warning: Reference `diagram_red' on page 12 undefined on input line 293.
-
-<./pictures/diagram.png, id=75, 554.07pt x 1166.759pt>
-File: ./pictures/diagram.png Graphic file (type png)
-<use ./pictures/diagram.png>
-Package pdftex.def Info: ./pictures/diagram.png  used on input line 305.
-(pdftex.def)             Requested size: 315.22292pt x 663.79552pt.
-
-Underfull \hbox (badness 1122) in paragraph at lines 306--306
-[]\T1/cmr/m/n/10.95 Rysunek 1.6: |Dia-gram re-duk-cyjny ob-ra-zu-j¡cy mo»-li-wo
-±¢ uzy-ska-nia sce-na-riu-szy semi-
+Overfull \hbox (5.48337pt too wide) in paragraph at lines 258--260
+[]\T1/cmr/m/it/10.95 MEScore($\OMS/cmsy/m/n/10.95 G$\T1/cmr/m/it/10.95 , S) = $
+[][]\OMS/cmsy/m/n/10.95 fj\OML/cmm/m/it/10.95 P\OMS/cmsy/m/n/10.95 j  \OT1/cmr/
+m/n/10.95 : \OMS/cmsy/m/n/10.95 8[]8[]\OML/cmm/m/it/10.95 d[] \OMS/cmsy/m/n/10.
+95 ([]) \OML/cmm/m/it/10.95 d[]\OMS/cmsy/m/n/10.95 g$ \T1/cmr/m/it/10.95 gdzie 
+Dup($\OMS/cmsy/m/n/10.95 G$\T1/cmr/m/it/10.95 )
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [12]
-Overfull \vbox (64.39523pt too high) has occurred while \output is active []
-
-
-[13 <./pictures/diagram.png>] [14
-
-]
-Rozdzia\l  2.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 339.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 264.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 339.
- [15]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 264.
 
-LaTeX Warning: Citation `dlsgen' on page 16 undefined on input line 361.
+Underfull \hbox (badness 10000) in paragraph at lines 267--269
 
-<./pictures/guigo_spec_1.png, id=90, 423.984pt x 373.395pt>
+ []
+
+[11 <./pictures/clas_type_me.png>]
+<./pictures/move.png, id=122, 1662.21pt x 817.0525pt>
+File: ./pictures/move.png Graphic file (type png)
+<use ./pictures/move.png>
+Package pdftex.def Info: ./pictures/move.png  used on input line 290.
+(pdftex.def)             Requested size: 341.43306pt x 167.821pt.
+<./pictures/diagram_1.png, id=123, 819.863pt x 1459.051pt>
+File: ./pictures/diagram_1.png Graphic file (type png)
+<use ./pictures/diagram_1.png>
+Package pdftex.def Info: ./pictures/diagram_1.png  used on input line 314.
+(pdftex.def)             Requested size: 373.00072pt x 663.80246pt.
+ [12 <./pictures/move.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13]
+Overfull \vbox (64.40218pt too high) has occurred while \output is active []
+
+
+[14 <./pictures/diagram_1.png>]
+Rozdzia\l  2.
+
+Overfull \hbox (17.0pt too wide) detected at line 346
+[][] 
+ []
+
+[15
+
+]
+
+LaTeX Warning: Citation `dlsgen' on page 16 undefined on input line 358.
+
+<./pictures/guigo_spec_1.png, id=138, 423.984pt x 373.395pt>
 File: ./pictures/guigo_spec_1.png Graphic file (type png)
 <use ./pictures/guigo_spec_1.png>
-Package pdftex.def Info: ./pictures/guigo_spec_1.png  used on input line 379.
+Package pdftex.def Info: ./pictures/guigo_spec_1.png  used on input line 376.
 (pdftex.def)             Requested size: 142.26378pt x 125.28894pt.
-<./pictures/guigo_spec_2.png, id=91, 421.575pt x 277.035pt>
+<./pictures/guigo_spec_2.png, id=139, 421.575pt x 277.035pt>
 File: ./pictures/guigo_spec_2.png Graphic file (type png)
 <use ./pictures/guigo_spec_2.png>
-Package pdftex.def Info: ./pictures/guigo_spec_2.png  used on input line 385.
+Package pdftex.def Info: ./pictures/guigo_spec_2.png  used on input line 381.
 (pdftex.def)             Requested size: 142.26378pt x 93.48892pt.
-
-Underfull \vbox (badness 6559) has occurred while \output is active []
-
- [16]
-<./pictures/G1_PG.png, id=95, 400.3758pt x 360.8682pt>
+<./pictures/G1_PG.png, id=140, 400.3758pt x 360.8682pt>
 File: ./pictures/G1_PG.png Graphic file (type png)
 <use ./pictures/G1_PG.png>
-Package pdftex.def Info: ./pictures/G1_PG.png  used on input line 397.
+Package pdftex.def Info: ./pictures/G1_PG.png  used on input line 391.
 (pdftex.def)             Requested size: 142.26378pt x 128.2275pt.
-<./pictures/G1_FHS.png, id=96, 400.3758pt x 360.8682pt>
+<./pictures/G1_FHS.png, id=141, 400.3758pt x 360.8682pt>
 File: ./pictures/G1_FHS.png Graphic file (type png)
 <use ./pictures/G1_FHS.png>
-Package pdftex.def Info: ./pictures/G1_FHS.png  used on input line 403.
-(pdftex.def)             Requested size: 142.26378pt x 128.2275pt.
-<./pictures/G2_PG.png, id=97, 400.3758pt x 360.8682pt>
-File: ./pictures/G2_PG.png Graphic file (type png)
-<use ./pictures/G2_PG.png>
-Package pdftex.def Info: ./pictures/G2_PG.png  used on input line 416.
-(pdftex.def)             Requested size: 142.26378pt x 128.2275pt.
-<./pictures/G2_FHS.png, id=98, 400.3758pt x 360.8682pt>
-File: ./pictures/G2_FHS.png Graphic file (type png)
-<use ./pictures/G2_FHS.png>
-Package pdftex.def Info: ./pictures/G2_FHS.png  used on input line 422.
+Package pdftex.def Info: ./pictures/G1_FHS.png  used on input line 396.
 (pdftex.def)             Requested size: 142.26378pt x 128.2275pt.
 
-[17 <./pictures/guigo_spec_1.png> <./pictures/guigo_spec_2.png> <./pictures/G1_
-PG.png> <./pictures/G1_FHS.png> <./pictures/G2_PG.png> <./pictures/G2_FHS.png>]
-<./pictures/PG.png, id=111, 419.6478pt x 323.89005pt>
+Underfull \vbox (badness 3271) has occurred while \output is active []
+
+ [16 <./pictures/guigo_spec_1.png> <./pictures/guigo_spec_2.png>]
+<./pictures/G2_PG.png, id=149, 400.3758pt x 360.8682pt>
+File: ./pictures/G2_PG.png Graphic file (type png)
+<use ./pictures/G2_PG.png>
+Package pdftex.def Info: ./pictures/G2_PG.png  used on input line 407.
+(pdftex.def)             Requested size: 142.26378pt x 128.2275pt.
+<./pictures/G2_FHS.png, id=150, 400.3758pt x 360.8682pt>
+File: ./pictures/G2_FHS.png Graphic file (type png)
+<use ./pictures/G2_FHS.png>
+Package pdftex.def Info: ./pictures/G2_FHS.png  used on input line 412.
+(pdftex.def)             Requested size: 142.26378pt x 128.2275pt.
+<./pictures/PG.png, id=151, 419.6478pt x 323.89005pt>
 File: ./pictures/PG.png Graphic file (type png)
 <use ./pictures/PG.png>
-Package pdftex.def Info: ./pictures/PG.png  used on input line 439.
+Package pdftex.def Info: ./pictures/PG.png  used on input line 427.
 (pdftex.def)             Requested size: 142.26378pt x 109.79991pt.
-<./pictures/FHS.png, id=112, 419.6478pt x 323.89005pt>
+<./pictures/FHS.png, id=152, 419.6478pt x 323.89005pt>
 File: ./pictures/FHS.png Graphic file (type png)
 <use ./pictures/FHS.png>
-Package pdftex.def Info: ./pictures/FHS.png  used on input line 445.
+Package pdftex.def Info: ./pictures/FHS.png  used on input line 432.
 (pdftex.def)             Requested size: 142.26378pt x 109.79991pt.
-[18 <./pictures/PG.png> <./pictures/FHS.png>]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [17 <./pictures/G1_PG.png> <./pictures/G1_FHS.png> <./pictures/G2_PG.png> <./p
+ictures/G2_FHS.png>] [18 <./pictures/PG.png> <./pictures/FHS.png>]
 Rozdzia\l  3.
 [19
 
 ] [20]
 Dodatek A.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 484.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 469.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-Overfull \hbox (17.31032pt too wide) in paragraph at lines 516--516
+Overfull \hbox (17.31032pt too wide) in paragraph at lines 501--501
 []                            \T1/cmtt/m/n/10.95 if max_tree_temp[i] - tree.dup
 lication_prefix[i] < 0:[] 
  []
@@ -870,15 +817,15 @@ lication_prefix[i] < 0:[]
 
 ]
 Dodatek B.
-<./pictures/syn_spec_1.png, id=131, 382.228pt x 202.356pt>
+<./pictures/syn_spec_1.png, id=179, 382.228pt x 202.356pt>
 File: ./pictures/syn_spec_1.png Graphic file (type png)
 <use ./pictures/syn_spec_1.png>
-Package pdftex.def Info: ./pictures/syn_spec_1.png  used on input line 524.
+Package pdftex.def Info: ./pictures/syn_spec_1.png  used on input line 509.
 (pdftex.def)             Requested size: 227.62204pt x 120.50674pt.
-<./pictures/syn_spec_2.png, id=132, 383.834pt x 202.356pt>
+<./pictures/syn_spec_2.png, id=180, 383.834pt x 202.356pt>
 File: ./pictures/syn_spec_2.png Graphic file (type png)
 <use ./pictures/syn_spec_2.png>
-Package pdftex.def Info: ./pictures/syn_spec_2.png  used on input line 530.
+Package pdftex.def Info: ./pictures/syn_spec_2.png  used on input line 515.
 (pdftex.def)             Requested size: 227.62204pt x 120.00037pt.
 [23 <./pictures/syn_spec_1.png> <./pictures/syn_spec_2.png>] [24
 
@@ -890,18 +837,15 @@ Dodatek C.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
  ) 
 Here is how much of TeX's memory you used:
- 5574 strings out of 492982
- 80300 string characters out of 6134896
- 162445 words of memory out of 5000000
- 9018 multiletter control sequences out of 15000+600000
- 22589 words of font info for 51 fonts, out of 8000000 for 9000
+ 5563 strings out of 492982
+ 80242 string characters out of 6134896
+ 162327 words of memory out of 5000000
+ 9009 multiletter control sequences out of 15000+600000
+ 21059 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,12n,39p,896b,513s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,18n,39p,895b,512s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -916,15 +860,14 @@ s/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-su
 per/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1728.pfb></u
 sr/share/texmf/fonts/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf/fonts
 /type1/public/cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm-sup
-er/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></us
-r/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/
-type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-supe
-r/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1095.pfb></usr
-/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on dup_claster.pdf (29 pages, 1007980 bytes).
+er/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></us
+r/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/
+type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-supe
+r/sfti1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on dup_claster.pdf (29 pages, 1224199 bytes).
 PDF statistics:
- 222 PDF objects out of 1000 (max. 8388607)
- 133 compressed objects within 2 object streams
+ 267 PDF objects out of 1000 (max. 8388607)
+ 164 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  86 words of extra memory for PDF output out of 10000 (max. 10000000)
 
