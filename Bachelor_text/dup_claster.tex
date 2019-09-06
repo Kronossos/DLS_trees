@@ -281,7 +281,7 @@ Drzewo DLS, które opiera się o mapowanie LCA, jest drzewem o możliwie najmnie
 Drzewo DLS podlega ściśle określonym transformacjom (zwanych również ruchami), które zmieniają jego strukturę, ale zachowując poprawność danego drzewa: 
 \begin{enumerate}
 \item TMOVE: $((C-,P)\sim,(C-,Q)\sim))+   \Longrightarrow    (C-,(P,Q)+)\sim $ ,
-\item CLOST: $((P,Q-)\sim,(P-,Q)\sim)+   \Longrightarrow   (P,Q)\sim $ ,
+\item CLOST: $((P,L(Q)-)\sim,(L(P)-,Q)\sim)+   \Longrightarrow   (P,Q)\sim $ ,
 \end{enumerate}
 gdzie $C,P,Q$ są drzewami DLS.
 
@@ -318,6 +318,16 @@ W literaturze wyodrębniono kilka dopuszczalnych modeli, a w pracy tej zajęto s
 \chapter{Heurystyka}\label{r:heurystyka}
 
 \section{Opis problemu}
+Ogólnym problemem, niezależnym od obranego modelu, jest szereg komplikacji, które mogą zaistnieć przed samymi obliczeniami drzew DLS. Do utrudnień mogą należeć między innymi: 
+\begin{enumerate}
+\item braki w samych sekwencjach genomowych,
+\item straty genów i ich brak w materiale kopalnym,
+\item błędy sekwencjonowania,
+\item metody obliczania drzew genów i gatunków są heurystykami, a przez to możliwe są błędy.
+\end{enumerate}
+Szczególnie dwa pierwsze punkty związane z brakiem sekwencji są problematyczne dla badaczy, ponieważ w przypadku straty genów duplikacje genomowe będą położone niżej na drzewie DLS, co nie zawsze musi odpowiadać rzeczywistości. Z tego powodu często okazuje się, że klastrowania są bardzo podobne do tego wyznaczonego przez mapowanie LCA. Nie zawsze jest to rozwiązaniem poszukiwanym i zbliżonym do rzeczywistego. Należy też pamiętać, że specjacja jest górnym ograniczeniem podczas przekształcania drzewa DLS. Nie zawsze możliwe jest przesunięcie duplikacji bliżej korzenia i przekroczenie bariery specjacji, ponieważ taki scenariusz nie byłby semi-normalny. 
+\\
+W pracy tej proponowana jest nowa heurystyka, która umożliwia ogólne klastrowanie duplikacji niezależnie od obranego modelu. 	
 
 \section{Opis algorytmu}
 
@@ -440,27 +450,21 @@ Dla modelu PG tylko 4 zbiory z 1000 nie dały tego samego wyniku, a dla modelu F
 
 \chapter{Podsumowanie}
 
-W~pracy przedstawiono pierwszy i dosyć intuicyjny pomysł na ocenę scenariuszy ewolucyjnych reprezentowanymi drzewami DLS pod kątem ilości duplikacji. Należy jednak wspomnieć, że samą ideę da się znacząco usprawnić i obniżyć złożoność obliczeniową być może nawet do poziomu liniowego. 
-\\.  W związku z tym trudno mówić o czasie potrzebnym algorytmowi na własne obliczenia. Nie udało się zaobserwować, by algorytm kiedykolwiek potrzebował
-Obecnie to właśnie krok w którym konieczne jest wyliczenie scenariuszy dla drzew genów jest krokiem najbardziej wymagającym czasowo i obliczeniowo.  W związku z tym trudno mówić o czasie potrzebnym algorytmowi na własne obliczenia. Nie udało się zaobserwować, by algorytm kiedykolwiek potrzebował więcej niż jedną sekundę na wczytanie danych i więcej niż 0.3 sekundy na obliczenie drzewa o najmniejszym koszcie ewolucyjnym. Ponadto obecne wymaganie dotyczące danych wejściowych uniemożliwia  przetestowanie algorytmu na danych bardziej złożonych niż zbiór Guigo. 
+W~pracy przedstawiono pierwszy i dosyć intuicyjny pomysł na ocenę scenariuszy ewolucyjnych reprezentowanymi drzewami DLS pod kątem ilości duplikacji. Należy jednak wspomnieć, że samą ideę da się znacząco usprawnić. 
 \\
-Testy pokazują również, że opisany algorytm zwraca wyniki, które różnią się w bardzo niewielkim stopniu od rzeczywistego minimalnego kosztu ewolucyjnego, gdyż maksymalnie tylko dla 2,8\% danych algorytm nie uzyskał najniższego możliwego wyniku. Maksymalna różnica jaką udało się zaobserwować wynosiła 1, co również nie jest dużą wartością. Może to jednak wynikać z dosyć niskiego kosztu ewolucyjnego drzew DLS zawartych w badanych zbiorach, który wynosił maksymalnie 9 (średnia arytmetyczna = 6,1) dla modelu PG i 7 (średnia arytmetyczna = 4,5) dla modelu FHS. Obserwowalne jest, że proponowany algorytm wymaga kolejnych, bardziej rozbudowanych testów.
+Obecnie to krok w którym konieczne jest wyliczenie zbioru drzew semi-normalnych dla danego drzewa genów jest krokiem najbardziej wymagającym czasowo i obliczeniowo.  W związku z tym trudno mówić o czasie potrzebnym algorytmowi na własne obliczenia. Nie udało się zaobserwować, by algorytm kiedykolwiek potrzebował więcej niż jedną sekundę na wczytanie danych i więcej niż 0.3 sekundy na obliczenie drzewa o najmniejszym koszcie ewolucyjnym. Należy jednak podkreślić, że ponieważ to właśnie program DLSgen był swego rodzaju "wąskim gardłem"  niemożliwe jest przetestowanie algorytmu na danych bardziej złożonych niż zbiór Guigo lub jego pochodne. 
+\\
+Testy pokazują również, że opisany algorytm zwraca wyniki, które różnią się w bardzo niewielkim stopniu od rzeczywistego minimalnego kosztu ewolucyjnego, gdyż maksymalnie tylko dla 2,8\% danych algorytm nie uzyskał najniższego możliwego wyniku. Maksymalna różnica jaką udało się zaobserwować wynosiła 1, co również nie jest dużą wartością. Może to jednak wynikać z dosyć niskiego kosztu ewolucyjnego drzew DLS zawartych w badanych zbiorach, który wynosił maksymalnie 9 (średnia arytmetyczna = 6,1) dla modelu PG i 7 (średnia arytmetyczna = 4,5) dla modelu FHS. Proponowany algorytm wymaga w związku z tym kolejnych, bardziej rozbudowanych testów.
 
 
 \section{Perspektywy rozwoju}
 
-Trudno przewidzieć wszystkie możliwości rozwoju algorytmu, ale te bardziej
-oczywiste można wskazać już teraz.  Są to:
-\begin{itemize}
-\item Uniezależnienie algorytmu od kroku w którym wyliczane są scenariusze i klastrowanie duplikacji bezpośrednio na podstawie drzew genów.
-\item Uliniowienie algorytmu.
-\end{itemize}
-
-Szczególnie punkt pierwszy proponowanych usprawnień jest kluczowy dla dalszego rozwoju heurystyki, ponieważ pozwoli on na używanie i przeprowadzenie testów dla danych dużo bardziej skomplikowanych i bardziej przystających do obecnych problemów niż zbiór Guigo.
+Trudno przewidzieć wszystkie możliwości rozwoju algorytmu, ale tę bardziej
+oczywistą można wskazać już teraz.  Jest to uniezależnienie algorytmu od kroku w którym wyliczane są scenariusze i klastrowanie duplikacji bezpośrednio na podstawie drzew genów. Jest to krok kluczowy dla dalszego rozwoju heurystyki, ponieważ pozwoli on na używanie jej przy rozwiązywaniu rzeczywistych problemów. Będzie możliwe wtedy również przeprowadzenie testów dla danych dużo bardziej skomplikowanych i bardziej przystających do obecnych problemów niż zbiór Guigo.
 
 \section{Perspektywy wykorzystania}
 
-Podstawową zaletą przedstawionej heurystyki jest jej elastyczność. Ocena scenariuszy nie zależy od obranego modelu, a obecnie wydaje się, że same obliczenia nie są obarczone dużym błędem. Kolejną niewątpliwą zaletą jest fakt, że w istocie również struktura drzewa nie ma dla algorytmu dużego znaczenia. Obecnie powoli odchodzi się od drzewa binarnego jako metody przedstawienia historii ewolucji i algorytm jest na taką zmianę gotowy. Z punktu widzenia algorytmu drzewa są tablicą zawierającą ilość klastrów duplikacyjnych dla danego węzła, a które umieszczone są w niej w porządku prefiksowym, co zapewnia możliwość wykorzystania algorytmu nie tylko dla drzew binarnych. Algorytm funkcjonuje obecnie jednak w dosyć prymitywnej formie i wymaga wzmożonej i dokładnej pracy, ale sam algorytm rokuje niezwykle pozytywnie.  
+Podstawową zaletą przedstawionej heurystyki jest jej elastyczność. Ocena scenariuszy nie zależy od obranego modelu, a obecnie wydaje się, że same obliczenia nie są obarczone dużym błędem. Kolejną niewątpliwą zaletą jest fakt, że w istocie również struktura drzewa nie ma dla algorytmu dużego znaczenia. Drzewo binarne nie zawsze jest najlepszym przedstawieniem historii ewolucji i algorytm jest na taką zmianę gotowy. Z punktu widzenia algorytmu drzewa są tablicą zawierającą ilość klastrów duplikacyjnych dla danego węzła, a które umieszczone są w niej w porządku prefiksowym. Zapewnia to możliwość wykorzystania algorytmu nie tylko dla drzew binarnych. Algorytm funkcjonuje obecnie jednak w dosyć prymitywnej formie i wymaga wzmożonej oraz dokładnej pracy.  
 
 \appendix
 

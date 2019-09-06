@@ -13,11 +13,11 @@
 \contentsline {subsection}{\numberline {1.5.2}Opis modeli dopuszczalnych scenariuszy}{12}
 \contentsline {chapter}{\numberline {2}Heurystyka}{15}
 \contentsline {section}{\numberline {2.1}Opis problemu}{15}
-\contentsline {section}{\numberline {2.2}Opis algorytmu}{15}
+\contentsline {section}{\numberline {2.2}Opis algorytmu}{16}
 \contentsline {section}{\numberline {2.3}Dokumentacja u\IeC {\.z}ytkowa i~opis implementacji}{16}
-\contentsline {section}{\numberline {2.4}Testy algorytmu}{16}
-\contentsline {subsection}{\numberline {2.4.1}Testy algorytmu na danych rzeczywistych}{16}
-\contentsline {subsection}{\numberline {2.4.2}Testy algorytmu na danych symulowanych}{17}
+\contentsline {section}{\numberline {2.4}Testy algorytmu}{17}
+\contentsline {subsection}{\numberline {2.4.1}Testy algorytmu na danych rzeczywistych}{17}
+\contentsline {subsection}{\numberline {2.4.2}Testy algorytmu na danych symulowanych}{18}
 \contentsline {chapter}{\numberline {3}Podsumowanie}{19}
 \contentsline {section}{\numberline {3.1}Perspektywy rozwoju}{19}
 \contentsline {section}{\numberline {3.2}Perspektywy wykorzystania}{19}
