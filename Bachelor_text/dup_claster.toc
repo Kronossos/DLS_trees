@@ -8,17 +8,16 @@
 \contentsline {subsection}{\numberline {1.3.2}Drzewa DLS}{9}
 \contentsline {subsection}{\numberline {1.3.3}Scenariusz LCA}{10}
 \contentsline {section}{\numberline {1.4}Klastrowanie duplikacji}{11}
-\contentsline {subsection}{\numberline {1.4.1}Zawieranie si\IeC {\k e} w zbiorze scenariuszy}{12}
 \contentsline {section}{\numberline {1.5}Modele scenariuszy ewolucyjnych}{12}
-\contentsline {subsection}{\numberline {1.5.1}Transformacje scenariuszy ewolucyjnych}{13}
+\contentsline {subsection}{\numberline {1.5.1}Transformacje scenariuszy ewolucyjnych}{12}
 \contentsline {subsection}{\numberline {1.5.2}Opis modeli dopuszczalnych scenariuszy}{13}
-\contentsline {section}{\numberline {1.6}Problem minimum epizod\IeC {\'o}w}{16}
-\contentsline {chapter}{\numberline {2}Heurystyka}{17}
-\contentsline {section}{\numberline {2.1}Opis algorytmu}{18}
+\contentsline {section}{\numberline {1.6}Minimalizacja epizod\IeC {\'o}w duplikacji}{14}
+\contentsline {chapter}{\numberline {2}Algorytm do klastrowania duplikacji}{17}
+\contentsline {section}{\numberline {2.1}Opis algorytmu}{17}
 \contentsline {section}{\numberline {2.2}Dokumentacja u\IeC {\.z}ytkowa i~opis implementacji}{18}
-\contentsline {section}{\numberline {2.3}Testy algorytmu}{19}
-\contentsline {subsection}{\numberline {2.3.1}Testy algorytmu na danych rzeczywistych}{19}
-\contentsline {subsection}{\numberline {2.3.2}Testy algorytmu na danych symulowanych}{20}
+\contentsline {section}{\numberline {2.3}Testy algorytmu}{18}
+\contentsline {subsection}{\numberline {2.3.1}Testy algorytmu na danych rzeczywistych}{18}
+\contentsline {subsection}{\numberline {2.3.2}Testy algorytmu na danych symulowanych}{19}
 \contentsline {chapter}{\numberline {3}Podsumowanie}{21}
 \contentsline {section}{\numberline {3.1}Perspektywy rozwoju}{21}
 \contentsline {section}{\numberline {3.2}Perspektywy wykorzystania}{21}

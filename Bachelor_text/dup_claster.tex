@@ -32,7 +32,6 @@
 \usepackage{amsmath}
 \usepackage{algorithm2e}
 
-
 % Dane magistranta:
 \autor{Aleksander Mućk}{382184}
 
@@ -43,7 +42,7 @@
 \title{Algorytmy do klastrowania duplikacji genomowych}
 
 
-\tytulang{Algorithms for the clustering of genomic duplication}
+\tytulang{Algorithms for the clustering of genomic duplications}
 
 %kierunek: 
 % - matematyka, informacyka, ...
@@ -103,7 +102,7 @@
 %tu idzie streszczenie na strone poczatkowa
 
 \begin{abstract}
-   W niniejszej pracy przedstawione są propozycje algorytmów dla problemów klastrowania duplikacji genomowych w oparciu o scenariusze ewolucyjne. W części pierwszej wprowadzane są podstawowe pojęcia dotyczące drzew genów, gatunków, modeli ich uzgadniania oraz tworzenia scenariuszy ewolucyjnych. Omówiony został również problem przeliczania i klastrowania duplikacji genomowych. W części drugiej opisana została proponowana heurystyka wraz z przykładowymi testami oraz jej implementacją w języku Python.
+   W niniejszej pracy przedstawione są propozycje algorytmów heurystycznych dla problemów klastrowania duplikacji genomowych w oparciu o scenariusze ewolucyjne. W części pierwszej wprowadzane są podstawowe pojęcia dotyczące drzew genów, gatunków, modeli ich uzgadniania oraz tworzenia scenariuszy ewolucyjnych. Omówiony został również problem przeliczania i klastrowania duplikacji genomowych. W części drugiej opisana została proponowana heurystyka wraz z przykładowymi testami oraz jej implementacją w języku Python.
 \end{abstract}
 
 
@@ -118,15 +117,15 @@
 
 Badanie drzew genów i gatunków, a w szczególności zależności między nimi może odpowiedzieć na pytania w jaki sposób wyodrębniały się gatunki przez pryzmat zmian w ich genomie. Mimo wszystko jednak należy pamiętać, że pokrewieństwo gatunków nie zawsze implikuje pokrewieństwo genów. W szczególności drzewo ewolucyjne genów nie musi pokrywać się z odpowiadającym im drzewem gatunków, które samo w sobie nie jest tak bardzo bardzo zróżnicowane jak drzewo genów. Tworzenie scenariuszy ewolucyjnych dzięki którym możemy poznać w jaki sposób ewolucja genów wpływała na ewolucję gatunków jest zadaniem nietrywialnym. Potrzebne są narzędzia, które potrafiłyby tworzyć i oceniać scenariusze pod kątem ilości zdarzeń ewolucyjnych i przyporządkować je we właściwe miejsca historii ewolucyjnej.
 
-Wybranie właściwego scenariusza ewolucyjnego nie jest zadaniem łatwym, ponieważ takich scenariuszy, wyjaśniających ewolucję danej rodziny genów, może być nieskończenie wiele. Problem jeszcze bardziej komplikuje się gdy w badaniach uwzględnimy wiele drzew genów, co generuje olbrzymią liczę danych do przeliczenia.
+Wybranie właściwego scenariusza ewolucyjnego nie jest zadaniem łatwym, ponieważ takich scenariuszy, wyjaśniających ewolucję danej rodziny genów jest nieskończenie wiele. Problem jeszcze bardziej komplikuje się gdy w badaniach uwzględnimy wiele drzew genów, co generuje olbrzymią liczę danych do przeliczenia.
 
-Należy pamiętać, że badacze nie zawsze maja dostęp do pełnych danych, a~i~te same w~sobie mogą być obarczone błędami. Do tego typu utrudnień należą między innymi: straty genów, braki w samych sekwencjach genomowych, czy niedokładne metody obliczania drzew genów i~gatunków, które są heurystykami. 
+Należy pamiętać, że badacze nie zawsze maja dostęp do pełnych danych, a~i~te same w~sobie mogą być obarczone błędami. Do tego typu utrudnień należą między innymi: straty genów, braki w samych sekwencjach genomowych, czy niedokładne metody obliczania drzew genów i~gatunków, które są często niegwarantującymi optymalnych rozwiązań heurystykami. 
 
-W niniejszej pracy proponowane są algorytmy, które oceniają zbiór scenariuszy tworząc na ich podstawie jeden, którego koszt, liczony jako ilość duplikacji, będzie możliwie najmniejszy.
+W niniejszej pracy proponowane są algorytmy heurystyczne, które oceniają zbiór scenariuszy tworząc na ich podstawie jeden, którego koszt, liczony jako ilość duplikacji, będzie możliwie najmniejszy.
 \\
 Praca składa się z~trzech rozdziałów i~dodatków.
-W~rozdziale \ref{r:pojecia} przedstawiono podstawowe pojęcia dotyczące drzew genów, drzew gatunków oraz modeli i scenariuszy ewolucyjnych.  
-Rozdział~\ref{r:heurystyka} przedstawia propozycję heurystyki wraz~z jej testami.  W~rozdziale tym opisano również implementację i sposób użycia programu napisanego na podstawie przybliżonej we wcześniejszej sekcji heurystyki.
+Rozdział \ref{r:pojecia} zawiera podstawowe pojęcia dotyczące drzew genów, drzew gatunków oraz modeli i scenariuszy ewolucyjnych.  
+Rozdział~\ref{r:heurystyka} przedstawia propozycję heurystyki wraz~z jej testami.  W~rozdziale tym opisano również implementację i sposób użycia programu napisanego na podstawie przedstawionej wcześniej heurystyki.
 Ostatni rozdział zawiera przemyślenia dotyczące możliwego użycia algorytmu i~perspektyw jego rozwoju. W~dodatkach umieszczono fragmenty kodu i~przykładowe dane wejściowe.
 
 \chapter{Podstawowe pojęcia}\label{r:pojecia}
@@ -136,44 +135,44 @@ W tym rozdziale poruszane są pojęcia i definicje niezbędne do zrozumienia pro
 
 Ewolucja biologiczna jest procesem zmian w trakcie których organizmy stopniowo nabywają lub tracą pewne cechy. Jest to element kluczowy dla powstawania nowych gatunków: specjacji. Śledzenie w jaki sposób kształtowały się nowe gatunki i w jaki sposób zachodziły na Ziemi procesy ewolucyjne jest zadaniem złożonym i wymagającym specyficznego podejścia. Jednym z możliwych sposobów przedstawienia historii ewolucyjnej gatunków jest drzewo filogenetyczne, które przedstawiają zależności ewolucyjne pomiędzy umieszczonymi na nim gatunkami lub genami. 
 
-Początkowo za wyznacznik pokrewieństwa gatunków służyło podobieństwo morfologiczne, jednak obecnie często stosuje się metody polegające na badaniu podobieństwa danych rodzin genów. Można założyć, że im większe podobieństwo genów danych organizmów tym bliżej są one spokrewnione. Z punktu widzenia tej pracy genom jest niczym więcej jak zbiorem genów obecnym w danym organizmie. 
+Początkowo za wyznacznik pokrewieństwa gatunków służyło podobieństwo morfologiczne, jednak jeśli dane molekularne są dostępne stosuje się metody polegające na badaniu podobieństwa danych rodzin genów. Można założyć, że im większe podobieństwo genów danych organizmów tym bliżej są one spokrewnione. Z punktu widzenia tej pracy genom jest niczym więcej jak zbiorem genów obecnym w danym organizmie. 
 
 
 \section{Drzewa genów i gatunków}
 
-W pracy tej drzewo to ukorzenione, binarne drzewo T o zbiorze krawędzi skierowanych $E_T$~i zbiorze węzłów~$V_T$:
+W pracy tej drzewo to ukorzenione, binarne drzewo $T$ o zbiorze krawędzi skierowanych $E_T$~i zbiorze węzłów~$V_T$:
 \begin{center}
-T = <$V_T$ , $E_T$>.
+T = $\langle V_T$ , $E_T  \rangle$.
 \end{center}
 %($v_1$ , $v_2$) takie, że $V_T$ \ni $v_x$ , $v_y$ .
-gdzie $E_T$ zawiera pary węzłów ($v$,$w$) takie, że $v$,$w$ $\in$ $V_T$. Węzły z których nie wychodzą żadne krawędzie nazywane są liśćmi, a korzeń jest węzłem do którego nie prowadzą żadne krawędzie (nieposiadającym rodzica). Węzeł $v$ jest przodkiem węzła $w$ jeśli istnieje ścieżka skierowana z węzła $v$ do węzła $w$. Liczba krawędzi w ścieżce od węzła $v$ do węzła $w$ jest nazywana długością. Poddrzewem węzła $v$ jest drzewo oznaczone $T(v)$ w którym węzeł $v$ jest korzeniem. 
+gdzie $E_T$ zawiera pary węzłów ($v$,$w$) takie, że $v$,$w$ $\in$ $V_T$. Węzły z których nie wychodzą żadne krawędzie nazywane są liśćmi, a korzeń jest węzłem do którego nie prowadzą żadne krawędzie (nieposiadającym rodzica). Węzeł $v$ jest przodkiem węzła $w$ jeśli istnieje ścieżka skierowana z węzła $v$ do węzła $w$. Liczba krawędzi w ścieżce od węzła $v$ do węzła $w$ jest nazywana długością. Długość węzła $v$ od korzenia nazywana jest głębokością. Poddrzewem węzła $v$ jest drzewo oznaczone $T(v)$ w którym węzeł $v$ jest korzeniem. 
 %Wszystkie etykiety obecne na liściach widoczne z wierzchołka $v_x$ oznaczmy jako L($v_x$).
 
-Związki między gatunkami przedstawia się za pomocą drzewa~T, zwanego drzewem gatunków~S.
+Związki między gatunkami przedstawia się za pomocą drzewa~$T$, zwanego drzewem gatunków~S.
 \begin{defi}\label{Drzewa gatunków}
-  Drzewo gatunków to takie drzewo S, gdzie każdy liść reprezentuje gatunek, a~węzły wewnętrzne nazywamy specjacjami. Zbiór wszystkich gatunków (liści) oznaczony jest jako $L(S)$. 
+  Drzewo gatunków to takie drzewo $S$, gdzie każdy liść reprezentuje gatunek, a~węzły wewnętrzne nazywamy specjacjami. Zbiór wszystkich gatunków (liści) w drzewie $S$ oznaczony jest jako $L(S)$. 
 \end{defi}
 
 Związki między genami w danej rodzinie przedstawia się za pomocą drzewa~T, zwanego drzewem genów~G.
 \begin{defi}\label{Drzewa genów}
-  Drzewo genów to takie drzewo G, gdzie każdy liść reprezentuje gen i jest etykietowony gatunkiem, z którego dany gen został zsekwencjonowany. Zbiór wszystkich gatunków (etykiet) oznaczony jest jako $L(G)$.
+  Drzewo genów to takie drzewo $G$, gdzie każdy liść reprezentuje gen i jest etykietowony gatunkiem, z którego dany gen został zsekwencjonowany. Zbiór wszystkich gatunków (etykiet) w drzewie G oznaczony jest jako $L(G)$.
 \end{defi}
 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=100mm]{./pictures/spec_gen.png}
-	\caption{Przykładowe drzewa genów G i gatunków S.}
+	\caption{Przykładowe drzewa genów $G$ i gatunków $S$ takie, że $L(G)=L(S)$ oraz~$a,b,c,d,e$ to gatunki.}
 \end{figure}
 
 \section{Uzgodnienie drzew}
-Bardzo częste różnice struktury drzewa genów w stosunku do historii ewolucyjnej opisanej drzewem gatunków wymagają mapowania węzłów drzewa G na węzły znajdujące się w drzewie S. Jest to krok niezbędny by zrozumieć w jaki sposób ewolucja gatunków wpływała na strukturę ich genomów. 
+Bardzo częste różnice struktury drzewa genów w stosunku do historii ewolucyjnej opisanej drzewem gatunków wymagają mapowania węzłów drzewa $G$ na węzły znajdujące się w drzewie $S$. Jest to krok niezbędny by zrozumieć w jaki sposób ewolucja gatunków wpływała na strukturę ich genomów. 
 
 \subsection{Mapowanie LCA}
-Podstawowym algorytmem dla tego typu uzgodnień jest \textbf{algorytm LCA} (ang. \textit{Lowest Common Ancestor}; pl. \textit{Najniższy Wspólny Przodek}) \cite{lca}. Najniższym przodkiem węzłów $v$ i $w$ to taki węzeł oznaczony jako $LCA(v,w)$, który jest przodkiem obu węzłów i którego długość ścieżki od korzenia drzewa jest największa. Najniższego wspólnego przodka dwóch węzłów można policzyć w czasie stały po liniowym, jednorazowym preprocesingu. 
+Podstawowym algorytmem dla tego typu uzgodnień jest \textbf{algorytm LCA} (ang. \textit{Lowest Common Ancestor}; pl. \textit{Najniższy Wspólny Przodek}) \cite{PAGE:1994jv}. Najniższym przodkiem węzłów $v$ i $w$ to taki węzeł oznaczony jako $LCA(v,w)$, który jest przodkiem obu węzłów i którego długość ścieżki od korzenia drzewa jest największa. Najniższego wspólnego przodka dwóch węzłów można policzyć w czasie stały po liniowym, jednorazowym preprocesingu. 
 
 \begin{defi}
-Dla drzewa genów G i drzewa gatunków S takich, że $L(G)$ $\subseteq$ $L(S)$ mapowanie LCA to funkcja $MAP_{LCA}$: $V_G$ $\rightarrow$ $V_S$ gdzie dla każdego węzła $g$ z~drzewa genów G $MAP_{LCA}$($V_G$) to węzeł taki, że:
+Dla drzewa genów $G$ i drzewa gatunków $S$ takich, że $L(G)$ $\subseteq$ $L(S)$ mapowanie LCA to funkcja $MAP_{LCA}$: $V_G$ $\rightarrow$ $V_S$ gdzie dla każdego węzła $g$ z~drzewa genów $G$ $MAP_{LCA}$($V_G$) to węzeł taki, że:
 \[ MAP_{LCA}(g) =
   \begin{cases}
     \text{etykieta }g       & \quad \text{jeśli } g \text{ jest liściem,}\\
@@ -185,22 +184,22 @@ Dla drzewa genów G i drzewa gatunków S takich, że $L(G)$ $\subseteq$ $L(S)$ m
 \begin{figure}[H]
   \centering
   \includegraphics[width=80mm]{./pictures/mapping.png}
-  \caption{Mapowanie $MAP_{LCA}$ dla przykładowego drzewa genów G i gatunków S.}
+  \caption{Mapowanie $MAP_{LCA}$ dla przykładowego drzewa genów $G$ i gatunków $S$.}
 \end{figure}
 
 \subsection{Drzewa DLS}
 
-Scenariusz ewolucyjny jest przedstawieniem ewolucji danej rodziny genów, przy uwzględnieniu ewolucji gatunków, które owe geny zawierają. Jako reprezentację scenariusza ewolucyjnego można stosować drzewa nazwane drzewami DLS (ang. \textit{Duplication-Loss-Speciation Tree}) \cite{dls}. Drzewa te posiadają dwa rodzaje węzłów wewnętrznych i dwa rodzaje liści. Pierwszy rodzaj węzła wewnętrznego opisuje zjawisko duplikacji, czyli powielenia tego samego genu do dwóch kopii (oznaczmy jako DUP), zaś drugi jest wyrażeniem zjawiska specjacji (oznaczmy jako SPEC). Pierwszy z rodzajów liści jest opisuje stratę genu (oznaczmy jako LOSS), a drugi jest reprezentacją sekwencji genu obecnego w gatunku o danej etykiecie. Drzewo DLS w kontekście drzewa gatunków S definiuje się w następujący sposób:
+Scenariusz ewolucyjny jest przedstawieniem ewolucji danej rodziny genów, przy uwzględnieniu ewolucji gatunków, które owe geny zawierają. Jako reprezentację scenariusza ewolucyjnego można stosować drzewa DLS (ang. \textit{Duplication-Loss-Speciation Tree}) \cite{Gorecki2006dls}. Drzewa te posiadają dwa rodzaje węzłów wewnętrznych i dwa rodzaje liści. Pierwszy rodzaj węzła wewnętrznego opisuje zjawisko duplikacji, czyli powielenia tego samego genu do dwóch kopii (oznaczmy jako DUP), zaś drugi jest wyrażeniem zjawiska specjacji (oznaczmy jako SPEC). Pierwszy z rodzajów liści jest opisuje stratę genu (oznaczmy jako LOSS), a drugi jest reprezentacją sekwencji genu obecnego w gatunku o danej etykiecie. Drzewo DLS w kontekście drzewa gatunków $S$ definiuje się w następujący sposób, gdzie $L(T)$ to zbiór wszystkich gatunków występujących w $T$:
 
 
 \begin{enumerate}
-\item \textit{s} jest drzewem DLS z jednym węzłem oznaczającym, że sekwencja genu jest obecna w gatunku \textit{s},
-\item  A- jest drzewem DLS z jednym węzłem oznaczającym stratę genu, gdzie A jest niepustym zbiorem gatunków,
-\item ($R_1$,$R_2$)+ jest drzewem DLS, którego korzeń jest węzłem duplikacyjnym i dzieci korzenia $R_1$ i $R_2$ są drzewami DLS takimi, że L($R_1$) = L($R_2$),
-\item ($R_1$,$R_2$)$\sim$ jest drzewem DLS, którego korzeń jest węzłem specjacyjnym i dzieci korzenia $R_1$ i $R_2$ są drzewami DLS takimi, że L($R_1$) $\cap$ L($R_2$) = 0.
+\item $s$ jest drzewem DLS z jednym węzłem oznaczającym, że sekwencja genu jest obecna w gatunku $s$ i $L(s)=\{s\}$,
+\item  A- jest drzewem DLS z jednym węzłem oznaczającym stratę genu, gdzie A jest niepustym zbiorem gatunków i $L(A-)=A$,
+\item ($R_1$,$R_2$)+ jest drzewem DLS, którego korzeń jest węzłem duplikacyjnym i dzieci korzenia $R_1$ i $R_2$ są drzewami DLS takimi, że $L(R_1) = L(R_2)$,
+\item ($R_1$,$R_2$)$\sim$ jest drzewem DLS, którego korzeń jest węzłem specjacyjnym i dzieci korzenia $R_1$ i $R_2$ są drzewami DLS takimi, że $L(R_1) \cap L(R_2) = 0$.
 \end{enumerate}
 
-Z każdego drzewa DLS możliwe jest odczytanie drzewa genów za pomocą którego zostało zbudowane dane drzewo DLS \cite{dls}. Operację tę oznaczoną jako $gene(T)$, gdzie $T$ jest drzewem DLS definiuje się w następujący sposób:
+Z każdego drzewa DLS możliwe jest odczytanie drzewa genów. Operację tę oznaczoną jako $gene(T)$, gdzie $T$ jest drzewem DLS definiuje się w następujący sposób \cite{Gorecki2006dls}:
 \begin{enumerate}
 \item $gene(\emptyset)=\emptyset$,
 \item $gene(s)=s$ ,
@@ -212,12 +211,12 @@ gene((R_2,R_2)\star)=
   \emptyset              & \text{jeśli } gene(R_1)= \emptyset =gene(R_2),\\
   gene(R_1)              & \text{jeśli } gene(R_1) \neq \emptyset =gene(R_2),\\
   gene(R_2)              & \text{jeśli } gene(R_1)= \emptyset \neq gene(R_2),\\
-  (gene(R_2),gene(R_2))  & \text{w innym przpadku. } \\
+  (gene(R_2),gene(R_2))  & \text{w innym przypadku. } \\
 \end{mcases}
 \end{equation*}
 \end{enumerate}
 
-Klasyczną miarą kosztu ewolucyjnego danego drzewa DLS jest liczba znajdujących się w nim węzłów duplikacyjnych.
+Klasyczną miarą kosztu ewolucyjnego danego drzewa DLS jest liczba znajdujących się w nim węzłów duplikacyjnych. Dla przykładu koszt ten dla drzewa DLS widocznego na rysunku 1.3 wynosi 1, ponieważ znajduje się w nim tylko jeden węzeł duplikacyjny.
 
 \subsection{Scenariusz LCA}
 
@@ -240,7 +239,7 @@ gdzie \textit{u} oraz \textit{v} są dziećmi \textit{s}, a dzieci \textit{g} to
 \begin{figure}[H]
   \centering
   \includegraphics[width=120mm]{./pictures/DLS.png}
-  \caption{Drzewo DLS $p(G,S)$ będące scenariuszem zbudowanym w oparciu o mapowanie LCA, które uzgadnia drzewo genów $G$ i drzewo gatunków $S$. Węzeł oznaczony szarym kwadratem jest węzłem duplikacyjnym, a czerwony prostokąt jest specjacją. Gałęzie narysowane linią przerywaną prowadzą do liści, które są reprezentacją straty genów w danym gatunku. Rysunek pochodzi z pracy \cite{dls}.}
+  \caption{Drzewo DLS $p(G,S)$ będące scenariuszem zbudowanym w oparciu o mapowanie LCA, które uzgadnia drzewo genów $G$ i drzewo gatunków $S$. Węzeł oznaczony szarym kwadratem jest węzłem duplikacyjnym, a czerwony prostokąt jest specjacją. Gałęzie narysowane linią przerywaną prowadzą do liści, które są reprezentacją straty genów w danym gatunku. Rysunek pochodzi z pracy \cite{Gorecki2006dls}.}
 \end{figure}
 
 Przedstawieniem drzewa DLS jest "wbudowanie" drzewa genów, w kontener będący drzewem gatunków. 
@@ -256,143 +255,128 @@ Przedstawieniem drzewa DLS jest "wbudowanie" drzewa genów, w kontener będący 
 
 Jednym z problemów podczas tworzenia scenariuszy ewolucyjnych jest problem jednoczesnych duplikacji genomowych. Istnieje potrzeba wprowadzenia dodatkowych reguł, które określą, kiedy dwie duplikacje mogą być klastrowane razem. 
  
-Niech S to drzewo gatunków. Niech $\mathcal{T}=\{T_1,T_2, \dots , T_n\}$ to drzewa DLS takie, że $L(gene(T_i)) \subseteq L(S)$ dla każdego $i$. Wówczas mówimy, że dwa węzły duplikacyjne $d_1$ i $d_2$ z $\mathcal{T}$ można sklastrować (oznaczymy jako $d_1$~$\Longleftrightarrow$~$d_2$)  jeśli poniższe warunki są spełnione:
+Niech $S$ to drzewo gatunków z~węzłami $\langle s_1,s_2, \dots , s_m \rangle$.
+Niech $\mathcal{T}=\{T_1,T_2, \dots , T_n\}$ to drzewa DLS takie, że $L(gene(T_i)) \subseteq L(S)$ dla każdego $i$ oraz $T_i$ jest wektorem epizodów $\langle e^1,e^2, \dots , e^m \rangle$, gdzie dla każdego $j$, $e^j$ to liczba epizodów duplikacyjnych przypisanych do węzła $s_j$. Wówczas mówimy, że dwa węzły duplikacyjne $d_1$ i $d_2$ z $\mathcal{T}$ można sklastrować (oznaczymy jako $d_1$~$\Longleftrightarrow$~$d_2$)  jeśli poniższe warunki są spełnione:
 \begin{enumerate}
 \item $L(d_1) = L({d_2})$,
 \item jeśli $d_1$ i $d_2$ są w jednym drzewie DLS to nie leżą na jednej ścieżce (są nieporównywalne) albo $d_1=d_2$.
 \end{enumerate}
 
-MEScore($\mathcal{T}$, S) to wtedy minimalna wielkość podziału zbioru wszystkich węzłów duplikacyjnych obecnych w scenariuszach tak, że każde dwie duplikacje z tego samego podziału są klastrowalne. Formalnie:
-
-\begin{defi}\label{ME}
-  MEScore($\mathcal{T}$, S) = $\min_{\cup P = Dup(\mathcal{T})} \lbrace \vert P \vert\ : \forall_{A \in P} \forall_{d_1,d_2 \in A} d_1 \Longleftrightarrow d_2 \rbrace$
- gdzie Dup($\mathcal{T}$) jest zbiorem wszystkich węzłów duplikacyjnych obecnych w $\mathcal{T}$. 
-\end{defi}
-
-Klastrowanie, które użyte zostało w tej pracy to klastowanie ME (ang. \textit{Minimum Episodes Clustering}) i zostało zaproponowane w pracy \cite{guigo}. W tym modelu klastrowania duplikacje mogą zostać sklastrowane jeśli są nieporównywalne i jeśli ich węzły duplikacyjne mapują do tego samego węzła na drzewie gatunków.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=70mm]{./pictures/clas_type_me.png}
-  \caption{Klastrowanie ME dla przykładowego drzewa genów G. Rysunek zaadaptowany z pracy \cite{pasz}.}
-\end{figure}
-
-
-Klastrowanie ME nie jest jedynym możliwym rodzajem klastrowania. Wyróżnia się także klastrowania:
-\begin{enumerate}
-\item GD, gdzie duplikacje nie mogą zostać sklastrowane jeśli obecne są w tym samym drzewie DLS.
-\item EC, gdzie duplikacje mogą zostać sklastrowane jeśli węzły duplikacyjne mapują do tego samego węzła na drzewie gatunków.
-\end{enumerate}
-~\linebreak
-Definicje na podstawie pracy \cite{pasz}.
-
-\subsection{Zawieranie się w zbiorze scenariuszy}
-Niech $S$ to drzewo gatunków z~węzłami $\langle s_1,s_2, ... , s_m \rangle$.
-Niech $\mathcal{T}=\{T_1,T_2, \dots , T_n\}$ to drzewa DLS takie, że $L(gene(T_i)) \subseteq L(S)$ dla każdego $i$ oraz $T_i$ jest wektorem epizodów $\langle e^1,e^2, \dots , e^m \rangle$, gdzie dla każdego $j$, $e^j$ to liczba epizodów duplikacyjnych przypisanych do węzła $s_j$.
+Klastrowanie opisane powyżej to klastrowanie ME (ang. \textit{Minimum Episodes Clustering}) i zostało po raz pierwszy zaproponowane w pracy \cite{Guigo1996}. Będzie ono również używane w tej pracy.
 
 \begin{defi}\label{MEs}
   MEScore($\mathcal{T}, S, j) = \min_{\cup P = {Dup}_s(\mathcal{T},j)} \lbrace \vert P \vert\ : \forall_{A \in P} \forall_{d_1,d_2 \in A} d_1 \Longleftrightarrow d_2 \rbrace$
  gdzie ${Dup}_s(\mathcal{T},j$) jest zbiorem wszystkich węzłów duplikacyjnych obecnych w $\mathcal{T}$, których klaster jest równy $L(s_j)$. 
 \end{defi}
 
-Niech $R$ będzie scenariuszem, będący wektorem epizodów $\langle r^1,r^2, \dots , r^m \rangle$, gdzie dla każdego $j$, $r^j$ to liczba epizodów duplikacyjnych przypisanych do węzła $s_j$. Mówimy, że $R$ zawiera się w zbiorze scenariuszy $\mathcal{T}=\{T_1,T_2, \dots , T_n\}$ ( oznaczone jako $V \triangleright \mathcal{T}$ ) jeśli: istnieje scenariusz ${T_i \in \mathcal{T}}$ taki, że $\forall_{j \in \{0,\dots,m\}}MEScore(\mathcal{T},S,j) \geq r^j$.
+
+MEScore($\mathcal{T}$, $S$) to wtedy minimalna wielkość podziału zbioru wszystkich węzłów duplikacyjnych obecnych w scenariuszach tak, że każde dwie duplikacje z tego samego podziału są klastrowalne. Formalnie:
+
+\begin{defi}\label{ME}
+  MEScore($\mathcal{T}$, $S$) = $\sum_{j \in \{1,\dots,m\}} MEScore(\mathcal{T}, S, j)$
+\end{defi}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=70mm]{./pictures/clas_type_me.png}
+  \caption{Klastrowanie ME dla przykładowego drzewa genów $G$. Rysunek zaadaptowany z pracy \cite{RME}.}
+\end{figure}
 
 
-%$\exists_{T_i \in \mathcal{T}}$
-
+Klastrowanie ME nie jest jedynym możliwym rodzajem klastrowania. Wyróżnia się także klastrowania:
+\begin{itemize}
+\item GD, gdzie duplikacje nie mogą zostać sklastrowane jeśli obecne są w tym samym drzewie DLS.
+\item EC, gdzie duplikacje mogą zostać sklastrowane jeśli węzły duplikacyjne mapują do tego samego węzła na drzewie gatunków.
+\end{itemize}
+~\linebreak
+Definicje na podstawie pracy \cite{RME}.
 
 \section{Modele scenariuszy ewolucyjnych}
 
 Drzewo DLS, które opiera się o mapowanie LCA, jest drzewem o możliwie najmniejszym koszcie duplikacyjnym i możliwe najgłębiej położonych węzłach duplikacyjnych. Nie jest to jednak jedyny możliwy scenariusz, których w rzeczywistości jest nieskończenie wiele. Należy jednak pamiętać, że nie powinno się brać pod uwagę przypadków skrajnie nieprawdopodobnych, gdzie gen jest, dla przykładu, wielokrotnie duplikowany i tracony. Po wprowadzeniu tego typu ograniczeń możliwe jest otrzymanie skończonego zbioru możliwych scenariuszy ewolucyjnych, które zwane są semi-normalnymi. Formalnie drzewo DLS nazywamy semi-normalnym jeśli:
-\begin{enumerate}
+\begin{itemize}
 \item nie istnieje węzeł duplikacyjny, którego dzieckiem jest strata,
 \item nie istnieje węzeł specjacyjny, którego dzieci są stratami.
-\end{enumerate}
+\end{itemize}
 
 
 \subsection{Transformacje scenariuszy ewolucyjnych}
 
 Drzewo DLS podlega ściśle określonym transformacjom, które zmieniają jego strukturę: 
 \begin{enumerate}
-\item TMOVE: Poddrzewo $((C-,P)\sim,(C-,Q)\sim))+$ w drzewie DLS zostaje przekształcone do poddrzewa $(C-,(P,Q)+)\sim $ ,
-\item CLOST: Poddrzewo $((P,L(Q)-)\sim,(L(P)-,Q)\sim)+$ w drzewie DLS zostaje przekształcone do poddrzewa   $(P,Q)\sim $ ,
+\item TMOVE: Poddrzewo $((C-,P)\sim,(C-,Q)\sim))+$ w drzewie DLS zostaje zamienione na poddrzewo $(C-,(P,Q)+)\sim $ ,
+\item CLOST: Poddrzewo $((P,L(Q)-)\sim,(L(P)-,Q)\sim)+$ w drzewie DLS zostaje zamienione na poddrzewo $(P,Q)\sim $ ,
 \end{enumerate}
 gdzie $C,P,Q$ są drzewami DLS.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=120mm]{./pictures/move.png}
-  \caption{Transformacje TMOVE i CLOST wraz z ich biologiczną interpretacją. Szary  kwadrat reprezentuje duplikację. Czerwony prostokąt i czerwona linia przerywana są reprezentacją specjacji, a niebieskie koło jest stratą. Rysunek zaadaptowany z pracy \cite{dls}.}
+  \caption{Transformacje TMOVE i CLOST wraz z ich biologiczną interpretacją. Szary  kwadrat reprezentuje duplikację. Czerwony prostokąt i czerwona linia przerywana są reprezentacją specjacji, a niebieskie koło jest stratą. Rysunek zaadaptowany z pracy \cite{Gorecki2006dls}.}
 \end{figure}
 
 
 
 Stosowane są również odwrotności zdefiniowanych powyżej transformacji, które oznaczone są indeksem górnym~$^{-1}$ np. TMOVE$^{-1}$.
 
-Dla ustalonego drzewa genów G i ustalonego drzewa gatunków S, gdzie $L(G) \subseteq L(S)$, możliwe jest uzyskanie zbioru scenariuszy semi-normalnych, który reprezentowany jest jako zbiór drzew DLS, poprzez zastosowanie ruchów TMOVE$^{-1}$ i CLOST$^{-1}$ na drzewie DLS będącym scenariuszem LCA. 
+Dla ustalonego drzewa genów $G$ i ustalonego drzewa gatunków $S$, gdzie $L(G) \subseteq L(S)$, możliwe jest uzyskanie zbioru scenariuszy semi-normalnych, który reprezentowany jest jako zbiór drzew DLS, poprzez zastosowanie ruchów TMOVE$^{-1}$ i CLOST$^{-1}$ na drzewie DLS będącym scenariuszem LCA. 
 
-Na rysunku 1.7 przedstawione są wszystkie możliwe przekształcenia TMOVE i CLOST dla przykładowych drzew G i S.
+Na rysunku 1.7 przedstawione są wszystkie możliwe przekształcenia TMOVE i CLOST dla przykładowych drzew $G$ i $S$.
 
 \subsection{Opis modeli dopuszczalnych scenariuszy}
 
-W praktyce nie zawsze rozważa się wszystkie możliwe scenariusze do klastrowania, ponieważ może prowadzić to do nieprawdopodobnych klastrowań duplikacji np. gdzie wszystkie duplikacje ulokowane zostały w korzeniu drzewa DLS. Należy wspomnieć, że w przypadku straty genów duplikacje genomowe będą położone niżej na drzewie gatunków. W niektórych sytuacjach może to wymusić użycie modeli, które pozwalają na wielokrotne transformacje drzew DLS i odejście od scenariusza LCA. Nie możliwe jest jednak dowolne przesuwanie węzła duplikacyjnego, ponieważ specjacja jest górnym ograniczeniem przy przesuwaniu duplikacji.
+W praktyce nie zawsze rozważa się wszystkich możliwych scenariuszy do klastrowania, ponieważ może prowadzić to do nieprawdopodobnych klastrowań duplikacji np. gdzie wszystkie duplikacje ulokowane zostały w korzeniu drzewa DLS. Należy wspomnieć, że w przypadku straty genów duplikacje genomowe będą zazwyczaj położone niżej na drzewie gatunków. W niektórych sytuacjach może to wymusić użycie modeli, które pozwalają na wielokrotne transformacje drzew DLS i odejście od scenariusza LCA. Nie możliwe jest jednak dowolne przesuwanie węzła duplikacyjnego, ponieważ specjacja jest górnym ograniczeniem przy przesuwaniu duplikacji.
 
 W literaturze wyodrębniono kilka dopuszczalnych modeli, a w pracy tej zajęto się podanymi niżej modelami, które dopuszczają podane warunki:
 \begin{enumerate}
-\item Model PG \cite{pg}: Model ten dopuszcza tylko takie drzewa DLS, które zachowują minimalny koszt duplikacyjny. Oznacza to, że są to scenariusze osiągalne ze scenariusza LCA reprezentowanego drzewem DLS za pomocą transformacji TMOVE$^{-1}$.
-\item Model FHS \cite{Fellows}: Model ten dopuszcza każde możliwe przekształcenie drzew DLS, nawet jeśli takie drzewo nie zachowuje minimalnego kosztu duplikacyjnego. Oznacza to, że są to scenariusze osiągalne ze scenariusza LCA reprezentowanego drzewem DLS za pomocą transformacji TMOVE$^{-1}$ i CLOST$^{-1}$.
+\item Model PG \cite{pg_EC2016}: Model ten dopuszcza tylko takie drzewa DLS, które zachowują minimalny koszt duplikacyjny. Oznacza to, że są to scenariusze osiągalne ze scenariusza LCA reprezentowanego drzewem DLS za pomocą transformacji TMOVE$^{-1}$.
+\item Model FHS \cite{Fellows:1998:MGD}: Model ten dopuszcza każde możliwe przekształcenie drzew DLS, nawet jeśli takie drzewo nie zachowuje minimalnego kosztu duplikacyjnego. Oznacza to, że są to scenariusze osiągalne ze scenariusza LCA reprezentowanego drzewem DLS za pomocą transformacji TMOVE$^{-1}$ i CLOST$^{-1}$.
 \end{enumerate}
 
 Należy wspomnieć, że w przypadku straty genów duplikacje genomowe będą położone niżej na drzewie gatunków. Nie zawsze istnieje możliwość ich przesunięcia w dowolne miejsce, ponieważ specjacja jest górnym ograniczeniem przy przesuwaniu węzłów duplikacyjnych. Taka transformacja przekształciłaby scenariusz tak, że nie byłby on semi-normalny.
 
-\begin{figure}[H]\label{diagram_red}
-  \centering
-  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{./pictures/diagram_1.png}
-  \caption{Diagram przekształceń scenariuszy semi-normalnych. Na dole rysunku, oznaczone filetowym kołem, znajduje się drzewo uzyskane za pomocą mapowania LCA. Model PG zawierać będzie tylko drzewa oznaczone zielonym kołem, podczas gdy dla modelu FHS wszystkie drzewa obecne na diagramie są częścią zboru scenariuszy semi-normalnych.}
-\end{figure}
+\section{Minimalizacja epizodów duplikacji}
 
-\section{Problem minimum epizodów}
-
-Badania wielokrotnych duplikacji generują szeroką klasę problemów różniących się właściwościami, które zależą od metody klastrowania i modelu dozwolonych scenariuszy. W pracy tej zajęto się tylko klastrowaniem ME, więc problem minimum epizodów jest parametryzowany wyłącznie przez obrany model scenariuszy. 
-
-Niech $S$ to drzewo gatunków, a $\mathcal{G}=\{G_1,G_2, \dots , G_n\}$ to drzewa genów gdzie $L(G_i) \subseteq L(S)$ dla każdego $i$. Niech $\mathcal{M}$ to wybrany model scenariuszy ewolucyjnych. Problem minimum epizodów, oznaczony jako RME, definiuje się w następujący sposób:
+Badania wielokrotnych duplikacji tworzą szeroką gamę problemów różniących się właściwościami, które zależą od metody klastrowania i modelu dozwolonych scenariuszy. W pracy tej zajęto się tylko klastrowaniem ME, więc problem minimalizacji epizodów jest parametryzowany wyłącznie przez obrany model scenariuszy. 
 
 \newtheorem{problem}{Problem}
 \begin{problem}
+  Dane: drzewo gatunków $S$, zbiór drzew genów $\mathcal{G}=\{G_1,G_2, \dots , G_n\}$ gdzie $L(G_i) \subseteq L(S)$ dla każdego $i$ oraz  wybrany model scenariuszy ewolucyjnych $\mathcal{M}$. Znajdź scenariusz ewolucyjny, który minimalizuje ilość epizodów duplikacji, oznaczoną jako RME i zdefiniowaną w następujący sposób:
   ${RME}_{\mathcal{M}}(\mathcal{G}, S) = \min_{\forall_i T_i \in \mathcal{M}(G_i,S)}MEScore(\lbrace T_i \rbrace_{i=1,2,\dots,n},S)$, gdzie $\mathcal{M}(G_i,S)$ to wszystkich zbiór semi-normalnych scenariuszy ewolucyjnych w modelu $\mathcal{M}$ dla drzewa $G_i~\in~\mathcal{G}$.
 \end{problem}
 
-Po raz pierwszy problem minimum epizodów został opisany w pracy \cite{guigo}.
+Po raz pierwszy problem minimalizacji epizodów został opisany w pracy \cite{Guigo1996}.
+
+\begin{figure}[t]\label{diagram_red}
+  \centering
+  \includegraphics[height=200mm,keepaspectratio]{./pictures/diagram_2.png}
+  \caption{Diagram przekształceń scenariuszy semi-normalnych. Na dole rysunku, oznaczone filetowym kołem, znajduje się drzewo uzyskane za pomocą mapowania LCA. Model PG zawierać będzie tylko drzewa oznaczone zielonym kołem, podczas gdy dla modelu FHS wszystkie drzewa obecne na diagramie są częścią zboru scenariuszy semi-normalnych.}
+\end{figure}
 
 
-\chapter{Heurystyka}\label{r:heurystyka}
-Dane empiryczne wskazują, że klastrowanie duplikacji dla modelu PG i jego pochodnych jest zbliżone do tego wyznaczonego przez mapowanie LCA. Z tego powodu należałoby przeanalizować scenariusze wygenerowane z użyciem modeli bardziej ogólnych, takich jak model FHS. Potrzebna jest więc metoda, która umożliwiłaby klastrowanie duplikacji w modelach ogólniejszych niż model PG i w innych, które się o niego opierają. 
-Obecnie nie istnieje metoda, która pozwoliłaby na uniwersalne klastrowanie duplikacji niezależnie od obranego modelu, to znaczy, której działanie nie byłoby parametryzowalne samym modelem tak jak zostało to zdefiniowane w problemie 1. 
-\\
-W tym rozdziale przedstawiony zostanie algorytm heurystyczny, który umożliwia uniwersalne klastrowanie duplikacji i rozwiązuje opisany powyżej problem.
-
+\chapter{Algorytm do klastrowania duplikacji}\label{r:heurystyka}
+Dane empiryczne wskazują, że klastrowanie duplikacji dla modelu PG i jego pochodnych jest zbliżone do tego wyznaczonego przez mapowanie LCA. Z tego powodu należałoby przeanalizować scenariusze wygenerowane z użyciem modeli bardziej ogólnych, takich jak model FHS. W tym rozdziale przedstawiony zostanie algorytm heurystyczny, który umożliwia uniwersalne klastrowanie duplikacji w modelach ogólniejszych niż model PG i w innych, które się o niego opierają.
 \section{Opis algorytmu}
-
 \begin{algorithm}[H]
  \KwIn{
  \begin{enumerate}
+ \itemsep0em 
 \item Drzewo gatunków $S$ z~węzłami $\langle s_1,s_2, \dots , s_m \rangle$,
-\item Zbiór drzew genów $\mathcal{G}=\{G_1,G_2, \dots , G_z\}$ gdzie $L(G_i) \subseteq L(S)$ dla każdego $i$,
-\item Zbiór drzew DLS $\mathcal{T}_i$ dla każdego drzewa genów $G_i \in \mathcal{G}$, reprezentowanych jako wektory  $T = \langle e^1,e^2, \dots , e^m \rangle$, gdzie dla każdego $j$, $e^j$ to liczba epizodów duplikacyjnych przypisanych do węzła $s_j$.
+\item Zbiór drzew genów $\mathcal{G}=\{G_1,G_2, \dots , G_n\}$ gdzie $L(G_i) \subseteq L(S)$ dla każdego $i$,
+\item Zbiór drzew DLS $\mathcal{T}_i=\{T_i^1,T_i^2, \dots , T_i^h\}$ dla każdego drzewa genów $G_i \in \mathcal{G}$, reprezentowanych jako wektory  epizodów $\langle e^1_{i_j},e^2_{i_j}, \dots , e^m_{i_j} \rangle$, gdzie dla każdego $k$, $e^k_{i_j}$ to liczba epizodów duplikacyjnych przypisanych do węzła $s_k$ w $j$-tym drzewie DLS dla $i$-tego drzewa genów.
 \end{enumerate}}
- \KwOut{\begin{enumerate}
- \item Scenariusz w postaci wektora $<{e}^1,{e}^2, ... , {e}^m>$, gdzie dla każdego $j$, ${e}^j$ to liczba epizodów duplikacyjnych przypisanych do węzła $s_j$.
- \end{enumerate}}
- $V^{max}$ := $<{e}^1,{e}^2, \dots , {e}^m>$, gdzie dla każdego $j$, ${e}^j$=$\forall_{i \in \{1,\dots,z\}}$max $e^j$ dla każdego $T \in \mathcal{T}_i$\;
+ \KwOut{Scenariusz w postaci wektora epizodów $\langle {e}^1,{e}^2, ... , {e}^m \rangle$.}
+ $V^{max}$ := $\langle {e}^1,{e}^2, \dots , {e}^m \rangle$, gdzie dla każdego $k$, ${e}^k$=$max_{ \forall_{j \in \{1,\dots,h\}},\forall_{i \in \{1,\dots,n\}}}e^k_{i_j}$\;
  $V^*$ := $V^{max}$\;
  \textbackslash\textbackslash \textit{Pętla główna}\;
- \For{i $\in \{1,\dots,m\}$}{
+ \For{k $\in \{1,\dots,m\}$}{
   ${V_{new}}^*$ = $V^*$\;
   zmiana := True\;
-  \While{zmiana == True i ${V_{new}}^*[i] > 0$}{
-  ${V_{new}}^*$[$i$] - -\;
+  \While{zmiana i ${V_{new}}^*[k] > 0$}{
+  ${V_{new}}^*$[$k$] - -\;
   zmiana := False\;
   \If{$ \forall_{G_i \in \mathcal{G}}{V_{new}}^* \triangleright \mathcal{T}_i$}{
+   \textbackslash\textbackslash \textit{Wyjaśnienie symbolu $\triangleright$ znajduje się pod algorytmem.}\;
    $V^*$ := ${V_{new}}^*$\;
    zmiana := True\;
    }
@@ -400,21 +384,25 @@ W tym rozdziale przedstawiony zostanie algorytm heurystyczny, który umożliwia 
  }
 \end{algorithm}
 
+
+Niech $R$ będzie scenariuszem, będący wektorem epizodów $\langle r^1,r^2, \dots , r^m \rangle$, gdzie dla każdego $j$, $r^j$ to liczba epizodów duplikacyjnych przypisanych do węzła $s_j$. Mówimy, że $R$ zawiera się w zbiorze scenariuszy $\mathcal{T}=\{T_1,T_2, \dots , T_n\}$ ( oznaczone jako $V \triangleright \mathcal{T}$ ) jeśli: istnieje scenariusz ${T_i \in \mathcal{T}}$ taki, że $\forall_{j \in \{0,\dots,m\}}MEScore(\mathcal{T},S,j) \geq r^j$.
+\\
+~\\
 Wybór współrzędnej $i$ odpowiadającej pozycji węzła $s_j$ w pętli głównej może, zależnie od potrzeby, być dokonywany w inny sposób (np. w porządku prefiksowym) jednak w tej pracy współrzędne wybierane były losowo.
 
 \section{Dokumentacja użytkowa i~opis implementacji}\label{r:impl}
 Opisana heurystyka zaimplementowana została w języku Python w wersji 3.7.4 przy użyciu paradygmatu obiektowego, gdzie zbiór wszystkich drzew DLS dla wszystkich drzew, zbiór drzew semi-normalnych otrzymanych z jednego drzewa genów, a także pojedyncze drzewo DLS stanowią oddzielne klasy. Fragment kodu można zobaczyć w dodatku A. Program pythonowy przyjmuje na wejściu listę plików w których zawarte są wyliczone scenariusze dla danego drzewa genów.
 
-Algorytm ten, dla wygody użycia, został obudowany skryptem napisanym w języku bash, który pozwala na wyliczenie scenariuszy w modelu FHS i PG z wykorzystaniem programu DLSgen autorstwa dra hab. Pawła Góreckiego \cite{dlsgen}. Program ten wylicza dla danego drzewa genów i drzewa gatunków scenariusze ewolucyjne, które wykorzystywane są jako dane wejściowe dla proponowanej heurystyki.
+Algorytm ten, dla wygody użycia, został obudowany skryptem napisanym w języku bash, który pozwala na wyliczenie scenariuszy w modelu FHS i PG z wykorzystaniem programu DLSgen autorstwa dra hab. Pawła Góreckiego. Program ten wylicza dla danego drzewa genów i drzewa gatunków scenariusze ewolucyjne, które wykorzystywane są jako dane wejściowe dla proponowanej heurystyki. Nie jest on jeszcze opublikowany i został wykorzystany za zgodą jego autora.
 
 
 \section{Testy algorytmu}
-Do sprawdzenia wyników wyliczanych przez proponowany algorytm użyty został program RME napisany przez dra Jarosława Paszka. Program ten korzystając z dostępnych metod algorytmicznych wylicza dokładne i najniższe możliwe wartości kosztu ewolucyjnego dla podanych modeli z użyciem klastrowania ME. \cite{rme}
+Do sprawdzenia wyników wyliczanych przez proponowany algorytm użyty został program RME napisany przez dra Jarosława Paszka. Program ten korzystając z dostępnych metod algorytmicznych wylicza dokładne i najniższe możliwe wartości kosztu ewolucyjnego dla podanych modeli z użyciem klastrowania ME \cite{RME}.
 \\
 Z powodu trudności w obliczeniu danych wejściowych dla heurystyki obecnie nie ma możliwości dla przetestowania algorytmów dla dużych zbiorów danych.
 
 \subsection{Testy algorytmu na danych rzeczywistych}
-Zbiorem danych dla testu na danych rzeczywistych był zbiór Guigo zawierający 53 ukorzenione drzewa genów pochodzące od 16 eukariontów. Do zbioru tego załączono dwa drzewa gatunków $S_1$ z pracy \cite{guigo} i $S_2$ z pracy \cite{guigo_2}. 
+Zbiorem danych dla testu na danych rzeczywistych był zbiór Guigo zawierający 53 ukorzenione drzewa genów pochodzące od 16 eukariontów. Do zbioru tego załączono dwa drzewa gatunków $S_1$ z pracy \cite{Guigo1996} i $S_2$ z pracy \cite{Page1997RTI}. 
 
 \begin{figure}[H]
 \centering
@@ -465,7 +453,7 @@ Zbiorem danych dla testu na danych rzeczywistych był zbiór Guigo zawierający 
 Dla wszystkich przypadków algorytm przy losowym wyborze współrzędnych jest w stanie osiągnąć wyniki identyczne jak te wyliczone przez program RME. 
 
 \subsection{Testy algorytmu na danych symulowanych}
-Dane dla testów syntetycznych zostały wygenerowany w sposób losowy jednak wielkość, struktura i ilość drzew genów zostały dopasowane do zbioru Guigo. Zbiory symulowane zawierają syntetyczne drzewo gatunków z 15 liśćmi oraz  wygenerowane losowo, w oparciu o algorytm YULA, 48 ukorzenione drzewa genów etykietowane gatunkami z wylosowanego wcześniej drzewa gatunków. Przykładowe drzewa gatunków (w formie graficznej) i genów (w formie tekstowej) można znaleźć w dodatkach do pracy. Test został przeprowadzony dla 1000 losowych zestawów.
+Dane dla testów syntetycznych zostały wygenerowany w sposób losowy jednak wielkość, struktura i ilość drzew genów zostały dopasowane do zbioru Guigo. Zbiory symulowane zawierają syntetyczne drzewo gatunków z 15 liśćmi wygenerowane z modelu Yule'a \cite{pmid11259805}, 48 ukorzenionych drzew genów etykietowane gatunkami z wylosowanego wcześniej drzewa gatunków. Przykładowe drzewa gatunków (w formie graficznej) i genów (w formie tekstowej) można znaleźć w dodatkach do pracy. Test został przeprowadzony dla 1000 losowych zestawów.
 
 \begin{figure}[H]
 \centering
@@ -487,9 +475,9 @@ Dla modelu PG tylko 4 zbiory z 1000 nie dały tego samego wyniku, a dla modelu F
 
 \chapter{Podsumowanie}
 
-W~pracy przedstawiono pierwszy i dosyć intuicyjny pomysł na ocenę scenariuszy ewolucyjnych reprezentowanymi drzewami DLS pod kątem ilości duplikacji. Należy jednak wspomnieć, że samą ideę da się znacząco usprawnić. 
+W~pracy przedstawiono pierwszy pomysł na ocenę scenariuszy ewolucyjnych reprezentowanymi drzewami DLS pod kątem liczby duplikacji. Należy jednak wspomnieć, że samą ideę da się znacząco usprawnić. 
 \\
-Obecnie to krok w którym konieczne jest wyliczenie zbioru drzew semi-normalnych dla danego drzewa genów jest krokiem najbardziej wymagającym czasowo i obliczeniowo.  W związku z tym trudno mówić o czasie potrzebnym algorytmowi na własne obliczenia. Nie udało się zaobserwować, by algorytm kiedykolwiek potrzebował więcej niż jedną sekundę na wczytanie danych i więcej niż 0.3 sekundy na obliczenie drzewa o najmniejszym koszcie ewolucyjnym. Należy jednak podkreślić, że ponieważ to właśnie program DLSgen był swego rodzaju "wąskim gardłem"  niemożliwe jest przetestowanie algorytmu na danych bardziej złożonych niż zbiór Guigo lub jego pochodne. 
+Obecnie to krok w którym konieczne jest wyliczenie zbioru drzew semi-normalnych dla danego drzewa genów jest krokiem najbardziej wymagającym czasowo i obliczeniowo.  W związku z tym trudno mówić o czasie potrzebnym algorytmowi na własne obliczenia. Nie udało się zaobserwować, by algorytm kiedykolwiek potrzebował więcej niż jedną sekundę na wczytanie danych i więcej niż 0.3 sekundy na obliczenie drzewa o najmniejszym koszcie ewolucyjnym. Należy jednak podkreślić, że to właśnie program DLSgen był swego rodzaju "wąskim gardłem"~i~niemożliwe jest przetestowanie algorytmu na danych bardziej złożonych niż zbiór Guigo lub jego pochodne. 
 \\
 Testy pokazują również, że opisany algorytm zwraca wyniki, które różnią się w bardzo niewielkim stopniu od rzeczywistego minimalnego kosztu ewolucyjnego, gdyż maksymalnie tylko dla 2,8\% danych algorytm nie uzyskał najniższego możliwego wyniku. Maksymalna różnica jaką udało się zaobserwować wynosiła 1, co również nie jest dużą wartością. Może to jednak wynikać z dosyć niskiego kosztu ewolucyjnego drzew DLS zawartych w badanych zbiorach, który wynosił maksymalnie 9 (średnia arytmetyczna = 6,1) dla modelu PG i 7 (średnia arytmetyczna = 4,5) dla modelu FHS. Proponowany algorytm wymaga w związku z tym kolejnych, bardziej rozbudowanych testów.
 
@@ -501,7 +489,7 @@ oczywistą można wskazać już teraz.  Jest to uniezależnienie algorytmu od kr
 
 \section{Perspektywy wykorzystania}
 
-Podstawową zaletą przedstawionej heurystyki jest jej elastyczność. Ocena scenariuszy nie zależy od obranego modelu, a obecnie wydaje się, że same obliczenia nie są obarczone dużym błędem. Kolejną niewątpliwą zaletą jest fakt, że w istocie również struktura drzewa nie ma dla algorytmu dużego znaczenia. Drzewo binarne nie zawsze jest najlepszym przedstawieniem historii ewolucji i algorytm jest na taką zmianę gotowy. Z punktu widzenia algorytmu drzewa są tablicą zawierającą ilość klastrów duplikacyjnych dla danego węzła, a które umieszczone są w niej w porządku prefiksowym. Zapewnia to możliwość wykorzystania algorytmu nie tylko dla drzew binarnych. Algorytm funkcjonuje obecnie jednak w dosyć prymitywnej formie i wymaga wzmożonej oraz dokładnej pracy.  
+Podstawową zaletą przedstawionej heurystyki jest jej uniwersalność. Ocena scenariuszy nie zależy od obranego modelu, a obecnie wydaje się, że same obliczenia nie są obarczone dużym błędem. Kolejną niewątpliwą zaletą jest fakt, że w istocie również struktura drzewa nie ma dla algorytmu dużego znaczenia. Drzewo binarne nie zawsze jest najlepszym przedstawieniem historii ewolucji i algorytm jest na taką zmianę gotowy. Z punktu widzenia algorytmu drzewa są tablicą zawierającą ilość klastrów duplikacyjnych dla danego węzła, a które umieszczone są w niej w porządku prefiksowym. Zapewnia to możliwość wykorzystania algorytmu nie tylko dla drzew binarnych. Pokreślić trzeba jednak, że obecnie algorytm istnieje w formie prototypowej i wymaga wzmożonej oraz dokładnej pracy.  
 
 \appendix
 
@@ -611,33 +599,10 @@ Format tekstowy:
 (h,((b,(m,f)),((c,j),(a,(k,l)))))
 \end{obeylines}
 
-\begin{thebibliography}{99}
+\newpage
 \addcontentsline{toc}{chapter}{Bibliografia}
-
-\bibitem[2]{rme} Jarosław Paszek, Paweł Górecki: \textit{https://www.mimuw.edu.pl/~jpaszek/rme.html}
-  
-\bibitem[3]{dls} Paweł Górecki, Jerzy Tiuryn: \textit{DLS-trees: a model of evolutionary scenarios}, Theoretical Computer Science 359 (1-3) 2006, s. 378–399
-
-\bibitem[4]{pasz} Jarosław Paszek, Paweł Górecki: \textit{Efficient Algorithms for Genomic Duplication Models}
-
-\bibitem[5]{guigo}
-Roderic Guigo, Ilya Muchnik, Temple F. Smith: \textit{Reconstruction of ancient molecular phylogeny}, Molecular Phylogenetics and Evolution 6(2), 189–213 (1996)
-
-\bibitem[6]{guigo_2}
-Page, R.D.M., Charleston, M.A.: \textit{Reconciled trees and incongruent gene and species trees}, DIMACS Series in Discrete Mathematics and Theoretical Computer Sciences, vol. 37 (1997)
-
-\bibitem[7]{pg} Jarosław Paszek, Paweł Górecki: \textit{Genomic duplication problems for unrooted gene trees}, BMC Genomics, 17(1):165–175.
-
-\bibitem[8]{Fellows}
-Michael Fellows, Michael Hallett, Ulrike Stege:  \textit{On the multiple
-gene duplication problem}, 9th International Symposium on Algorithms and
-Computation (ISAAC’98), Computer Science 1533, s. 347–356.
-
-\bibitem[9]{dlsgen}
-Program jeszcze nieopublikowany.
-
-\end{thebibliography}
-
+\bibliography{dup_claster.bib}
+\bibliographystyle{nar}
 \end{document}
 
 
