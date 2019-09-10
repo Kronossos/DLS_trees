@@ -226,18 +226,9 @@ class AllScenarios:
         pass
 
 
-def test():
+def test_all():
     files = sys.argv[1:]
     a = AllScenarios(files)
-    # for sc in a:
-    #     print(sc)
-    #     for tree in sc:
-    #         print(tree)
-
-
-    # a.subset_calc()
-
-
 
     print("total random")
     start_time = time.time()
@@ -264,10 +255,14 @@ def test():
     # print(a.check_all())
     # print("Done in {} .".format(time.time() - start_time))
 
-
 def full_test():
     files = sys.argv[1:]
     a = AllScenarios(files)
-    print("MEscore {}".format(a.decrease_vector("random")[1]))
+    score = a.decrease_vector("random")[1]
+    for x in range(9):
+        current_score = a.decrease_vector("random")[1]
+        if current_score < score:
+            score = current_score
+    print("MEscore {}".format(score))
 
 full_test()
