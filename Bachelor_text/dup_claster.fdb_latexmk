@@ -1,13 +1,12 @@
 # Fdb version 3
-["bibtex dup_claster"] 1568125995 "dup_claster.aux" "dup_claster.bbl" "dup_claster" 1568125997
+["bibtex dup_claster"] 1568149379 "dup_claster.aux" "dup_claster.bbl" "dup_claster" 1568149381
   "/usr/share/texlive/texmf-dist/bibtex/bst/nar/nar.bst" 1480098435 24162 dd7ab00ad74f8df1c651bfc43cd45138 ""
-  "dup_claster.aux" 1568125997 7686 c9c1399e319768975508ca7b1c6e7d24 ""
+  "dup_claster.aux" 1568149381 7686 88ad139cdd9d476ce4ce8717783bf695 ""
   "dup_claster.bcf" 0 -1 0 ""
-  "dup_claster.bib" 1568125986 8899 208000c034cd20f877e79fbbddad4400 ""
+  "dup_claster.bib" 1568147061 9016 8ec16b8ca6ed1a76c53f185ec411caab ""
   (generated)
   "dup_claster.bbl"
-  "dup_claster.blg"
-["pdflatex"] 1568125995 "dup_claster.tex" "dup_claster.pdf" "dup_claster" 1568125997
+["pdflatex"] 1568149379 "dup_claster.tex" "dup_claster.pdf" "dup_claster" 1568149381
   "/etc/texmf/web2c/texmf.cnf" 1563891896 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1095.tfm" 1480098696 3584 21b378cca2e40816b0e6d74a4dc98f04 ""
@@ -120,10 +119,10 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1520210507 32485 c64754543d8ac501bea6e75e209ea521 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1563891920 2700761 ac0584cc9514ab21918550a6948c4ee2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1563891933 4139188 e8030d5d1fc0028316a30edc824eea91 ""
-  "dup_claster.aux" 1568125997 7686 c9c1399e319768975508ca7b1c6e7d24 ""
-  "dup_claster.bbl" 1568125995 1622 310a89a3976548d2da7ca69d86b18104 "bibtex dup_claster"
-  "dup_claster.tex" 1568125764 36515 48b3eee33f43bae96031e956f0fedc1b ""
-  "dup_claster.toc" 1568125997 2069 11c73ccdabbf4b06960d81d4c5faaddd ""
+  "dup_claster.aux" 1568149381 7686 88ad139cdd9d476ce4ce8717783bf695 ""
+  "dup_claster.bbl" 1568149379 1635 4a96161c8a65f20bd1b7e60dd3a3f484 "bibtex dup_claster"
+  "dup_claster.tex" 1568149313 36420 0361e37f50dfd36541cadf35f58390ca ""
+  "dup_claster.toc" 1568149381 2069 11c73ccdabbf4b06960d81d4c5faaddd ""
   "pictures/DLS.png" 1567946018 2258117 228c15c93b031c26c7c11afc792ced30 ""
   "pictures/FHS.png" 1564911596 104473 d58539d19281ea10d946fdf9eefc7a90 ""
   "pictures/G1_FHS.png" 1564911322 47453 91a71f88538ccb940a8eff41baa74dd6 ""
@@ -144,6 +143,6 @@
   "pracamgr.cls" 1563735365 13262 b6f13d0e50907210f3c4a351b49cff9f ""
   (generated)
   "dup_claster.aux"
-  "dup_claster.toc"
   "dup_claster.log"
+  "dup_claster.toc"
   "dup_claster.pdf"

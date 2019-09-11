@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.7.23)  10 SEP 2019 16:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.7.23)  11 SEP 2019 14:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -681,21 +681,20 @@ Package pdftex.def Info: ./pictures/optscen.png  used on input line 250.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [10 <./pictures/DLS.png>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 261.
+
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 261.
 <./pictures/clas_type_me.png, id=64, 673.51625pt x 344.28625pt>
 File: ./pictures/clas_type_me.png Graphic file (type png)
 <use ./pictures/clas_type_me.png>
 Package pdftex.def Info: ./pictures/clas_type_me.png  used on input line 281.
 (pdftex.def)             Requested size: 199.16928pt x 101.81047pt.
- [11 <./pictures/optscen.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 288.
 
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 288.
-
+[11 <./pictures/optscen.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 291--293
 
  []
@@ -820,7 +819,7 @@ Here is how much of TeX's memory you used:
  9018 multiletter control sequences out of 15000+600000
  22589 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,18n,39p,918b,512s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,17n,39p,918b,512s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.e
 nc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/sha
@@ -842,7 +841,7 @@ fb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf
 /fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/
 cm-super/sfti1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pf
 b>
-Output written on dup_claster.pdf (31 pages, 1275636 bytes).
+Output written on dup_claster.pdf (31 pages, 1280166 bytes).
 PDF statistics:
  233 PDF objects out of 1000 (max. 8388607)
  141 compressed objects within 2 object streams

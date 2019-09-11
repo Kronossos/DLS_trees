@@ -153,11 +153,11 @@ INPUT ./pictures/DLS.png
 INPUT ./pictures/optscen.png
 INPUT ./pictures/optscen.png
 INPUT ./pictures/optscen.png
-INPUT ./pictures/clas_type_me.png
-INPUT ./pictures/clas_type_me.png
-INPUT ./pictures/clas_type_me.png
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+INPUT ./pictures/clas_type_me.png
+INPUT ./pictures/clas_type_me.png
+INPUT ./pictures/clas_type_me.png
 INPUT ./pictures/move.png
 INPUT ./pictures/move.png
 INPUT ./pictures/move.png

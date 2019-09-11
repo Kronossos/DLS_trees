@@ -2,7 +2,6 @@ from Tree import *
 import random
 import copy
 
-# random.seed(1)
 
 def generate_tree(leafs=[1,2,3,4],multi=True,delete_chances=0.8):
     names=[Leaf(i) for i in leafs]

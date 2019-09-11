@@ -8,6 +8,8 @@ import collections
 import random
 import itertools
 
+random.seed(0)
+
 class TreeNode:
     def __init__(self, id: int, level: int, change_id: list, change_type: list, duplication_prefix: list):
         self.id = id

@@ -121,7 +121,7 @@ Wybranie właściwego scenariusza ewolucyjnego nie jest zadaniem łatwym, poniew
 
 Należy pamiętać, że badacze nie zawsze maja dostęp do pełnych danych, a~i~te same w~sobie mogą być obarczone błędami. Do tego typu utrudnień należą między innymi: straty genów, braki w samych sekwencjach genomowych, czy niedokładne metody obliczania drzew genów i~gatunków, które są często niegwarantującymi optymalnych rozwiązań heurystykami. 
 
-W niniejszej pracy proponowane są algorytmy heurystyczne, które oceniają zbiór scenariuszy tworząc na ich podstawie jeden, którego koszt, liczony jako ilość duplikacji, będzie możliwie najmniejszy.
+W niniejszej pracy proponowane są algorytmy heurystyczne, które oceniają zbiór scenariuszy tworząc na ich podstawie jeden, którego koszt, liczony jako liczba duplikacji, będzie możliwie najmniejszy.
 \\
 Praca składa się z~trzech rozdziałów i~dodatków.
 Rozdział \ref{r:pojecia} zawiera podstawowe pojęcia dotyczące drzew genów, drzew gatunków oraz modeli i scenariuszy ewolucyjnych.  
@@ -142,7 +142,7 @@ Początkowo za wyznacznik pokrewieństwa gatunków służyło podobieństwo morf
 
 W pracy tej drzewo to ukorzenione, binarne drzewo $T$ o zbiorze krawędzi skierowanych $E_T$~i zbiorze węzłów~$V_T$:
 \begin{center}
-T = $\langle V_T$ , $E_T  \rangle$.
+T = $\langle V_T$ , $E_T  \rangle$,
 \end{center}
 %($v_1$ , $v_2$) takie, że $V_T$ \ni $v_x$ , $v_y$ .
 gdzie $E_T$ zawiera pary węzłów ($v$,$w$) takie, że $v$,$w$ $\in$ $V_T$. Węzły z których nie wychodzą żadne krawędzie nazywane są liśćmi, a korzeń jest węzłem do którego nie prowadzą żadne krawędzie (nieposiadającym rodzica). Węzeł $v$ jest przodkiem węzła $w$ jeśli istnieje ścieżka skierowana z węzła $v$ do węzła $w$. Liczba krawędzi w ścieżce od węzła $v$ do węzła $w$ jest nazywana długością. Długość węzła $v$ od korzenia nazywana jest głębokością. Poddrzewem węzła $v$ jest drzewo oznaczone $T(v)$ w którym węzeł $v$ jest korzeniem. 
@@ -162,7 +162,7 @@ Związki między genami w danej rodzinie przedstawia się za pomocą drzewa~T, z
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=100mm]{./pictures/spec_gen.png}
-	\caption{Przykładowe drzewa genów $G$ i gatunków $S$ takie, że $L(G)=L(S)$ oraz~$a,b,c,d,e$ to gatunki.}
+	\caption{Przykładowe drzewa genów $G$ i gatunków $S$ takie, że $L(G)=L(S)$ oraz~a,b,c,d~i~e~to~gatunki.}
 \end{figure}
 
 \section{Uzgodnienie drzew}
@@ -256,11 +256,11 @@ Przedstawieniem drzewa DLS jest "wbudowanie" drzewa genów, w kontener będący 
 Jednym z problemów podczas tworzenia scenariuszy ewolucyjnych jest problem jednoczesnych duplikacji genomowych. Istnieje potrzeba wprowadzenia dodatkowych reguł, które określą, kiedy dwie duplikacje mogą być klastrowane razem. 
  
 Niech $S$ to drzewo gatunków z~węzłami $\langle s_1,s_2, \dots , s_m \rangle$.
-Niech $\mathcal{T}=\{T_1,T_2, \dots , T_n\}$ to drzewa DLS takie, że $L(gene(T_i)) \subseteq L(S)$ dla każdego $i$ oraz $T_i$ jest wektorem epizodów $\langle e^1,e^2, \dots , e^m \rangle$, gdzie dla każdego $j$, $e^j$ to liczba epizodów duplikacyjnych przypisanych do węzła $s_j$. Wówczas mówimy, że dwa węzły duplikacyjne $d_1$ i $d_2$ z $\mathcal{T}$ można sklastrować (oznaczymy jako $d_1$~$\Longleftrightarrow$~$d_2$)  jeśli poniższe warunki są spełnione:
-\begin{enumerate}
+Niech $\mathcal{T}=\{T_1,T_2, \dots , T_n\}$ to drzewa DLS takie, że $L(gene(T_i)) \subseteq L(S)$ dla każdego $i$ oraz $T_i$ jest wektorem $\langle e^1,e^2, \dots , e^m \rangle$, gdzie dla każdego $j$, $e^j$ to liczba epizodów duplikacyjnych przypisanych do węzła $s_j$. Wówczas mówimy, że dwa węzły duplikacyjne $d_1$ i $d_2$ z $\mathcal{T}$ można sklastrować (oznaczymy jako $d_1$~$\Longleftrightarrow$~$d_2$)  jeśli poniższe warunki są spełnione:
+\begin{itemize}
 \item $L(d_1) = L({d_2})$,
 \item jeśli $d_1$ i $d_2$ są w jednym drzewie DLS to nie leżą na jednej ścieżce (są nieporównywalne) albo $d_1=d_2$.
-\end{enumerate}
+\end{itemize}
 
 Klastrowanie opisane powyżej to klastrowanie ME (ang. \textit{Minimum Episodes Clustering}) i zostało po raz pierwszy zaproponowane w pracy \cite{Guigo1996}. Będzie ono również używane w tej pracy.
 
@@ -273,7 +273,7 @@ Klastrowanie opisane powyżej to klastrowanie ME (ang. \textit{Minimum Episodes 
 MEScore($\mathcal{T}$, $S$) to wtedy minimalna wielkość podziału zbioru wszystkich węzłów duplikacyjnych obecnych w scenariuszach tak, że każde dwie duplikacje z tego samego podziału są klastrowalne. Formalnie:
 
 \begin{defi}\label{ME}
-  MEScore($\mathcal{T}$, $S$) = $\sum_{j \in \{1,\dots,m\}} MEScore(\mathcal{T}, S, j)$
+  MEScore($\mathcal{T}$, $S$) = $\sum_{j \in \{1,\dots,m\}} MEScore(\mathcal{T}, S, j)$.
 \end{defi}
 
 \begin{figure}[H]
@@ -341,8 +341,8 @@ Badania wielokrotnych duplikacji tworzą szeroką gamę problemów różniących
 
 \newtheorem{problem}{Problem}
 \begin{problem}
-  Dane: drzewo gatunków $S$, zbiór drzew genów $\mathcal{G}=\{G_1,G_2, \dots , G_n\}$ gdzie $L(G_i) \subseteq L(S)$ dla każdego $i$ oraz  wybrany model scenariuszy ewolucyjnych $\mathcal{M}$. Znajdź scenariusz ewolucyjny, który minimalizuje ilość epizodów duplikacji, oznaczoną jako RME i zdefiniowaną w następujący sposób:
-  ${RME}_{\mathcal{M}}(\mathcal{G}, S) = \min_{\forall_i T_i \in \mathcal{M}(G_i,S)}MEScore(\lbrace T_i \rbrace_{i=1,2,\dots,n},S)$, gdzie $\mathcal{M}(G_i,S)$ to wszystkich zbiór semi-normalnych scenariuszy ewolucyjnych w modelu $\mathcal{M}$ dla drzewa $G_i~\in~\mathcal{G}$.
+  Dane: drzewo gatunków $S$, zbiór drzew genów $\mathcal{G}=\{G_1,G_2, \dots , G_n\}$ gdzie dla każdego $i$ $L(G_i) \subseteq L(S)$ oraz $\mathcal{M}(G_i,S)$ jest zbiorem dopuszczalnych DLS drzew $T$ dla $G_i$ w~modelu $\mathcal{M}$ takich, że $gene(T)=G_i$. Znajdź scenariusz ewolucyjny, który minimalizuje liczbę epizodów duplikacji, oznaczoną jako RME i zdefiniowaną w następujący sposób:
+  ${RME}_{\mathcal{M}}(\mathcal{G}, S) = \min_{\forall_i T_i \in \mathcal{M}(G_i,S)}MEScore(\lbrace T_i \rbrace_{i=1,2,\dots,n},S)$.
 \end{problem}
 
 Po raz pierwszy problem minimalizacji epizodów został opisany w pracy \cite{Guigo1996}.
@@ -363,21 +363,21 @@ Dane empiryczne wskazują, że klastrowanie duplikacji dla modelu PG i jego poch
  \itemsep0em 
 \item Drzewo gatunków $S$ z~węzłami $\langle s_1,s_2, \dots , s_m \rangle$,
 \item Zbiór drzew genów $\mathcal{G}=\{G_1,G_2, \dots , G_n\}$ gdzie $L(G_i) \subseteq L(S)$ dla każdego $i$,
-\item Zbiór drzew DLS $\mathcal{T}_i=\{T_i^1,T_i^2, \dots , T_i^h\}$ dla każdego drzewa genów $G_i \in \mathcal{G}$, reprezentowanych jako wektory  epizodów $\langle e^1_{i_j},e^2_{i_j}, \dots , e^m_{i_j} \rangle$, gdzie dla każdego $k$, $e^k_{i_j}$ to liczba epizodów duplikacyjnych przypisanych do węzła $s_k$ w $j$-tym drzewie DLS dla $i$-tego drzewa genów.
+\item Zbiór drzew DLS $\mathcal{T}_i=\{T_i^1,T_i^2, \dots , T_i^{h_i}\}$ dla każdego drzewa genów $G_i \in \mathcal{G}$, reprezentowanych jako wektory  epizodów $\langle e^1_{i,j},e^2_{i,j}, \dots , e^m_{i,j} \rangle$, gdzie dla każdego $k$, $e^k_{i,j}$ to liczba epizodów duplikacyjnych przypisanych do węzła $s_k$ w $j$-tym drzewie DLS dla $i$-tego drzewa genów.
 \end{enumerate}}
  \KwOut{Scenariusz w postaci wektora epizodów $\langle {e}^1,{e}^2, ... , {e}^m \rangle$.}
- $V^{max}$ := $\langle {e}^1,{e}^2, \dots , {e}^m \rangle$, gdzie dla każdego $k$, ${e}^k$=$max_{ \forall_{j \in \{1,\dots,h\}},\forall_{i \in \{1,\dots,n\}}}e^k_{i_j}$\;
+ $V^{max}$ := $\langle {e}^1,{e}^2, \dots , {e}^m \rangle$, gdzie dla każdego $k$, ${e}^k$=$max_{\forall_{i \in \{1,\dots,n\}},\forall_{j \in \{1,\dots,h_i\}}}e^k_{i,j}$\;
  $V^*$ := $V^{max}$\;
  \textbackslash\textbackslash \textit{Pętla główna}\;
  \For{k $\in \{1,\dots,m\}$}{
-  ${V_{new}}^*$ = $V^*$\;
+  $V_{new}^*$ = $V^*$\;
   zmiana := True\;
   \While{zmiana i ${V_{new}}^*[k] > 0$}{
-  ${V_{new}}^*$[$k$] - -\;
+  $V_{new}^*$[$k$] - -\;
   zmiana := False\;
-  \If{$ \forall_{G_i \in \mathcal{G}}{V_{new}}^* \triangleright \mathcal{T}_i$}{
-   \textbackslash\textbackslash \textit{Wyjaśnienie symbolu $\triangleright$ znajduje się pod algorytmem.}\;
-   $V^*$ := ${V_{new}}^*$\;
+  \If{$ \forall_{G_i \in \mathcal{G}}V_{new}^* \triangleright \mathcal{T}_i$}{
+   \textbackslash\textbackslash \textit{Wyjaśnienie symbolu $\triangleright$ znajduje się pod algorytmem}\;
+   $V^*$ := $V_{new}^*$\;
    zmiana := True\;
    }
    }
@@ -385,10 +385,10 @@ Dane empiryczne wskazują, że klastrowanie duplikacji dla modelu PG i jego poch
 \end{algorithm}
 
 
-Niech $R$ będzie scenariuszem, będący wektorem epizodów $\langle r^1,r^2, \dots , r^m \rangle$, gdzie dla każdego $j$, $r^j$ to liczba epizodów duplikacyjnych przypisanych do węzła $s_j$. Mówimy, że $R$ zawiera się w zbiorze scenariuszy $\mathcal{T}=\{T_1,T_2, \dots , T_n\}$ ( oznaczone jako $V \triangleright \mathcal{T}$ ) jeśli: istnieje scenariusz ${T_i \in \mathcal{T}}$ taki, że $\forall_{j \in \{0,\dots,m\}}MEScore(\mathcal{T},S,j) \geq r^j$.
+Niech $R$ będzie scenariuszem, a $\langle r^1,r^2, \dots , r^m \rangle$ wektorem epizodów, takim, że dla każdego $j$, $r^j$ to liczba epizodów duplikacyjnych w $R$ przypisanych do węzła $s_j$. Mówimy, że $R$ zawiera się w zbiorze scenariuszy $\mathcal{T}$ (oznaczone jako $R \triangleright \mathcal{T}$) jeśli: istnieje scenariusz ${T \in \mathcal{T}}$ taki, że $\forall_{j \in \{1,\dots,m\}}MEScore(\{T\},S,j) \geq r^j$.
 \\
 ~\\
-Wybór współrzędnej $i$ odpowiadającej pozycji węzła $s_j$ w pętli głównej może, zależnie od potrzeby, być dokonywany w inny sposób (np. w porządku prefiksowym) jednak w tej pracy współrzędne wybierane były losowo.
+Wybór współrzędnej $k$ odpowiadającej pozycji węzła $s_k$ w pętli głównej może, zależnie od potrzeby, być dokonywany w inny sposób (np. w porządku prefiksowym) jednak w tej pracy współrzędne wybierane były losowo. Pętlę główną wykonywano dziesięć razy i uwzględniano najlepszy wynik. 
 
 \section{Dokumentacja użytkowa i~opis implementacji}\label{r:impl}
 Opisana heurystyka zaimplementowana została w języku Python w wersji 3.7.4 przy użyciu paradygmatu obiektowego, gdzie zbiór wszystkich drzew DLS dla wszystkich drzew, zbiór drzew semi-normalnych otrzymanych z jednego drzewa genów, a także pojedyncze drzewo DLS stanowią oddzielne klasy. Fragment kodu można zobaczyć w dodatku A. Program pythonowy przyjmuje na wejściu listę plików w których zawarte są wyliczone scenariusze dla danego drzewa genów.
@@ -399,7 +399,7 @@ Algorytm ten, dla wygody użycia, został obudowany skryptem napisanym w języku
 \section{Testy algorytmu}
 Do sprawdzenia wyników wyliczanych przez proponowany algorytm użyty został program RME napisany przez dra Jarosława Paszka. Program ten korzystając z dostępnych metod algorytmicznych wylicza dokładne i najniższe możliwe wartości kosztu ewolucyjnego dla podanych modeli z użyciem klastrowania ME \cite{RME}.
 \\
-Z powodu trudności w obliczeniu danych wejściowych dla heurystyki obecnie nie ma możliwości dla przetestowania algorytmów dla dużych zbiorów danych.
+Z powodu trudności w obliczeniu danych wejściowych dla heurystyki obecnie nie ma możliwości przetestowania heurystyki dla dużych zbiorów danych.
 
 \subsection{Testy algorytmu na danych rzeczywistych}
 Zbiorem danych dla testu na danych rzeczywistych był zbiór Guigo zawierający 53 ukorzenione drzewa genów pochodzące od 16 eukariontów. Do zbioru tego załączono dwa drzewa gatunków $S_1$ z pracy \cite{Guigo1996} i $S_2$ z pracy \cite{Page1997RTI}. 
@@ -450,10 +450,10 @@ Zbiorem danych dla testu na danych rzeczywistych był zbiór Guigo zawierający 
 \caption{Testy algorytmu na danych rzeczywistych dla drzewa gatunków $S_2$}
 \end{figure}
 
-Dla wszystkich przypadków algorytm przy losowym wyborze współrzędnych jest w stanie osiągnąć wyniki identyczne jak te wyliczone przez program RME. 
+Dla wszystkich przypadków algorytm jest w stanie osiągnąć wyniki identyczne jak te wyliczone przez program RME. 
 
 \subsection{Testy algorytmu na danych symulowanych}
-Dane dla testów syntetycznych zostały wygenerowany w sposób losowy jednak wielkość, struktura i ilość drzew genów zostały dopasowane do zbioru Guigo. Zbiory symulowane zawierają syntetyczne drzewo gatunków z 15 liśćmi wygenerowane z modelu Yule'a \cite{pmid11259805}, 48 ukorzenionych drzew genów etykietowane gatunkami z wylosowanego wcześniej drzewa gatunków. Przykładowe drzewa gatunków (w formie graficznej) i genów (w formie tekstowej) można znaleźć w dodatkach do pracy. Test został przeprowadzony dla 1000 losowych zestawów.
+Dane dla testów syntetycznych zostały wygenerowany w sposób losowy jednak wielkość, struktura i ilość drzew genów zostały dopasowane do zbioru Guigo. Zbiory symulowane zawierają syntetyczne drzewo gatunków z 15 liśćmi wygenerowane z modelu Yule'a \cite{pmid11259805} oraz 48 ukorzenionych drzew genów etykietowane gatunkami z wylosowanego wcześniej drzewa gatunków. Przykładowe drzewa gatunków (w formie graficznej) i genów (w formie tekstowej) można znaleźć w dodatkach do pracy. Test został przeprowadzony dla 10000 losowych zestawów.
 
 \begin{figure}[H]
 \centering
@@ -470,16 +470,16 @@ Dane dla testów syntetycznych zostały wygenerowany w sposób losowy jednak wie
 \caption{Testy algorytmu na danych symulowanych. Przez różnicę rozumiany jest wynik odjęcia od wyliczeń otrzymanych przez program RME wyliczeń otrzymanych dzięki proponowanemu algorytmowi. }
 \end{figure}
 
-W obu przypadkach wyniki obliczeń heurystyki nie odbiegają znacząco od dokładnych wartości kosztu ewolucyjnego otrzymanych przez program RME. Za pomocą wykresu nie da się nawet dokładnie określić dla ilu zbiorów heurystyka nie wyliczyła prawdziwego, minimalnego kosztu.\\
-Dla modelu PG tylko 4 zbiory z 1000 nie dały tego samego wyniku, a dla modelu FHS było to 17 zbiorów z 1000.
+W obu przypadkach wyniki obliczeń heurystyki nie odbiegają od wartości kosztu ewolucyjnego otrzymanych przez program RME i dla wszystkich przypadków algorytm jest w stanie osiągnąć wyniki identyczne jak te wyliczone przez program RME. 
 
 \chapter{Podsumowanie}
 
 W~pracy przedstawiono pierwszy pomysł na ocenę scenariuszy ewolucyjnych reprezentowanymi drzewami DLS pod kątem liczby duplikacji. Należy jednak wspomnieć, że samą ideę da się znacząco usprawnić. 
 \\
-Obecnie to krok w którym konieczne jest wyliczenie zbioru drzew semi-normalnych dla danego drzewa genów jest krokiem najbardziej wymagającym czasowo i obliczeniowo.  W związku z tym trudno mówić o czasie potrzebnym algorytmowi na własne obliczenia. Nie udało się zaobserwować, by algorytm kiedykolwiek potrzebował więcej niż jedną sekundę na wczytanie danych i więcej niż 0.3 sekundy na obliczenie drzewa o najmniejszym koszcie ewolucyjnym. Należy jednak podkreślić, że to właśnie program DLSgen był swego rodzaju "wąskim gardłem"~i~niemożliwe jest przetestowanie algorytmu na danych bardziej złożonych niż zbiór Guigo lub jego pochodne. 
+Obecnie to krok w którym konieczne jest wyliczenie zbioru drzew semi-normalnych dla danego drzewa genów jest krokiem najbardziej wymagającym czasowo i obliczeniowo. Nie udało się jednak zaobserwować, by zaimplementowany algorytm kiedykolwiek potrzebował więcej niż jedną sekundę na wczytanie danych i więcej niż 0.3 sekundy na obliczenie drzewa o najmniejszym koszcie ewolucyjnym. Jest to dużo lepszy wynik od programu RME, który dla modelu FHS, potrzebował nawet kilkunastu sekund na wyliczenie minimalnego kosztu duplikacujnego. 
+Należy jednak podkreślić, że to właśnie program DLSgen był swego rodzaju "wąskim gardłem"~i~niemożliwe jest przetestowanie algorytmu na danych bardziej złożonych niż zbiór Guigo lub jego pochodne. 
 \\
-Testy pokazują również, że opisany algorytm zwraca wyniki, które różnią się w bardzo niewielkim stopniu od rzeczywistego minimalnego kosztu ewolucyjnego, gdyż maksymalnie tylko dla 2,8\% danych algorytm nie uzyskał najniższego możliwego wyniku. Maksymalna różnica jaką udało się zaobserwować wynosiła 1, co również nie jest dużą wartością. Może to jednak wynikać z dosyć niskiego kosztu ewolucyjnego drzew DLS zawartych w badanych zbiorach, który wynosił maksymalnie 9 (średnia arytmetyczna = 6,1) dla modelu PG i 7 (średnia arytmetyczna = 4,5) dla modelu FHS. Proponowany algorytm wymaga w związku z tym kolejnych, bardziej rozbudowanych testów.
+Testy pokazują również, że opisany algorytm zwraca wyniki, które nie różnią się od rzeczywistego minimalnego kosztu ewolucyjnego, gdyż dla wszystkich przypadków uzyskano najniższe możliwe wyniki. Może to jednak wynikać z dosyć niskiego kosztu duplikacyjnego wyliczonego przez oba programy. Wynosił on maksymalnie 11 (średnia arytmetyczna = 6.1, mediana = 6 ) dla modelu PG i 7 (średnia arytmetyczna = 4.5, mediana = 4) dla modelu FHS. Proponowany algorytm wymaga w związku z tym kolejnych, bardziej rozbudowanych testów.
 
 
 \section{Perspektywy rozwoju}
@@ -489,7 +489,7 @@ oczywistą można wskazać już teraz.  Jest to uniezależnienie algorytmu od kr
 
 \section{Perspektywy wykorzystania}
 
-Podstawową zaletą przedstawionej heurystyki jest jej uniwersalność. Ocena scenariuszy nie zależy od obranego modelu, a obecnie wydaje się, że same obliczenia nie są obarczone dużym błędem. Kolejną niewątpliwą zaletą jest fakt, że w istocie również struktura drzewa nie ma dla algorytmu dużego znaczenia. Drzewo binarne nie zawsze jest najlepszym przedstawieniem historii ewolucji i algorytm jest na taką zmianę gotowy. Z punktu widzenia algorytmu drzewa są tablicą zawierającą ilość klastrów duplikacyjnych dla danego węzła, a które umieszczone są w niej w porządku prefiksowym. Zapewnia to możliwość wykorzystania algorytmu nie tylko dla drzew binarnych. Pokreślić trzeba jednak, że obecnie algorytm istnieje w formie prototypowej i wymaga wzmożonej oraz dokładnej pracy.  
+Podstawową zaletą przedstawionej heurystyki jest jej uniwersalność. Ocena scenariuszy nie zależy od obranego modelu, a obecnie wydaje się, że same obliczenia nie są obarczone błędem. Kolejną niewątpliwą zaletą jest fakt, że w istocie również struktura drzewa nie ma dla algorytmu dużego znaczenia. Drzewo binarne nie zawsze jest najlepszym przedstawieniem historii ewolucji i algorytm jest na taką zmianę gotowy. Z punktu widzenia heurystyki drzewa są tablicą zawierającą liczbę klastrów duplikacyjnych dla danego węzła w drzewie gatunków, a które umieszczone są w niej w porządku prefiksowym. Zapewnia to możliwość wykorzystania algorytmu nie tylko dla drzew binarnych. Pokreślić trzeba jednak, że obecnie algorytm istnieje w formie prototypowej i wymaga wzmożonej oraz dokładnej pracy.  
 
 \appendix
 
